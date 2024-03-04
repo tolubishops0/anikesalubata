@@ -1,3 +1,69 @@
 .App {
   font-size: 16px;
+  font-family: Poppins;
+  box-sizing: border-box;
+}
+.dark-mode {
+  background-color: #22272b;
+  color: white;
+}
+.light-mode {
+  background-color: #f1f2f4;
+  color: black;
+}
+.input-field {
+  height: 2.5rem;
+  width: 25rem;
+  border-radius: 5px;
+}
+.input-field:focus {
+  outline: none;
+}
+.input-field::placeholder {
+  color: #919294;
+  font-size: 1.2rem;
+  font-style: italic;
+  padding-left: 1rem;
+}
+
+.slide-bannerTextHeader {
+  opacity: 0;
+  transform: translateX(-500px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+  animation: slideInbannerTextHeader 0.8s ease-in-out 0.8s forwards;
+}
+.slide-bannerTextSubtext {
+  opacity: 0;
+  transform: translateX(500px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+  animation: slideInbannerTextSubtext 0.9s ease-in-out 0.9s forwards;
+}
+.slide-bannerTextButton {
+  opacity: 0;
+  transform: translateY(200px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+  animation: slideInbannerTextButton 1s ease-in-out 1s forwards;
+}
+
+@keyframes slideInbannerTextHeader {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideInbannerTextSubtext {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInbannerTextButton {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
