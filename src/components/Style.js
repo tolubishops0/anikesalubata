@@ -9,7 +9,7 @@ export const style = {
     justifyContent: "space-between",
     alignItems: "center",
     width: "90%",
-    height: "8rem",
+    height: "6rem",
     margin: "0 auto",
   },
   brandName: {
@@ -17,7 +17,8 @@ export const style = {
     fontOpticalSizing: "auto",
     fontWeight: "600",
     fontStyle: "italic",
-    fontSize: "3rem",
+    fontSize: "2rem",
+    cursor: "pointer",
   },
   ShoppingCartOutlinedIcon: {
     position: "relative",
@@ -34,7 +35,7 @@ export const style = {
   heroSection: {
     position: "relative",
     overflow: "hidden",
-    height: "80vh",
+    height: "75vh",
   },
   img: {
     height: "100%",
@@ -47,16 +48,18 @@ export const style = {
     width: "50%",
     display: "flex",
     flexDirection: "column",
-    gap: "1rem",
+    gap: "1.5rem",
   },
   header: {
     fontSize: "3rem",
     fontWeight: "700",
+    color: "white",
   },
   header2: {
     fontSize: "1.5rem",
     fontWeight: "500",
     fontStyle: "italic",
+    color: "white",
   },
   bannerTextButton: {
     marginTop: "1rem",
@@ -71,6 +74,23 @@ export const style = {
     textTransform: "capitalize",
     "&:hover": {
       background: "red",
+    },
+  },
+  categoryContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "90%",
+    height: "4rem",
+    margin: "0 auto",
+  },
+  categoryList: {
+    fontSize: "1rem",
+    fontWeight: "600",
+    transition: "color transform 0.5s ease-in-out",
+    cursor: "pointer",
+    "&:hover": {
+      color: "#f8f8f8",
     },
   },
 };
