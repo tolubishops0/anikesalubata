@@ -1,0 +1,46 @@
+{
+  "list": [
+    {
+      "img": "https://res.cloudinary.com/dd5rchluw/image/upload/v1709576318/anike/samplimg_bluehk.jpg",
+      "name": "Loafers",
+      "price": "$100",
+      "category": "loafers",
+      "id": "2"
+    },
+    {
+      "img": "https://res.cloudinary.com/dd5rchluw/image/upload/v1709576318/anike/samplimg_bluehk.jpg",
+      "name": "Boots",
+      "price": "$100",
+      "category": "boots",
+      "id": "4"
+    },
+    {
+      "img": "https://res.cloudinary.com/dd5rchluw/image/upload/v1709576318/anike/samplimg_bluehk.jpg",
+      "name": "Men's Sandals",
+      "price": "$100",
+      "category": "mens-sandals",
+      "id": "6"
+    },
+    {
+      "img": "https://res.cloudinary.com/dd5rchluw/image/upload/v1709576318/anike/samplimg_bluehk.jpg",
+      "name": "Women's Sandals",
+      "price": "$100",
+      "category": "womens-sandals",
+      "id": "8"
+    },
+    {
+      "img": "https://res.cloudinary.com/dd5rchluw/image/upload/v1709576318/anike/samplimg_bluehk.jpg",
+      "name": "Corporate",
+      "price": "$100",
+      "category": "corporate",
+      "id": "12"
+    },
+    {
+      "img": "https://res.cloudinary.com/dd5rchluw/image/upload/v1709576318/anike/samplimg_bluehk.jpg",
+      "name": "Belt",
+      "price": "$100",
+      "category": "belt",
+      "id": "20"
+    }
+  ]
+}

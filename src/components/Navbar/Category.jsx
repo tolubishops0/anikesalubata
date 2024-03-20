@@ -5,10 +5,11 @@ import { style } from "../Style";
 
 function Category() {
   const navigate = useNavigate();
-  const handleCategory = (value) => {
-    navigate(`/${value}`);
-    console.log(value);
+
+  const handleCategory = (category) => {
+    navigate(`/${category}`);
   };
+
   return (
     <div>
       <Box sx={style.categoryContainer}>

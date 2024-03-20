@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchBar from "./SearchBar";
 import { style } from "../Style";
+import CartContext from "../../Context/Cart/CartContext";
 
 function NavbBar() {
   const navigate = useNavigate();
-  const [prodCount, setProdCount] = useState(0);
+
+const { cartItems } = useContext(CartContext);
 
   const handleProdCount = () => {
-    setProdCount(prodCount + 1);
+    // setProdCount(prodCount + 1);
+    navigate("/cart");
   };
 
   return (
@@ -25,7 +28,9 @@ function NavbBar() {
             fontSize="large"
             onClick={handleProdCount}
           />
-          <Typography sx={style.prodCount}>{prodCount}</Typography>
+          {cartItems.length > 0 && (
+            <Typography sx={style.prodCount}>{cartItems.length}</Typography>
+          )}
         </Box>
       </Box>
     </Box>
