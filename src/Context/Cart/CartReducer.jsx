@@ -8,9 +8,9 @@ import {
 } from "./CartTypes";
 
 export const sumItems = (cartItems) => {
-  // Storage(cartItems);
+  console.log(cartItems);
   let itemsCount = cartItems.reduce(
-    (total, product) => total + product?.quantity,
+    (total, product) => total + product?.qty,
     0
   );
   console.log(itemsCount, "itemcount");
@@ -23,18 +23,26 @@ export const sumItems = (cartItems) => {
 const CartReducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      if (!state.cartItems.find((item) => item.id === action.payload.id)) {
-        state.cartItems.push({
-          ...action.payload,
-          quantity: 1,
-        });
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) =>
+          item.id === action.payload.id && item.size === action.payload.size
+      );
+      if (existingItemIndex == -1) {
+        // console.log("it is not found so will craete a new item in the cartS");
+        return {
+          ...state,
+          cartItems: [...state.cartItems, action.payload],
+          ...sumItems(state.cartItems),
+        };
+      } else {
+        // console.log("it is fund so it will update the quntty");
+        const updatedCartItems = [...state.cartItems];
+        updatedCartItems[existingItemIndex].quantity += action.payload.quantity;
+        return {
+          ...state,
+          cartItems: updatedCartItems,
+        };
       }
-      return {
-        ...state,
-        ...sumItems(state.cartItems),
-        cartItems: [...state.cartItems],
-      };
-
     case REMOVE_ITEM:
       return {
         ...state,

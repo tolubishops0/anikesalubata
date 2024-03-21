@@ -12,7 +12,7 @@ export const productList = [
   {
     img: sampleImg,
     name: "Loafers",
-    price: "$100",
+    price: "$600",
     id: 2,
     sizes: [40, 41, 43, 44, 45],
     otherImgs: [sampleImg, sampleImg, sampleImg, sampleImg],

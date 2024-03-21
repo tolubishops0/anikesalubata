@@ -23,42 +23,36 @@ function Modal(props) {
   const { increase, decrease, itemCount, removeFromCart, addToCart } =
     useContext(CartContext);
 
-  const [counts, setCounts] = useState(() =>
-    props.selectedProduct.sizes.map(() => 0)
-  );
-  let selectedWithSize;
-  const increaseItem = (index, size) => {
-    selectedWithSize = {
-      img: props.selectedProduct.img,
-      name: "brougues",
-      price: "$100",
-      id: 1,
-      size: size,
+  const [counts, setCounts] = useState([]);
+
+  const increaseItem = (size) => {
+    const updatedCounts = {
+      ...counts,
+      [size]: (counts[size] || 0) + 1,
     };
-    addToCart(selectedWithSize, "add to cart");
-    setCounts((prevCounts) => {
-      const newCounts = [...prevCounts];
-      newCounts[index]++;
-      return newCounts;
-    });
+    setCounts(updatedCounts);
+    getItemDetails(updatedCounts);
   };
 
-  const decreaseItem = (index, size) => {
-    selectedWithSize = {
-      img: props.selectedProduct.img,
-      name: "brougues",
-      price: "$100",
-      id: 1,
+  const decreaseItem = (size) => {
+    const updatedCounts = {
+      ...counts,
+      [size]: (counts[size] || 0) - 1,
+    };
+    setCounts(updatedCounts);
+    getItemDetails(updatedCounts);
+  };
+
+  const getItemDetails = (size) => {
+    const itemDetails = {
+      img: props?.selectedProduct.img,
+      name: props?.selectedProduct.name,
+      price: props?.selectedProduct.price,
+      id: props?.selectedProduct.id,
       size: size,
     };
-    removeFromCart(selectedWithSize, "remove from cart");
-    setCounts((prevCounts) => {
-      const newCounts = [...prevCounts];
-      if (newCounts[index] > 0) {
-        newCounts[index]--;
-      }
-      return newCounts;
-    });
+    addToCart(itemDetails);
+    return itemDetails;
   };
 
   const constinueShopping = () => {
@@ -82,21 +76,25 @@ function Modal(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <Box sx={style.parentContainer}>
-              {props.selectedProduct.sizes.map((item, index) => (
+              {props.selectedProduct.sizes.map((size, index) => (
                 <Box key={index} sx={style.parentSizes}>
-                  <Typography> Size {item}:</Typography>
+                  <Typography> Size {size}:</Typography>
                   <Box sx={style.parentAdd}>
                     <Typography
-                      sx={counts[index] !== 0 ? style.add : style.disable}
-                      onClick={() => {
-                        decreaseItem(index, item);
-                      }}>
+                      sx={
+                        counts[size] !== undefined && counts[size] !== 0
+                          ? style.add
+                          : style.disable
+                      }
+                      onClick={() => decreaseItem(size, 1)}>
                       -
                     </Typography>
-                    <Typography sx={style.addCount}>{counts[index]}</Typography>{" "}
+                    <Typography sx={style.addCount}>
+                      {counts[size] || 0}
+                    </Typography>{" "}
                     <Typography
                       sx={style.add}
-                      onClick={() => increaseItem(index, item)}>
+                      onClick={() => increaseItem(size, 1)}>
                       +
                     </Typography>
                   </Box>

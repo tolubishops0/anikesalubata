@@ -1,7 +1,6 @@
 import { useReducer } from "react";
 import CartContext from "./CartContext";
 import CartReducer from "./CartReducer";
-import { sumItems } from "./CartReducer";
 
 const CartState = ({ children }) => {
   const initialState = {
@@ -36,7 +35,6 @@ const CartState = ({ children }) => {
   };
 
   return (
-    //Add the functions that have been defined above into the Context provider, and pass on to the children
     <CartContext.Provider
       value={{
         showcart: state.showcart,
@@ -49,7 +47,6 @@ const CartState = ({ children }) => {
         clearCart,
         ...state,
       }}>
-      {" "}
       {children}
     </CartContext.Provider>
   );
