@@ -21,21 +21,56 @@ import Modal from "../Modal/Modal";
 function ProductDetail() {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
-
+  const { cartItems } = useContext(CartContext);
   const selectedProduct = productList.find((item) => item.id === Number(id));
+  const [isSelected, setIsSelected] = useState(false);
+  const shoeTypeId = Number(id);
 
-  // const { addToCart, increase, decrease, cartItems, sumItems, itemCount } =
-  //   useContext(CartContext);
+  useEffect(() => {
+    const selectedProductItems = cartItems.filter(
+      (item) => item.shoeTypeId === shoeTypeId
+    );
+    console.log(selectedProductItems, "selectedProductItems");
+    setIsSelected(selectedProductItems.length);
+  }, [cartItems, shoeTypeId]);
 
-  const { removeFromCart, increase, decrease, itemCount } =
-    useContext(CartContext);
-  // const isInCart = (product) => {
-  //   return !!cartItems.find((item) => item.id === product.id);
-  // };
+  const getTotalQuantity = () => {
+    const selectedProductItems = cartItems.filter(
+      (item) => item.shoeTypeId === shoeTypeId
+    );
+    return selectedProductItems.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+  };
 
   const handleModal = () => {
     setOpenModal(!openModal);
   };
+
+  const renderAddToCartButton = () => {
+    if (isSelected !== 0) {
+      const totalQty = getTotalQuantity();
+      return (
+        <Box sx={style.parentAdd}>
+          <Typography sx={style.add} onClick={handleModal}>
+            -
+          </Typography>
+          <Typography sx={style.addCount}>{totalQty}</Typography>{" "}
+          <Typography sx={style.add} onClick={handleModal}>
+            +
+          </Typography>{" "}
+        </Box>
+      );
+    } else {
+      return (
+        <Typography onClick={handleModal} sx={style.addToCartButton}>
+          Add to Cart
+        </Typography>
+      );
+    }
+  };
+
   return (
     <Box sx={{ backgroundColor: "#f8f8f8", padding: "2rem 0" }}>
       <Box sx={style.productDetailContainer}>
@@ -43,10 +78,9 @@ function ProductDetail() {
           <Box sx={style.leftContainer}>
             <Box sx={style.sideImgThumbNails}>
               {selectedProduct.otherImgs.map((item, index) => (
-                <Box sx={style.thumbNailContaner}>
+                <Box sx={style.thumbNailContaner} key={index}>
                   {" "}
                   <img
-                    key={index}
                     src={item}
                     alt={"producimg"}
                     style={style.thumbNailimg}
@@ -92,13 +126,7 @@ function ProductDetail() {
               <Typography sx={style.description}>
                 {selectedProduct.description}
               </Typography>
-
-              <Typography
-                onClick={handleModal}
-                sx={style.addToCartButton}>
-                {" "}
-                Add to Cart
-              </Typography>
+              {renderAddToCartButton()}
             </Box>
           </Box>
         </Box>

@@ -39,6 +39,7 @@ function Modal(props) {
         price: props?.selectedProduct.price,
         id: props?.selectedProduct.id / size,
         description: props?.selectedProduct.description,
+        shoeTypeId: props?.selectedProduct.id,
       })
     );
 
