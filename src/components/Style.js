@@ -130,6 +130,30 @@ export const style = {
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
   },
+  cartContainer: {
+    width: "90%",
+    margin: "0 auto",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: "1rem",
+  },
+  productDetailContainerTop: {
+    width: "90%",
+    margin: "0 auto",
+    background: "white",
+    border: "1px solid #f8f8f8",
+    borderRadius: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  productDetailContainerLeft: {
+    width: "80%",
+    background: "white",
+    border: "1px solid #f8f8f8",
+    borderRadius: "10px",
+  },
   leftContainer: {
     display: "flex",
     gap: "1rem",
@@ -261,5 +285,32 @@ export const style = {
     backgroundColor: " black",
     borderRadius: "5px",
     cursor: "pointer",
+  },
+  cartimg: {
+    width: "10%",
+    height: "3rem",
+  },
+  cart4: {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: "2rem",
+    width: "100%",
+  },
+  cart3: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  cart9: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+  },
+  cart10: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 };

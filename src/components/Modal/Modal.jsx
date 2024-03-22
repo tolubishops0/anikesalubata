@@ -23,43 +23,30 @@ function Modal(props) {
   const { increase, decrease, itemCount, removeFromCart, addToCart } =
     useContext(CartContext);
 
-  const [counts, setCounts] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState({});
 
-  const increaseItem = (size) => {
-    const updatedCounts = {
-      ...counts,
-      [size]: (counts[size] || 0) + 1,
-    };
-    setCounts(updatedCounts);
-    getItemDetails(updatedCounts);
+  const handleSizeChange = (size, quantity) => {
+    setSelectedSizes({ ...selectedSizes, [size]: quantity });
   };
 
-  const decreaseItem = (size) => {
-    const updatedCounts = {
-      ...counts,
-      [size]: (counts[size] || 0) - 1,
-    };
-    setCounts(updatedCounts);
-    getItemDetails(updatedCounts);
-  };
+  const addToCartFunt = () => {
+    const itemsToAdd = Object.entries(selectedSizes).map(
+      ([size, quantity]) => ({
+        size,
+        quantity,
+        img: props?.selectedProduct.img,
+        name: props?.selectedProduct.name,
+        price: props?.selectedProduct.price,
+        id: props?.selectedProduct.id / size,
+        description: props?.selectedProduct.description,
+      })
+    );
 
-  const getItemDetails = (size) => {
-    const itemDetails = {
-      img: props?.selectedProduct.img,
-      name: props?.selectedProduct.name,
-      price: props?.selectedProduct.price,
-      id: props?.selectedProduct.id,
-      size: size,
-    };
-    addToCart(itemDetails);
-    return itemDetails;
+    addToCart(itemsToAdd.filter((item) => item.quantity > 0));
+    props.handleModal();
   };
 
   const constinueShopping = () => {
-    props.handleModal();
-  };
-  const goToCart = () => {
-    navigate("/cart");
     props.handleModal();
   };
 
@@ -82,21 +69,29 @@ function Modal(props) {
                   <Box sx={style.parentAdd}>
                     <Typography
                       sx={
-                        counts[size] !== undefined && counts[size] !== 0
+                        selectedSizes[size] !== undefined &&
+                        selectedSizes[size] !== 0
                           ? style.add
                           : style.disable
                       }
-                      onClick={() => decreaseItem(size, 1)}>
+                      onClick={() =>
+                        handleSizeChange(
+                          size,
+                          selectedSizes[size] ? selectedSizes[size] - 1 : 0
+                        )
+                      }>
                       -
                     </Typography>
                     <Typography sx={style.addCount}>
-                      {counts[size] || 0}
+                      {selectedSizes[size] || 0}
                     </Typography>{" "}
                     <Typography
                       sx={style.add}
-                      onClick={() => increaseItem(size, 1)}>
+                      onClick={() =>
+                        handleSizeChange(size, (selectedSizes[size] || 0) + 1)
+                      }>
                       +
-                    </Typography>
+                    </Typography>{" "}
                   </Box>
                 </Box>
               ))}
@@ -107,8 +102,8 @@ function Modal(props) {
           <Typography sx={style.buttonContinue} onClick={constinueShopping}>
             Continue
           </Typography>
-          <Typography sx={style.buttonGoToCart} onClick={goToCart}>
-            Go to cart
+          <Typography sx={style.buttonGoToCart} onClick={addToCartFunt}>
+            Add to Cart
           </Typography>
         </DialogActions>
       </Dialog>

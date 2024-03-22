@@ -7,81 +7,83 @@ import {
   CLEAR,
 } from "./CartTypes";
 
+const saveToLocalStorage = (itemsCount, total, cartItems) => {
+  localStorage.setItem("itemsCount", JSON.stringify(itemsCount));
+  localStorage.setItem("total", JSON.stringify(total));
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+};
+
 export const sumItems = (cartItems) => {
-  console.log(cartItems);
-  let itemsCount = cartItems.reduce(
-    (total, product) => total + product?.qty,
+  let itemsCount = cartItems?.reduce(
+    (total, product) => total + product?.quantity,
     0
   );
-  console.log(itemsCount, "itemcount");
-  let total = cartItems
-    .reduce((total, product) => total + product?.price * product?.quantity, 0)
-    .toFixed(2);
+  let total =
+    "$" +
+    cartItems
+      ?.reduce(
+        (total, product) =>
+          total + parseFloat(product.price.replace("$", "")) * product.quantity,
+        0
+      )
+      .toFixed(2);
+  saveToLocalStorage(itemsCount, total, cartItems);
   return { itemsCount, total };
 };
 
 const CartReducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const existingItemIndex = state.cartItems.findIndex(
-        (item) =>
-          item.id === action.payload.id && item.size === action.payload.size
-      );
-      if (existingItemIndex == -1) {
-        // console.log("it is not found so will craete a new item in the cartS");
-        return {
-          ...state,
-          cartItems: [...state.cartItems, action.payload],
-          ...sumItems(state.cartItems),
-        };
-      } else {
-        // console.log("it is fund so it will update the quntty");
-        const updatedCartItems = [...state.cartItems];
-        updatedCartItems[existingItemIndex].quantity += action.payload.quantity;
-        return {
-          ...state,
-          cartItems: updatedCartItems,
-        };
-      }
+      const updatedCartItems = [...state.cartItems, ...action.payload];
+      saveToLocalStorage(updatedCartItems);
+      return {
+        ...state,
+        ...sumItems(updatedCartItems),
+        cartItems: updatedCartItems,
+      };
     case REMOVE_ITEM:
+      const filteredCartItems = state.cartItems?.filter(
+        (item) => item.id !== action.payload.id
+      );
+      saveToLocalStorage(filteredCartItems);
       return {
         ...state,
-        ...sumItems(
-          state.cartItems.filter((item) => item.id !== action.payload.id)
-        ),
-        cartItems: [
-          ...state.cartItems.filter((item) => item.id !== action.payload.id),
-        ],
+        ...sumItems(filteredCartItems),
+        cartItems: filteredCartItems,
       };
-
     case INCREASE:
-      state.cartItems[
-        state.cartItems.findIndex((item) => item.id === action.payload.id)
-      ].quantity++;
+      const increasedCartItems = state.cartItems?.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      saveToLocalStorage(increasedCartItems);
       return {
         ...state,
-        ...sumItems(state.cartItems),
-        cartItems: [...state.cartItems],
+        ...sumItems(increasedCartItems),
+        cartItems: increasedCartItems,
       };
-
     case DECREASE:
-      state.cartItems[
-        state.cartItems.findIndex((item) => item.id === action.payload.id)
-      ].quantity--;
+      const decreasedCartItems = state.cartItems.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
+      saveToLocalStorage(decreasedCartItems);
       return {
         ...state,
-        ...sumItems(state.cartItems),
-        cartItems: [...state.cartItems],
+        ...sumItems(decreasedCartItems),
+        cartItems: decreasedCartItems,
       };
-
     case CHECKOUT:
+      saveToLocalStorage([]);
       return {
         cartItems: [],
         checkout: true,
         ...sumItems([]),
       };
-
     case CLEAR:
+      saveToLocalStorage([]);
       return {
         cartItems: [],
         ...sumItems([]),

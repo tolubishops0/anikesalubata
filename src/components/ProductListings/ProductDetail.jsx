@@ -79,7 +79,6 @@ function ProductDetail() {
                 readOnly
               />
               <Box sx={style.parentSizes}>
-                {/* <Box sx={style.parentAdd}> */}
                 <Typography>Av. Sizes:</Typography>
                 {selectedProduct.sizes.map((item, index) => (
                   <Typography
@@ -89,34 +88,13 @@ function ProductDetail() {
                     {item}
                   </Typography>
                 ))}
-
-                {/* <Typography
-                  sx={style.add}
-                  onClick={() => {
-                    decrease(selectedProduct);
-                  }}>
-                  -
-                </Typography>
-                <Typography sx={style.addCount}>{itemCount}</Typography>
-                <Typography
-                  sx={style.add}
-                  onClick={() => {
-                    increase(selectedProduct);
-                  }}>
-                  +
-                </Typography> */}
               </Box>
               <Typography sx={style.description}>
-                {" "}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-                sunt eligendi, velit error explicabo ut fugit quidem quas at
-                voluptate accusamus hic, tempora voluptate accusamus hic,
-                tempora{" "}
+                {selectedProduct.description}
               </Typography>
 
               <Typography
                 onClick={handleModal}
-                // onClick={() => addToCart(selectedProduct)}
                 sx={style.addToCartButton}>
                 {" "}
                 Add to Cart

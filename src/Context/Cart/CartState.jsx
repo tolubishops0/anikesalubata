@@ -8,7 +8,18 @@ const CartState = ({ children }) => {
     checkout: false,
   };
 
-  const [state, dispatch] = useReducer(CartReducer, initialState);
+  const getFromLocalStorage = () => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  };
+
+  const mergedInitialState = {
+    ...initialState,
+    cartItems: getFromLocalStorage(),
+  };
+
+  const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
 
   const addToCart = (payload) => {
     dispatch({ type: "ADD_TO_CART", payload });
