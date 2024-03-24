@@ -20,8 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Modal(props) {
   const navigate = useNavigate();
-  const { increase, decrease, itemCount, removeFromCart, addToCart } =
-    useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   const [selectedSizes, setSelectedSizes] = useState({});
 

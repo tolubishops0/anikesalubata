@@ -30,7 +30,6 @@ function ProductDetail() {
     const selectedProductItems = cartItems.filter(
       (item) => item.shoeTypeId === shoeTypeId
     );
-    console.log(selectedProductItems, "selectedProductItems");
     setIsSelected(selectedProductItems.length);
   }, [cartItems, shoeTypeId]);
 

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Divider } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CartContext from "../../Context/Cart/CartContext";
@@ -6,9 +7,9 @@ import { style } from "../Style";
 import { sumItems } from "../../Context/Cart/CartReducer";
 
 function Cart() {
+  const navigate = useNavigate();
   const { cartItems, increase, decrease, removeFromCart } =
     useContext(CartContext);
-  // console.log(cartItems, "from cart");
   const { itemsCount, total } = sumItems(cartItems);
 
   return (
@@ -90,7 +91,9 @@ function Cart() {
               }}>
               <Typography>Subtotal: {total}</Typography>
               <Typography>Delivery fess not include yet</Typography>
-              <Typography>CHECKOUT</Typography>
+              <Typography onClick={() => navigate("/login")}>
+                CHECKOUT
+              </Typography>
             </Box>
             <Box
               sx={{

@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
 import { sumItems } from "../../Context/Cart/CartReducer";
+import { productList } from "../../Asset/data";
 
 function NavbBar() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function NavbBar() {
         <Typography sx={style.brandName} onClick={() => navigate("/")}>
           Àníkẹ́ Sálúbàtà
         </Typography>
-        <SearchBar />
+        <SearchBar productList={productList} />
         <Box sx={style.ShoppingCartOutlinedIcon}>
           <ShoppingCartOutlinedIcon
             fontSize="large"

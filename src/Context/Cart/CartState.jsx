@@ -6,11 +6,12 @@ const CartState = ({ children }) => {
   const initialState = {
     cartItems: [],
     checkout: false,
+    prodList: [],
   };
 
   const getFromLocalStorage = () => {
     const storedCartItems = localStorage.getItem("cartItems");
-    
+
     return storedCartItems ? JSON.parse(storedCartItems) : [];
   };
 
@@ -20,6 +21,10 @@ const CartState = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
+
+  const setProdList = (payload) => {
+    dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
+  };
 
   const addToCart = (payload) => {
     dispatch({ type: "ADD_TO_CART", payload });
@@ -56,6 +61,7 @@ const CartState = ({ children }) => {
         decrease,
         handleCheckout,
         clearCart,
+        setProdList,
         ...state,
       }}>
       {children}

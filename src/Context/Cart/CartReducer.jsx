@@ -5,6 +5,7 @@ import {
   DECREASE,
   CHECKOUT,
   CLEAR,
+  UPDATE_SEARCH_RESULTS
 } from "./CartTypes";
 
 const saveToLocalStorage = (itemsCount, total, cartItems) => {
@@ -87,6 +88,12 @@ const CartReducer = (state, action) => {
       return {
         cartItems: [],
         ...sumItems([]),
+      };
+
+    case UPDATE_SEARCH_RESULTS:
+      return {
+        ...state,
+        prodList: action.payload,
       };
 
     default:

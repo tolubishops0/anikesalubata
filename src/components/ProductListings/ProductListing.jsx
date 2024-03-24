@@ -13,11 +13,11 @@ import {
 import { style } from "../Style";
 import { productList } from "../../Asset/data";
 import CartContext from "../../Context/Cart/CartContext";
+import Category from "../Navbar/Category";
 
 function ProductListing() {
-  const { addToCart, increase, cartItems, sumItems, itemCount } =
-    useContext(CartContext);
-  
+  const { prodList } = useContext(CartContext);
+
   const { category } = useParams();
   const navigate = useNavigate();
 
@@ -25,36 +25,34 @@ function ProductListing() {
     navigate(`/${category}/${id}`);
   };
 
-  // const isInCart = (product) => {
-  //   return !!cartItems.find((item) => item.id === product.id);
-  // };
-
   return (
-    <Box sx={{ background: "#f8f8f8" }}>
-      <Box sx={style.productListContainer}>
-        <Box sx={style.productList}>
-          {productList?.map((item, index) => (
-            <Card
-              key={index}
-              sx={style.productCard}
-              onClick={() => getProductDetail(item.id)}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="280"
-                  image={item.img}
-                  alt="product"
-                />
-                <CardContent>
-                  <Typography>{item.name}</Typography>
-                  <Typography>{item.price}</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          ))}
+    <>
+      <Box sx={{ background: "#f8f8f8" }}>
+        <Box sx={style.productListContainer}>
+          <Box sx={style.productList}>
+            {prodList?.map((item, index) => (
+              <Card
+                key={index}
+                sx={style.productCard}
+                onClick={() => getProductDetail(item.id)}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="280"
+                    image={item.img}
+                    alt="product"
+                  />
+                  <CardContent>
+                    <Typography>{item.name}</Typography>
+                    <Typography>{item.price}</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            ))}
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 

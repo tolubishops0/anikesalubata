@@ -1,13 +1,20 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { style } from "../Style";
+import { productList } from "../../Asset/data";
 
 function Category() {
   const navigate = useNavigate();
 
+  const { category } = useParams();
+  console.log(category, "category");
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const handleCategory = (category) => {
     navigate(`/${category}`);
+    setSelectedCategory(category);
   };
 
   return (
@@ -16,7 +23,11 @@ function Category() {
         {categoryList.map((item, index) => (
           <Typography
             key={index}
-            sx={style.categoryList}
+            sx={
+              selectedCategory === item.value
+                ? style.selectedcategoryList
+                : style.categoryList
+            }
             onClick={() => handleCategory(item.value)}>
             {item.name}
           </Typography>
