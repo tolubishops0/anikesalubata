@@ -1,27 +1,41 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import CartContext from "../../Context/Cart/CartContext";
 
 function SearchBar({ productList }) {
   const navigate = useNavigate();
-  const [items, setItems] = useState(productList);
-  const [searchList, setSearchList] = useState(productList);
+  const location = useLocation();
+
   const { setProdList } = useContext(CartContext);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   const handleOnSelect = (term) => {
-    // navigate(`/${term.name}`);
-    setSearchList(productList.filter((item) => item.name === term.name));
-    setItems(term);
+    navigate(`/products/search?q=${term.name.toLowerCase().replace(" ", "+")}`);
   };
 
   useEffect(() => {
-    // use setSearchResults because you are not assining the filter directly into the fucnton
-    setProdList(searchList);
-  }, [searchList]);
+    if (location.pathname === "/") {
+      setSearchTerm("");
+      setSearchResults([]);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setSearchResults([productList]);
+    }
+    const results = productList.filter(
+      (product) =>
+        productList.name?.includes(searchTerm.toLowerCase()) ||
+        product.description?.includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
 
   const styling = {
-    // height: "40px",
     border: "1px solid #000",
     borderRadius: "5px",
     backgroundColor: "white",
@@ -36,8 +50,10 @@ function SearchBar({ productList }) {
     <div className="input-field">
       <ReactSearchAutocomplete
         placeholder="Type to search"
-        items={items}
+        items={searchResults}
         onSelect={handleOnSelect}
+        onSearch={setSearchTerm}
+        value={searchTerm}
         styling={styling}
       />
     </div>

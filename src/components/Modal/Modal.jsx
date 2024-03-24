@@ -41,9 +41,15 @@ function Modal(props) {
         shoeTypeId: props?.selectedProduct.id,
       })
     );
-
     addToCart(itemsToAdd.filter((item) => item.quantity > 0));
     props.handleModal();
+    const itemCount = itemsToAdd.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+    window.alert(
+      `${itemCount} item${itemCount > 1 ? "s" : ""} added to your cart`
+    );
   };
 
   const constinueShopping = () => {

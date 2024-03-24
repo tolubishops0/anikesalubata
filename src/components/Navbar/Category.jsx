@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { style } from "../Style";
 import { productList } from "../../Asset/data";
+import CartContext from "../../Context/Cart/CartContext";
 
 function Category() {
   const navigate = useNavigate();
 
-  const { category } = useParams();
-  console.log(category, "category");
-
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleCategory = (category) => {
-    navigate(`/${category}`);
     setSelectedCategory(category);
+    navigate(`/products/${category?.toLowerCase().replace(" ", "+")}`);
   };
+
 
   return (
     <div>
@@ -41,6 +40,10 @@ export default Category;
 
 const categoryList = [
   {
+    name: "All",
+    value: "all",
+  },
+  {
     name: "Loafers",
     value: "loafers",
   },
@@ -54,14 +57,10 @@ const categoryList = [
   },
   {
     name: "Men's Slides",
-    value: "menslides",
+    value: "men+slides",
   },
   {
     name: "Women's Slides",
     value: "womenslides",
-  },
-  {
-    name: "Belts",
-    value: "belts",
   },
 ];

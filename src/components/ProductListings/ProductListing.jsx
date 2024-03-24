@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   Typography,
   Box,
@@ -13,16 +12,43 @@ import {
 import { style } from "../Style";
 import { productList } from "../../Asset/data";
 import CartContext from "../../Context/Cart/CartContext";
-import Category from "../Navbar/Category";
 
 function ProductListing() {
-  const { prodList } = useContext(CartContext);
-
-  const { category } = useParams();
+  const { prodList, setProdList } = useContext(CartContext);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get("q");
+  const { category } = useParams();
+
+  useEffect(() => {
+    if (category) {
+      if (category === "all") {
+        setProdList(productList);
+      } else {
+        const results = productList.filter(
+          (product) =>
+            product.name?.toLowerCase().includes(category.replace(" ", "+")) ||
+            product.searceng?.toLowerCase().includes(category.replace(" ", "+"))
+        );
+        setProdList(results);
+      }
+    }
+  }, [category]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const results = productList.filter(
+        (product) =>
+          product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setProdList(results);
+    }
+  }, [searchTerm]);
 
   const getProductDetail = (id) => {
-    navigate(`/${category}/${id}`);
+    const url = searchTerm ?  `/products/${searchTerm}/${id}` : `/products/${category}/${id}`;
+    navigate(url);
   };
 
   return (
