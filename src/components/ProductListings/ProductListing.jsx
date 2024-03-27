@@ -7,7 +7,6 @@ import {
   CardContent,
   CardActionArea,
   CardMedia,
-  Skeleton,
 } from "@mui/material";
 import { style } from "../Style";
 import { productList } from "../../Asset/data";
@@ -28,7 +27,12 @@ function ProductListing() {
         const results = productList.filter(
           (product) =>
             product.name?.toLowerCase().includes(category.replace(" ", "+")) ||
-            product.searceng?.toLowerCase().includes(category.replace(" ", "+"))
+            product.description
+              ?.toLowerCase()
+              .includes(category.toLowerCase()) ||
+            product.searchEng
+              ?.toLowerCase()
+              .includes(category.replace(" ", "+"))
         );
         setProdList(results);
       }
@@ -40,14 +44,19 @@ function ProductListing() {
       const results = productList.filter(
         (product) =>
           product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+          product.description
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.searchEng?.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setProdList(results);
     }
   }, [searchTerm]);
 
   const getProductDetail = (id) => {
-    const url = searchTerm ?  `/products/${searchTerm}/${id}` : `/products/${category}/${id}`;
+    const url = searchTerm
+      ? `/products/${searchTerm}/${id}`
+      : `/products/${category}/${id}`;
     navigate(url);
   };
 
@@ -68,9 +77,11 @@ function ProductListing() {
                     image={item.img}
                     alt="product"
                   />
-                  <CardContent>
-                    <Typography>{item.name}</Typography>
-                    <Typography>{item.price}</Typography>
+                  <CardContent sx={style.parentStyle}>
+                    <Typography sx={style.prodListName}>{item.name}</Typography>
+                    <Typography sx={style.prodListCost}>
+                      {item.price}
+                    </Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>

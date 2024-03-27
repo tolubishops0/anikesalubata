@@ -1,18 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent,
-  CardActionArea,
-  CardMedia,
-  Skeleton,
-} from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import sampleImg from "../../Asset/samplimg.jpg";
 import { style } from "../Style";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Rating from "@mui/material/Rating";
 import CartContext from "../../Context/Cart/CartContext";
 import { productList } from "../../Asset/data";
@@ -24,6 +15,7 @@ function ProductDetail() {
   const { cartItems } = useContext(CartContext);
   const selectedProduct = productList.find((item) => item.id === Number(id));
   const [isSelected, setIsSelected] = useState(false);
+  const [activeImg, setActiveImg] = useState(selectedProduct?.img);
   const shoeTypeId = Number(id);
 
   useEffect(() => {
@@ -45,6 +37,10 @@ function ProductDetail() {
 
   const handleModal = () => {
     setOpenModal(!openModal);
+  };
+
+  const getOtherImg = (item) => {
+    setActiveImg(item);
   };
 
   const renderAddToCartButton = () => {
@@ -77,7 +73,10 @@ function ProductDetail() {
           <Box sx={style.leftContainer}>
             <Box sx={style.sideImgThumbNails}>
               {selectedProduct.otherImgs.map((item, index) => (
-                <Box sx={style.thumbNailContaner} key={index}>
+                <Box
+                  onClick={() => getOtherImg(item)}
+                  sx={style.thumbNailContaner}
+                  key={index}>
                   {" "}
                   <img
                     src={item}
@@ -89,7 +88,7 @@ function ProductDetail() {
             </Box>
             <Box sx={style.middleImage}>
               <img
-                src={sampleImg}
+                src={activeImg}
                 alt={"producimg"}
                 style={style.thumbNailimg}
               />

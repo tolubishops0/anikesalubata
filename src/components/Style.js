@@ -12,6 +12,21 @@ export const style = {
     height: "6rem",
     margin: "0 auto",
   },
+  parentsmallNavbar: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    gap: "1rem",
+    width: "90%",
+    paddingTop: "1.5rem",
+    margin: "0 auto",
+  },
+  smallNavbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
   brandName: {
     fontFamily: "Dancing Script cursive",
     fontOpticalSizing: "auto",
@@ -19,6 +34,9 @@ export const style = {
     fontStyle: "italic",
     fontSize: "2rem",
     cursor: "pointer",
+    "@media screen and (max-width:1200px)": {
+      // fontSize: "1.5rem",
+    },
   },
   ShoppingCartOutlinedIcon: {
     position: "relative",
@@ -36,6 +54,15 @@ export const style = {
     position: "relative",
     overflow: "hidden",
     height: "75vh",
+    "@media screen and (max-width: 768px)": {
+      height: "50vh",
+    },
+    "@media screen and (max-width: 600px)": {
+      height: "55vh",
+    },
+    "@media screen and (max-width: 350px)": {
+      height: "70vh",
+    },
   },
   img: {
     height: "100%",
@@ -45,21 +72,42 @@ export const style = {
     position: "absolute",
     top: "20%",
     left: "5%",
-    width: "50%",
+    width: "55%",
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
+    "@media screen and (max-width:1200px)": {
+      width: "60%",
+    },
+    "@media screen and (max-width: 1000px)": {
+      width: "75%",
+    },
+    "@media screen and (max-width: 768px)": {
+      width: "90%",
+    },
   },
   header: {
     fontSize: "3rem",
     fontWeight: "700",
     color: "white",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "2.5rem",
+    },
+    "@media screen and (max-width: 500px)": {
+      fontSize: "1.5rem",
+    },
   },
   header2: {
     fontSize: "1.5rem",
     fontWeight: "500",
     fontStyle: "italic",
     color: "white",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "1.2rem",
+    },
+    "@media screen and (max-width: 500px)": {
+      fontSize: "1rem",
+    },
   },
   bannerTextButton: {
     marginTop: "1rem",
@@ -75,6 +123,9 @@ export const style = {
     "&:hover": {
       background: "red",
     },
+    "@media screen and (max-width: 500px)": {
+      width: "50%",
+    },
   },
   categoryContainer: {
     display: "flex",
@@ -83,8 +134,31 @@ export const style = {
     width: "90%",
     height: "4rem",
     margin: "0 auto",
+    overflowX: "scroll",
+    flexWrap: "no-wrap",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
   categoryList: {
+    fontSize: "1rem",
+    fontWeight: "600",
+    transition: "color transform 5s ease-in-out",
+    cursor: "pointer",
+    // minWidth: "15%",
+    padding: ".5rem",
+    textTransform: "capitalize",
+    // "&:hover": {
+    //   // color: "white",
+    //   // background: "black",
+    //   textAlign: "center",
+    // },
+    "@media screen and (max-width: 500px)": {
+      // minWidth: "38%",
+      // textAlign: "center",
+    },
+  },
+  footerCategories: {
     fontSize: "1rem",
     fontWeight: "600",
     transition: "color transform 5s ease-in-out",
@@ -92,12 +166,8 @@ export const style = {
     width: "fit-content",
     textAlign: "left",
     padding: ".5rem",
+    color: "white",
     textTransform: "capitalize",
-    "&:hover": {
-      color: "white",
-      background: "black",
-      textAlign: "center",
-    },
   },
   selectedcategoryList: {
     fontSize: "1rem",
@@ -111,6 +181,7 @@ export const style = {
     color: "white",
     background: "black",
     textAlign: "center",
+    minWidth: "15%",
     // "&:hover": {
     //   color: "white",
     //   background: "black",
@@ -137,10 +208,17 @@ export const style = {
     minWidth: "25%",
     border: "0",
     boxShadow: "0",
+    "@media screen and (max-width: 768px)": {
+      minWidth: "40%",
+    },
   },
   footerContainer: {
     width: "90%",
     margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2rem",
+    padding: "2rem 0",
   },
   productDetailContainer: {
     width: "90%",
@@ -192,6 +270,7 @@ export const style = {
     width: "100%",
     height: "4rem",
     borderRadius: "10px",
+    cursor: "pointer",
   },
   thumbNailimg: {
     width: "100%",
@@ -331,5 +410,64 @@ export const style = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  fotterCtegoryContainer: {
+    display: "flex",
+    // justifyContent: "space-between",
+    alignItems: "flex-start",
+    flexDirection: "column",
+  },
+  fotterCtegoryContainerlinks: {
+    display: "flex",
+    alignItems: "flex-start",
+    flexDirection: "column",
+  },
+  fotterCtegoryContainerIconsContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    "@media screen and (max-width: 500px)": {
+      flexWrap: "wrap",
+      gap: "2.5rem",
+    },
+  },
+  fotterCtegoryContainerIcons: {
+    display: "flex",
+
+    justifyContent: "center",
+    alignItems: "right",
+    gap: "1.5rem",
+  },
+  copyright: {
+    width: "90%",
+    margin: "0 auto",
+    color: "white",
+    padding: "1rem 0",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "@media screen and (max-width: 500px)": {
+      flexDirection: "column",
+      textAlign: "center",
+      fontSize: "0.8rem",
+      gap: "1rem",
+    },
+  },
+  parentStyle: {
+    display: "flex",
+    gap: "1rem",
+    flexDirection: "column",
+  },
+  prodListName: {
+    color: "black",
+    fontSize: "1rem",
+    fontWeight: "600",
+    textTransform: "capitalize",
+  },
+  prodListCost: {
+    color: "grey",
+    fontSize: "1rem",
+    fontWeight: "600",
+    textTransform: "capitalize",
   },
 };

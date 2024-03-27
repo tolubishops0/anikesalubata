@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchBar from "./SearchBar";
 import { style } from "../Style";
@@ -9,6 +9,8 @@ import { sumItems } from "../../Context/Cart/CartReducer";
 import { productList } from "../../Asset/data";
 
 function NavbBar() {
+  const isSmallScreen = useMediaQuery("(min-width: 768px)");
+
   const navigate = useNavigate();
 
   const { cartItems } = useContext(CartContext);
@@ -21,21 +23,43 @@ function NavbBar() {
 
   return (
     <Box sx={style.navParentContainer}>
-      <Box sx={style.navContainer}>
-        <Typography sx={style.brandName} onClick={() => navigate("/")}>
-          Àníkẹ́ Sálúbàtà
-        </Typography>
-        <SearchBar productList={productList} />
-        <Box sx={style.ShoppingCartOutlinedIcon}>
-          <ShoppingCartOutlinedIcon
-            fontSize="large"
-            onClick={handleProdCount}
-          />
-          {cartItems?.length > 0 && (
-            <Typography sx={style.prodCount}>{itemsCount}</Typography>
-          )}
+      {isSmallScreen ? (
+        <Box sx={style.navContainer}>
+          <Typography sx={style.brandName} onClick={() => navigate("/")}>
+            Àníkẹ́ Sálúbàtà
+          </Typography>
+          <SearchBar productList={productList} />
+          <Box sx={style.ShoppingCartOutlinedIcon}>
+            <ShoppingCartOutlinedIcon
+              fontSize="large"
+              onClick={handleProdCount}
+            />
+            {cartItems?.length > 0 && (
+              <Typography sx={style.prodCount}>{itemsCount}</Typography>
+            )}
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Box sx={style.parentsmallNavbar}>
+          <Box sx={style.smallNavbar}>
+            <Typography sx={style.brandName} onClick={() => navigate("/")}>
+              Àníkẹ́ Sálúbàtà
+            </Typography>
+            <Box sx={style.ShoppingCartOutlinedIcon}>
+              <ShoppingCartOutlinedIcon
+                fontSize="large"
+                onClick={handleProdCount}
+              />
+              {cartItems?.length > 0 && (
+                <Typography sx={style.prodCount}>{itemsCount}</Typography>
+              )}
+            </Box>
+          </Box>
+          <Box sx={{ width: "100%", margin: "1rem auto" }}>
+            <SearchBar productList={productList} />
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

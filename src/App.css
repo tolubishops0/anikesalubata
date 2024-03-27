@@ -3,11 +3,13 @@
   font-family: Poppins;
   box-sizing: border-box;
 }
-
 .input-field {
   height: 2.5rem;
-  width: 25rem;
+  width: 50%;
   border-radius: 5px;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 .input-field:focus {
   outline: none;
@@ -19,7 +21,6 @@
   font-weight: 200;
   padding-left: 0.5rem;
 }
-
 .slide-bannerTextHeader {
   opacity: 0;
   transform: translateX(-500px);
@@ -60,4 +61,8 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.css-i4bv87-MuiSvgIcon-root {
+  fill: rgb(15, 15, 15);
 }

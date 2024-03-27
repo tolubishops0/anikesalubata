@@ -57,10 +57,10 @@ const categoryList = [
   },
   {
     name: "Men's Slides",
-    value: "men+slides",
+    value: "men slides",
   },
   {
     name: "Women's Slides",
-    value: "womenslides",
+    value: "woman slides",
   },
 ];
