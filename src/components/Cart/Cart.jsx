@@ -67,14 +67,14 @@ function Cart() {
                           </Typography>
                         </Box>
                       </Box>
-                      <Typography>{item.price}</Typography>
+                      <Typography sx={style.itemDescr}>{item.price}</Typography>
                     </Box>
                     <Box sx={style.cart10}>
                       <Box
                         sx={style.cart9}
                         onClick={() => removeFromCart(item)}>
                         <DeleteOutlineIcon />
-                        <Typography>Remove</Typography>
+                        <Typography sx={style.itemDescr}>Remove</Typography>
                       </Box>
                       <Box sx={style.parentAdd}>
                         <Typography
@@ -96,7 +96,7 @@ function Cart() {
                         </Typography>{" "}
                       </Box>
                     </Box>
-                    <Divider />
+                    {index === item.length - 1 && <Divider />}
                   </Box>
                 ))}
               </Box>
@@ -178,4 +178,3 @@ function Cart() {
 }
 
 export default Cart;
-

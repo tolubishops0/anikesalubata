@@ -430,7 +430,7 @@ export const style = {
   },
   cartimg: {
     width: "10%",
-    height: "3rem",
+    height: "4rem",
     cursor: "pointer",
   },
   cart4: {
