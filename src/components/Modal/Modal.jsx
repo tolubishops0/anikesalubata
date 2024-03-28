@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../../Context/Cart/CartContext";
 import {
@@ -11,6 +11,7 @@ import {
   Slide,
   Typography,
   Box,
+  useMediaQuery,
 } from "@mui/material";
 import { style } from "../Style";
 
@@ -21,12 +22,23 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function Modal(props) {
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
+  const isSmallScreen = useMediaQuery("(min-width: 768px)");
 
   const [selectedSizes, setSelectedSizes] = useState({});
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = useState("");
 
   const handleSizeChange = (size, quantity) => {
     setSelectedSizes({ ...selectedSizes, [size]: quantity });
   };
+
+  useEffect(() => {
+    if (isSmallScreen) {
+      setMaxWidth("sm");
+    } else {
+      setMaxWidth("xs");
+    }
+  }, [isSmallScreen]);
 
   const addToCartFunt = () => {
     const itemsToAdd = Object.entries(selectedSizes).map(
@@ -47,9 +59,10 @@ function Modal(props) {
       (total, item) => total + item.quantity,
       0
     );
-    window.alert(
-      `${itemCount} item${itemCount > 1 ? "s" : ""} added to your cart`
-    );
+    props.getItemCount(itemCount);
+    // window.alert(
+    //   `${itemCount} item${itemCount > 1 ? "s" : ""} added to your cart`
+    // );
   };
 
   const constinueShopping = () => {
@@ -59,19 +72,28 @@ function Modal(props) {
   return (
     <React.Fragment>
       <Dialog
+        fullWidth={true}
+        maxWidth={maxWidth}
         sx={style.parentModalWidth}
         open={props.openModal}
         TransitionComponent={Transition}
         keepMounted
         onClose={props.handleModal}
         aria-describedby="alert-dialog-slide-description">
-        <DialogTitle>{"Select sizes and quantity"}</DialogTitle>
+        <Box sx={style.titleContainer}>
+          <DialogTitle sx={style.title}>
+            {"Select sizes and quantity"}
+          </DialogTitle>
+          <DialogTitle onClick={constinueShopping} sx={style.cancleButoon}>
+            X
+          </DialogTitle>
+        </Box>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <Box sx={style.parentContainer}>
               {props.selectedProduct.sizes.map((size, index) => (
                 <Box key={index} sx={style.parentSizes}>
-                  <Typography> Size {size}:</Typography>
+                  <Typography sx={style.sizesmodal}> Size {size}:</Typography>
                   <Box sx={style.parentAdd}>
                     <Typography
                       sx={

@@ -8,6 +8,8 @@ import Rating from "@mui/material/Rating";
 import CartContext from "../../Context/Cart/CartContext";
 import { productList } from "../../Asset/data";
 import Modal from "../Modal/Modal";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -16,6 +18,7 @@ function ProductDetail() {
   const selectedProduct = productList.find((item) => item.id === Number(id));
   const [isSelected, setIsSelected] = useState(false);
   const [activeImg, setActiveImg] = useState(selectedProduct?.img);
+  const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const shoeTypeId = Number(id);
 
@@ -38,6 +41,17 @@ function ProductDetail() {
 
   const handleModal = () => {
     setOpenModal(!openModal);
+  };
+
+  const getItemCount = (itemCount) => {
+    const message = `${itemCount} item${
+      itemCount > 1 ? "s" : ""
+    } added to your cart`;
+    setCartAlert({ show: true, message: message });
+
+    setTimeout(() => {
+      setCartAlert((prevAlert) => ({ ...prevAlert, show: false }));
+    }, 2000);
   };
 
   const getOtherImg = (item, index) => {
@@ -70,6 +84,20 @@ function ProductDetail() {
 
   return (
     <Box sx={{ backgroundColor: "#f8f8f8", padding: "2rem 0" }}>
+      {cartAlert.show === true && (
+        <Alert
+          sx={{
+            width: "100%",
+            bgcolor: "#f8f8f8",
+            color: "black",
+            position: "fixed",
+            top: 0,
+            zIndex: 1000,
+          }}
+          severity="success">
+          {cartAlert.message}
+        </Alert>
+      )}
       <Box sx={style.productDetailContainer}>
         <Box sx={style.productDetail}>
           <Box sx={style.leftContainer}>
@@ -118,8 +146,8 @@ function ProductDetail() {
                 readOnly
               />
               <Box sx={style.parentSizesContainer}>
-                <Typography sx={style.avSize}>Av. Sizes:</Typography>
-                <Box sx={style.parentSizes}>
+                <Typography sx={style.avSize}>Available Sizes:</Typography>
+                <Box sx={style.parentSizesDetail}>
                   {selectedProduct.sizes.map((item, index) => (
                     <Typography
                       sx={style.sizes}
@@ -144,6 +172,7 @@ function ProductDetail() {
           openModal={openModal}
           handleModal={handleModal}
           selectedProduct={selectedProduct}
+          getItemCount={getItemCount}
         />
       )}
     </Box>

@@ -247,7 +247,7 @@ export const style = {
     display: "flex",
     justifyContent: iscartPresent ? "center" : "space-between",
     alignItems: "center",
-    padding: iscartPresent ? "1.5rem 0" : "1.5rem 1rem",
+    padding: iscartPresent ? "1.5rem 0" : "1.5rem 0",
   }),
   productDetailContainerLeft: {
     width: "80%",
@@ -316,14 +316,26 @@ export const style = {
   parentSizesContainer: {
     display: "flex",
     gap: ".5rem",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "flex-start",
+    flexDirection: "column",
   },
   parentSizes: {
+    width: "98%",
     display: "flex",
     gap: "2rem",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
+    "@media screen and (max-width: 600px)": {
+      flexWrap: "wrap",
+      gap: ".5rem",
+    },
+  },
+  parentSizesDetail: {
+    width: "98%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     "@media screen and (max-width: 600px)": {
       flexWrap: "wrap",
       gap: ".5rem",
@@ -334,7 +346,7 @@ export const style = {
     gap: "2rem",
     alignItems: "center",
     flexDirection: "column",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   parentAdd: {
     display: "flex",
@@ -399,6 +411,14 @@ export const style = {
     gap: "2rem",
   },
   buttonContainer: {
+    width: "90%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: ".5rem auto",
+  },
+  titleContainer: {
+    width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -411,8 +431,8 @@ export const style = {
     border: "1px solid black",
     borderRadius: "5px",
     color: "black",
-    width: "50%",
-    height: "2rem",
+    width: "45%",
+    height: "3rem",
     cursor: "pointer",
   },
   buttonGoToCart: {
@@ -423,8 +443,8 @@ export const style = {
     border: "1px solid black",
     borderRadius: "5px",
     color: "white",
-    width: "50%",
-    height: "2rem",
+    width: "45%",
+    height: "3rem",
     backgroundColor: " black",
     cursor: "pointer",
   },
@@ -528,6 +548,7 @@ export const style = {
   cartHeader: {
     fontWeight: "600",
     fontSize: "0.95rem",
+    margin: "0 1rem",
   },
   itemDescr: {
     fontSize: "0.95rem",
@@ -561,5 +582,20 @@ export const style = {
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
     padding: "4rem 0",
+  },
+  sizesmodal: {
+    fontSize: "0.8rem",
+    fontWeight: "600",
+    color: "black",
+  },
+  title: {
+    fontSize: "1rem",
+    fontWeight: "600",
+  },
+  cancleButoon: {
+    fontSize: "1rem",
+    fontWeight: "600",
+    color: "black",
+    cursor: "pointer",
   },
 };
