@@ -7,8 +7,6 @@ function SearchBar({ productList }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { setProdList } = useContext(CartContext);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 

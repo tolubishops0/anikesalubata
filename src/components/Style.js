@@ -140,6 +140,9 @@ export const style = {
     "&::-webkit-scrollbar": {
       display: "none",
     },
+    "@media screen and (max-width: 500px)": {
+      gap: "2rem",
+    },
   },
   categoryList: {
     fontSize: "1rem",
@@ -148,12 +151,12 @@ export const style = {
     cursor: "pointer",
     padding: ".5rem",
     textTransform: "capitalize",
+    minWidth: "fit-content",
     "&:hover": {
       color: "gray",
     },
     "@media screen and (max-width: 500px)": {
-      // minWidth: "38%",
-      // textAlign: "center",
+      minWidth: "fit-content",
     },
   },
   footerCategories: {
@@ -172,18 +175,16 @@ export const style = {
     fontWeight: "600",
     transition: "color transform 5s ease-in-out",
     cursor: "pointer",
-    width: "fit-content",
+    // width: "fit-content",
     textAlign: "left",
-    padding: ".5rem",
+    padding: ".5rem 1rem",
     textTransform: "capitalize",
     color: "white",
     background: "black",
     textAlign: "center",
-    minWidth: "15%",
-    // "&:hover": {
-    //   color: "white",
-    //   background: "black",
-    //   textAlign: "center",
+    minWidth: "fit-content",
+    // "@media screen and (max-width: 600px)": {
+    //   minWidth: "60%",
     // },
   },
   productList: {
@@ -195,6 +196,7 @@ export const style = {
     gap: "1.5rem",
     width: "90%",
     margin: "0 auto",
+    borderRadius: "10px",
     "&::-webkit-scrollbar": {
       display: "none",
     },
@@ -207,8 +209,11 @@ export const style = {
     border: "0",
     boxShadow: "0",
     "@media screen and (max-width: 768px)": {
-      minWidth: "40%",
+      minWidth: "60%",
     },
+    // "&:hover": {
+    //   background: "none",
+    // },
   },
   footerContainer: {
     width: "90%",
@@ -255,6 +260,10 @@ export const style = {
     display: "flex",
     gap: "1rem",
     width: "60%",
+    "@media screen and (max-width: 600px)": {
+      width: "100%",
+      flexDirection: "column-reverse",
+    },
   },
   productDetail: {
     display: "flex",
@@ -262,6 +271,9 @@ export const style = {
     alignItems: "center",
     padding: "1rem",
     gap: "3rem",
+    "@media screen and (max-width: 600px)": {
+      flexDirection: "column",
+    },
   },
   avSize: {
     fontWeight: "600",
@@ -272,13 +284,21 @@ export const style = {
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
+    "@media screen and (max-width: 600px)": {
+      flexDirection: "row",
+      width: "100%",
+    },
   },
   thumbNailContaner: (isActive) => ({
     width: "100%",
     height: "4rem",
     borderRadius: "10px",
     cursor: "pointer",
-    border: isActive ? "1.5px solid blue" : "1.5px solid transparent",
+    border: isActive ? "2px solid black" : "1.5px solid transparent",
+    "@media screen and (max-width: 600px)": {
+      width: "20%",
+      height: "4rem",
+    },
   }),
   thumbNailimg: {
     width: "100%",
@@ -288,15 +308,26 @@ export const style = {
   middleImage: {
     width: "90%",
     height: "23rem",
+    "@media screen and (max-width: 600px)": {
+      width: "100%",
+      height: "18rem",
+    },
   },
-  parentModalWidth: {
-    // width: "90%",
+  parentSizesContainer: {
+    display: "flex",
+    gap: ".5rem",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   parentSizes: {
     display: "flex",
     gap: "2rem",
     alignItems: "center",
     justifyContent: "flex-start",
+    "@media screen and (max-width: 600px)": {
+      flexWrap: "wrap",
+      gap: ".5rem",
+    },
   },
   parentContainer: {
     display: "flex",
@@ -313,8 +344,8 @@ export const style = {
   },
   sizes: {
     padding: ".2rem .8rem",
-    background: "#f8f8f8",
-    color: "black",
+    background: "black",
+    color: "white",
     textAlign: "center",
     cursor: "pointer",
     fontSize: "0.9rem",
@@ -322,7 +353,7 @@ export const style = {
   },
   add: {
     padding: ".2rem .8rem",
-    background: "#010101",
+    background: "black",
     color: "white",
     textAlign: "center",
     cursor: "pointer",
@@ -338,16 +369,20 @@ export const style = {
   },
   description: {
     fontWeight: "500",
+    fontSize: "1.05rem",
   },
   addToCartButton: {
-    padding: "0.5rem 0",
-    background: "gray",
-    borderRadius: "5px",
+    padding: "0.6rem 0",
+    background: "black",
+    // borderRadius: "5px",
     width: "100%",
     color: "white",
     fontWeight: "600",
     textAlign: "center",
     cursor: "pointer",
+    "&:hover": {
+      color: "gray",
+    },
   },
   productNameCost: {
     display: "flex",
@@ -391,7 +426,6 @@ export const style = {
     width: "50%",
     height: "2rem",
     backgroundColor: " black",
-    borderRadius: "5px",
     cursor: "pointer",
   },
   cartimg: {
@@ -481,6 +515,9 @@ export const style = {
     fontSize: "1rem",
     fontWeight: "600",
     textTransform: "capitalize",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "0.7rem",
+    },
   },
   prodListCost: {
     color: "grey",

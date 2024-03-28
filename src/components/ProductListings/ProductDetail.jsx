@@ -95,7 +95,13 @@ function ProductDetail() {
               />
             </Box>
           </Box>
-          <Box sx={{ width: "40%" }}>
+          <Box
+            sx={{
+              width: "40%",
+              "@media screen and (max-width: 600px)": {
+                width: "100%",
+              },
+            }}>
             <Box sx={style.productDesc}>
               <Box sx={style.productNameCost}>
                 <Typography sx={style.productName}>
@@ -111,16 +117,18 @@ function ProductDetail() {
                 size="small"
                 readOnly
               />
-              <Box sx={style.parentSizes}>
+              <Box sx={style.parentSizesContainer}>
                 <Typography sx={style.avSize}>Av. Sizes:</Typography>
-                {selectedProduct.sizes.map((item, index) => (
-                  <Typography
-                    sx={style.sizes}
-                    key={index}
-                    onClick={handleModal}>
-                    {item}
-                  </Typography>
-                ))}
+                <Box sx={style.parentSizes}>
+                  {selectedProduct.sizes.map((item, index) => (
+                    <Typography
+                      sx={style.sizes}
+                      key={index}
+                      onClick={handleModal}>
+                      {item}
+                    </Typography>
+                  ))}
+                </Box>
               </Box>
               <Typography sx={style.description}>
                 {selectedProduct.description}

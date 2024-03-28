@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { style } from "../Style";
-import { productList } from "../../Asset/data";
-import CartContext from "../../Context/Cart/CartContext";
 
 function Category() {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CartContext } from "./Context/CartContext";
 import "./App.css";
 import NavbBar from "./components/Navbar/NavbBar";
 import Category from "./components/Navbar/Category";
