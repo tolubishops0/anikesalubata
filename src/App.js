@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { CartContext } from "./Context/CartContext";
 import "./App.css";
 import NavbBar from "./components/Navbar/NavbBar";
 import Category from "./components/Navbar/Category";
@@ -13,6 +12,7 @@ import CartState from "./Context/Cart/CartState";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
 import ResetPassWord from "./components/Auth/ResetPassWord";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
@@ -30,6 +30,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset-password" element={<ResetPassWord />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />
       </Router>

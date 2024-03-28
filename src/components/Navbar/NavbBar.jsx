@@ -16,11 +16,6 @@ function NavbBar() {
   const { cartItems } = useContext(CartContext);
   const { itemsCount } = sumItems(cartItems);
 
-  const handleProdCount = () => {
-    // setProdCount(prodCount + 1);
-    navigate("/cart");
-  };
-
   return (
     <Box sx={style.navParentContainer}>
       {isSmallScreen ? (
@@ -32,7 +27,7 @@ function NavbBar() {
           <Box sx={style.ShoppingCartOutlinedIcon}>
             <ShoppingCartOutlinedIcon
               fontSize="large"
-              onClick={handleProdCount}
+              onClick={() => navigate("/cart")}
             />
             {cartItems?.length > 0 && (
               <Typography sx={style.prodCount}>{itemsCount}</Typography>
@@ -45,10 +40,12 @@ function NavbBar() {
             <Typography sx={style.brandName} onClick={() => navigate("/")}>
               Àníkẹ́ Sálúbàtà
             </Typography>
-            <Box sx={style.ShoppingCartOutlinedIcon}>
+            <Box
+              sx={style.ShoppingCartOutlinedIcon}
+              onClick={() => navigate("/cart")}>
               <ShoppingCartOutlinedIcon
                 fontSize="large"
-                onClick={handleProdCount}
+                onClick={() => navigate("/cart")}
               />
               {cartItems?.length > 0 && (
                 <Typography sx={style.prodCount}>{itemsCount}</Typography>

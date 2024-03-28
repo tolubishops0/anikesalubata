@@ -16,6 +16,7 @@ function ProductDetail() {
   const selectedProduct = productList.find((item) => item.id === Number(id));
   const [isSelected, setIsSelected] = useState(false);
   const [activeImg, setActiveImg] = useState(selectedProduct?.img);
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
   const shoeTypeId = Number(id);
 
   useEffect(() => {
@@ -39,8 +40,9 @@ function ProductDetail() {
     setOpenModal(!openModal);
   };
 
-  const getOtherImg = (item) => {
+  const getOtherImg = (item, index) => {
     setActiveImg(item);
+    setActiveImgIndex(index);
   };
 
   const renderAddToCartButton = () => {
@@ -74,10 +76,9 @@ function ProductDetail() {
             <Box sx={style.sideImgThumbNails}>
               {selectedProduct.otherImgs.map((item, index) => (
                 <Box
-                  onClick={() => getOtherImg(item)}
-                  sx={style.thumbNailContaner}
+                  onClick={() => getOtherImg(item, index)}
+                  sx={style.thumbNailContaner(index === activeImgIndex)}
                   key={index}>
-                  {" "}
                   <img
                     src={item}
                     alt={"producimg"}
@@ -94,7 +95,7 @@ function ProductDetail() {
               />
             </Box>
           </Box>
-          <Box sx={{ width: "50%" }}>
+          <Box sx={{ width: "40%" }}>
             <Box sx={style.productDesc}>
               <Box sx={style.productNameCost}>
                 <Typography sx={style.productName}>
@@ -106,12 +107,12 @@ function ProductDetail() {
               </Box>
               <Rating
                 name="size-small"
-                defaultValue={2}
+                defaultValue={selectedProduct.ratings}
                 size="small"
                 readOnly
               />
               <Box sx={style.parentSizes}>
-                <Typography>Av. Sizes:</Typography>
+                <Typography sx={style.avSize}>Av. Sizes:</Typography>
                 {selectedProduct.sizes.map((item, index) => (
                   <Typography
                     sx={style.sizes}

@@ -3,6 +3,7 @@ import bgimg from "../Asset/bgimg.jpg";
 export const style = {
   navParentContainer: {
     // height: "10rem",
+    background: "white",
   },
   navContainer: {
     display: "flex",
@@ -145,14 +146,11 @@ export const style = {
     fontWeight: "600",
     transition: "color transform 5s ease-in-out",
     cursor: "pointer",
-    // minWidth: "15%",
     padding: ".5rem",
     textTransform: "capitalize",
-    // "&:hover": {
-    //   // color: "white",
-    //   // background: "black",
-    //   textAlign: "center",
-    // },
+    "&:hover": {
+      color: "gray",
+    },
     "@media screen and (max-width: 500px)": {
       // minWidth: "38%",
       // textAlign: "center",
@@ -235,30 +233,39 @@ export const style = {
     alignItems: "flex-start",
     gap: "1rem",
   },
-  productDetailContainerTop: {
+  productDetailContainerTop: (iscartPresent) => ({
     width: "90%",
     margin: "0 auto",
     background: "white",
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: iscartPresent ? "center" : "space-between",
     alignItems: "center",
-  },
+    padding: iscartPresent ? "1.5rem 0" : "1.5rem 1rem",
+  }),
   productDetailContainerLeft: {
     width: "80%",
     background: "white",
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
+    padding: "1rem",
   },
   leftContainer: {
     display: "flex",
     gap: "1rem",
-    width: "50%",
+    width: "60%",
   },
   productDetail: {
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "1rem",
     gap: "3rem",
+  },
+  avSize: {
+    fontWeight: "600",
+    fontSize: ".9rem",
   },
   sideImgThumbNails: {
     width: "10%",
@@ -266,12 +273,13 @@ export const style = {
     flexDirection: "column",
     gap: "1rem",
   },
-  thumbNailContaner: {
+  thumbNailContaner: (isActive) => ({
     width: "100%",
     height: "4rem",
     borderRadius: "10px",
     cursor: "pointer",
-  },
+    border: isActive ? "1.5px solid blue" : "1.5px solid transparent",
+  }),
   thumbNailimg: {
     width: "100%",
     height: "100%",
@@ -279,7 +287,7 @@ export const style = {
   },
   middleImage: {
     width: "90%",
-    height: "20rem",
+    height: "23rem",
   },
   parentModalWidth: {
     // width: "90%",
@@ -309,6 +317,8 @@ export const style = {
     color: "black",
     textAlign: "center",
     cursor: "pointer",
+    fontSize: "0.9rem",
+    fontWeight: "500",
   },
   add: {
     padding: ".2rem .8rem",
@@ -327,7 +337,7 @@ export const style = {
     fontWeight: "600",
   },
   description: {
-    fontWeight: "400",
+    fontWeight: "500",
   },
   addToCartButton: {
     padding: "0.5rem 0",
@@ -387,6 +397,7 @@ export const style = {
   cartimg: {
     width: "10%",
     height: "3rem",
+    cursor: "pointer",
   },
   cart4: {
     display: "flex",
@@ -395,10 +406,17 @@ export const style = {
     gap: "2rem",
     width: "100%",
   },
+  cartItem: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+    // justifyContent: "center",
+  },
   cart3: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    padding: "1rem",
   },
   cart9: {
     display: "flex",
@@ -469,5 +487,42 @@ export const style = {
     fontSize: "1rem",
     fontWeight: "600",
     textTransform: "capitalize",
+  },
+  cartHeader: {
+    fontWeight: "600",
+    fontSize: "0.95rem",
+  },
+  itemDescr: {
+    fontSize: "0.95rem",
+    fontWeight: "600",
+  },
+  checkOut: {
+    fontWeight: "600",
+    fontSize: ".8rem",
+    color: "white",
+    padding: "1rem",
+    background: "black",
+    textAlign: "center",
+    cursor: "pointer",
+    "&:hover": {
+      color: "gray",
+    },
+  },
+  subTotal: {
+    fontSize: "0.8rem",
+    fontWeight: "600",
+  },
+  emptyCartIcon: {
+    width: "90%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    flexDirection: "column",
+    gap: "2rem",
+    background: "white",
+    border: "1px solid #f8f8f8",
+    borderRadius: "10px",
+    padding: "4rem 0",
   },
 };
