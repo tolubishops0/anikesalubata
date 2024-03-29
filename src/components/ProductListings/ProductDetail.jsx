@@ -24,7 +24,6 @@ function ProductDetail() {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const shoeTypeId = Number(id);
   const sideImgArr = [selectedProduct?.img, ...selectedProduct?.otherImgs];
-  console.log(sideImgArr);
 
   useEffect(() => {
     const selectedProductItems = cartItems.filter(
