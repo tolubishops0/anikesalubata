@@ -231,23 +231,31 @@ export const style = {
     borderRadius: "10px",
   },
   cartContainer: {
-    width: "90%",
-    margin: "0 auto",
+    width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
     gap: "1rem",
+    "@media screen and (max-width: 768px)": {
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
   },
-  productDetailContainerTop: (iscartPresent) => ({
-    width: "90%",
+  productDetailContainerTop: (iscartEmpty, isSmallScreen) => ({
+    width: "100%",
     margin: "0 auto",
     background: "white",
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
     display: "flex",
-    justifyContent: iscartPresent ? "center" : "space-between",
+    justifyContent: iscartEmpty
+      ? "center"
+      : isSmallScreen
+      ? "center"
+      : "space-between",
     alignItems: "center",
-    padding: iscartPresent ? "1.5rem 0" : "1.5rem 0",
+    padding: iscartEmpty ? "1.5rem 0" : "1.5rem 0",
   }),
   productDetailContainerLeft: {
     width: "80%",
@@ -255,6 +263,18 @@ export const style = {
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
     padding: "1rem",
+    "@media screen and (max-width: 768px)": {
+      width: "90%",
+    },
+  },
+  parentRigthContainer: {
+    width: "20%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+    "@media screen and (max-width: 768px)": {
+      width: "100%",
+    },
   },
   leftContainer: {
     display: "flex",
@@ -264,6 +284,19 @@ export const style = {
       width: "100%",
       flexDirection: "column-reverse",
     },
+  },
+  rightContainer: {
+    background: "white",
+    border: "1px solid #f8f8f8",
+    borderRadius: "10px",
+    display: "flex",
+    gap: ".8rem",
+    flexDirection: "column",
+    padding: "1rem",
+    // "@media screen and (max-width: 600px)": {
+    //   width: "100%",
+    //   flexDirection: "column-reverse",
+    // },
   },
   productDetail: {
     display: "flex",
@@ -452,6 +485,9 @@ export const style = {
     width: "10%",
     height: "4rem",
     cursor: "pointer",
+    "@media screen and (max-width: 768px)": {
+      width: "50%",
+    },
   },
   cart4: {
     display: "flex",
@@ -459,18 +495,27 @@ export const style = {
     alignItems: "center",
     gap: "2rem",
     width: "100%",
+    "@media screen and (max-width: 768px)": {
+      gap: "1rem",
+    },
   },
   cartItem: {
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
     // justifyContent: "center",
+    "@media screen and (max-width: 768px)": {
+      gap: ".5rem",
+    },
   },
   cart3: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "1rem",
+    padding: "1rem 0",
+    "@media screen and (max-width: 768px)": {
+      padding: " 1rem 0",
+    },
   },
   cart9: {
     display: "flex",
@@ -550,6 +595,15 @@ export const style = {
     fontSize: "0.95rem",
     margin: "0 1rem",
   },
+  cartHeaderSmall: {
+    fontWeight: "600",
+    fontSize: "0.95rem",
+    margin: "0 1rem",
+    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   itemDescr: {
     fontSize: "0.95rem",
     fontWeight: "600",
@@ -571,7 +625,7 @@ export const style = {
     fontWeight: "600",
   },
   emptyCartIcon: {
-    width: "90%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

@@ -83,12 +83,12 @@ function ProductDetail() {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f8f8f8", padding: "2rem 0" }}>
+    <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
       {cartAlert.show === true && (
         <Alert
           sx={{
             width: "100%",
-            bgcolor: "#f8f8f8",
+            bgcolor: "#ACACAC",
             color: "black",
             position: "fixed",
             top: 0,
