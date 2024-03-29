@@ -22,7 +22,7 @@ export const productList = [
     sizes: [40, 41, 43, 44, 45],
     description: "Stylish loafers perfect for formal occasions",
     searchEng: "loafers, leather",
-    otherImgs: [sampleImg2, sampleImg, sampleImg3, sampleImg],
+    otherImgs: [sampleImg2, sampleImg3, sampleImg],
     ratings: 4.2,
   },
   {

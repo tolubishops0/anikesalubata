@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, useMediaQuery } from "@mui/material";
 import sampleImg from "../../Asset/samplimg.jpg";
 import { style } from "../Style";
 import Rating from "@mui/material/Rating";
@@ -12,6 +12,8 @@ import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 
 function ProductDetail() {
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
+
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
   const { cartItems } = useContext(CartContext);
@@ -21,6 +23,8 @@ function ProductDetail() {
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const shoeTypeId = Number(id);
+  const sideImgArr = [selectedProduct?.img, ...selectedProduct?.otherImgs];
+  console.log(sideImgArr);
 
   useEffect(() => {
     const selectedProductItems = cartItems.filter(
@@ -38,7 +42,7 @@ function ProductDetail() {
       0
     );
   };
-
+  //add the defaut image to the side images
   const handleModal = () => {
     setOpenModal(!openModal);
   };
@@ -102,7 +106,7 @@ function ProductDetail() {
         <Box sx={style.productDetail}>
           <Box sx={style.leftContainer}>
             <Box sx={style.sideImgThumbNails}>
-              {selectedProduct.otherImgs.map((item, index) => (
+              {sideImgArr.map((item, index) => (
                 <Box
                   onClick={() => getOtherImg(item, index)}
                   sx={style.thumbNailContaner(index === activeImgIndex)}
@@ -135,16 +139,26 @@ function ProductDetail() {
                 <Typography sx={style.productName}>
                   {selectedProduct.name}
                 </Typography>
-                <Typography sx={style.productName}>
-                  {selectedProduct.price}
-                </Typography>
+                {!isSmallScreen && (
+                  <Typography sx={style.productName}>
+                    {selectedProduct.price}
+                  </Typography>
+                )}
               </Box>
-              <Rating
-                name="size-small"
-                defaultValue={selectedProduct.ratings}
-                size="small"
-                readOnly
-              />
+              <Box sx={style.productNameCost}>
+                <Rating
+                  name="size-small"
+                  defaultValue={selectedProduct.ratings}
+                  size="small"
+                  readOnly
+                />{" "}
+                {isSmallScreen && (
+                  <Typography sx={style.productName}>
+                    {selectedProduct.price}
+                  </Typography>
+                )}
+              </Box>
+
               <Box sx={style.parentSizesContainer}>
                 <Typography sx={style.avSize}>Available Sizes:</Typography>
                 <Box sx={style.parentSizesDetail}>
