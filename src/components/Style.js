@@ -50,6 +50,10 @@ export const style = {
     fontSize: "1.5rem",
     fontWeight: "700",
     color: "red",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "1rem",
+      left: "85%",
+    },
   },
   heroSection: {
     position: "relative",
@@ -58,7 +62,7 @@ export const style = {
     "@media screen and (max-width: 768px)": {
       height: "50vh",
     },
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       height: "55vh",
     },
     "@media screen and (max-width: 350px)": {
@@ -183,7 +187,7 @@ export const style = {
     background: "black",
     textAlign: "center",
     minWidth: "fit-content",
-    // "@media screen and (max-width: 600px)": {
+    // "@media screen and (max-width: 768px)": {
     //   minWidth: "60%",
     // },
   },
@@ -196,7 +200,7 @@ export const style = {
     gap: "1.5rem",
     width: "90%",
     margin: "0 auto",
-    borderRadius: "10px",
+
     "&::-webkit-scrollbar": {
       display: "none",
     },
@@ -208,8 +212,9 @@ export const style = {
     minWidth: "25%",
     border: "0",
     boxShadow: "0",
+    borderRadius: "5px",
     "@media screen and (max-width: 768px)": {
-      minWidth: "60%",
+      minWidth: "75%",
     },
     // "&:hover": {
     //   background: "none",
@@ -255,15 +260,18 @@ export const style = {
       ? "center"
       : "space-between",
     alignItems: "center",
-    padding: iscartEmpty ? "1.5rem 0" : "1.5rem 0",
+    padding: iscartEmpty ? "1rem 0" : "1rem 0",
   }),
   productDetailContainerLeft: {
     width: "80%",
     background: "white",
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
-    padding: "1rem",
+    padding: "0 1rem",
     "@media screen and (max-width: 768px)": {
+      width: "95%",
+    },
+    "@media screen and (max-width: 600px)": {
       width: "90%",
     },
   },
@@ -280,7 +288,7 @@ export const style = {
     display: "flex",
     gap: "1rem",
     width: "60%",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       width: "100%",
       flexDirection: "column-reverse",
     },
@@ -293,7 +301,7 @@ export const style = {
     gap: ".8rem",
     flexDirection: "column",
     padding: "1rem",
-    // "@media screen and (max-width: 600px)": {
+    // "@media screen and (max-width: 768px)": {
     //   width: "100%",
     //   flexDirection: "column-reverse",
     // },
@@ -304,7 +312,7 @@ export const style = {
     alignItems: "center",
     padding: "1rem",
     gap: "3rem",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       flexDirection: "column",
     },
   },
@@ -317,7 +325,7 @@ export const style = {
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       flexDirection: "row",
       width: "100%",
     },
@@ -328,7 +336,7 @@ export const style = {
     borderRadius: "10px",
     cursor: "pointer",
     border: isActive ? "2px solid black" : "1.5px solid transparent",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       width: "20%",
       height: "4rem",
     },
@@ -341,7 +349,7 @@ export const style = {
   middleImage: {
     width: "90%",
     height: "23rem",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       width: "100%",
       height: "18rem",
     },
@@ -352,6 +360,9 @@ export const style = {
     alignItems: "flex-start",
     justifyContent: "flex-start",
     flexDirection: "column",
+    "@media screen and (max-width: 768px)": {
+      gap: "1rem",
+    },
   },
   parentSizes: {
     width: "98%",
@@ -359,7 +370,7 @@ export const style = {
     gap: "2rem",
     alignItems: "center",
     justifyContent: "space-between",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       flexWrap: "wrap",
       gap: ".5rem",
     },
@@ -369,7 +380,7 @@ export const style = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 768px)": {
       flexWrap: "wrap",
       gap: ".5rem",
     },
@@ -386,6 +397,9 @@ export const style = {
     gap: "3rem",
     justifyContent: "space-between",
     alignItems: "center",
+    "@media screen and (max-width: 768px)": {
+      gap: "1.5rem",
+    },
   },
   sizes: {
     padding: ".2rem .8rem",
@@ -442,6 +456,9 @@ export const style = {
     display: "flex",
     flexDirection: "column",
     gap: "2rem",
+    "@media screen and (max-width: 768px)": {
+      gap: "1rem",
+    },
   },
   buttonContainer: {
     width: "90%",
@@ -485,8 +502,13 @@ export const style = {
     width: "10%",
     height: "4rem",
     cursor: "pointer",
-    "@media screen and (max-width: 768px)": {
-      width: "50%",
+    "@media screen and (max-width: 900px)": {
+      width: "25%",
+      height: "6rem",
+    },
+    "@media screen and (max-width: 600px)": {
+      width: "40%",
+      height: "4.5rem",
     },
   },
   cart4: {
@@ -607,6 +629,9 @@ export const style = {
   itemDescr: {
     fontSize: "0.95rem",
     fontWeight: "600",
+    "@media screen and (max-width: 600px)": {
+      fontSize: "0.8rem",
+    },
   },
   checkOut: {
     fontWeight: "600",
@@ -623,6 +648,9 @@ export const style = {
   subTotal: {
     fontSize: "0.8rem",
     fontWeight: "600",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "1rem",
+    },
   },
   emptyCartIcon: {
     width: "100%",

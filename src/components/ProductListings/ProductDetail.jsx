@@ -41,7 +41,7 @@ function ProductDetail() {
       0
     );
   };
-  //add the defaut image to the side images
+
   const handleModal = () => {
     setOpenModal(!openModal);
   };

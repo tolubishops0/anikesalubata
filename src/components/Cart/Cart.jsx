@@ -89,75 +89,85 @@ function Cart() {
           {cartItems.length > 0 ? (
             <Box sx={style.cartContainer}>
               <Box sx={style.productDetailContainerLeft}>
-                <Box>
-                  {cartItems.map((item, index) => (
-                    <Box key={index} sx={style.cartItem}>
-                      <Box sx={style.cart3}>
-                        <Box sx={style.cart4}>
-                          <Box
-                            sx={style.cartimg}
-                            onClick={() => goToDetail(item)}>
-                            <img
-                              src={item.img}
-                              alt="productimg"
-                              style={{ height: "100%", width: "100%" }}
-                            />
-                          </Box>
-                          <Box>
-                            {/* <Typography>{item.name}</Typography> */}
-                            <Typography sx={style.itemDescr}>
-                              {item.description}
-                            </Typography>
+                {cartItems.map((item, index) => (
+                  <Box key={index} sx={style.cartItem}>
+                    <Box sx={style.cart3}>
+                      <Box sx={style.cart4}>
+                        <Box
+                          sx={style.cartimg}
+                          onClick={() => goToDetail(item)}>
+                          <img
+                            src={item.img}
+                            alt="productimg"
+                            style={{ height: "100%", width: "100%" }}
+                          />
+                        </Box>
+                        <Box>
+                          <Typography sx={style.itemDescr}>
+                            {item.description}
+                          </Typography>
+                          {!isSmallScreen && (
                             <Typography sx={style.itemDescr}>
                               Size: {item.size} EU
                             </Typography>
-                          </Box>
+                          )}
+                          {isSmallScreen && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}>
+                              <Typography sx={style.itemDescr}>
+                                Size: {item.size} EU
+                              </Typography>
+                              <Typography sx={style.itemDescr}>
+                                {item.price}
+                              </Typography>
+                            </Box>
+                          )}
                         </Box>
-                        <Typography sx={style.itemDescr}>
-                          {item.price}
+                      </Box>
+                    </Box>
+                    <Box sx={style.cart10}>
+                      <Box
+                        sx={style.cart9}
+                        onClick={() => removeFromCart(item)}>
+                        <DeleteOutlineIcon />
+                        <Typography sx={style.itemDescr}>Remove</Typography>
+                      </Box>
+                      <Box sx={style.parentAdd}>
+                        <Typography
+                          sx={
+                            item.quantity === 1 && item.quantity !== undefined
+                              ? style.disable
+                              : style.add
+                          }
+                          onClick={() => {
+                            decrease(item);
+                            getItemCount(-1);
+                          }}>
+                          -
+                        </Typography>
+                        <Typography sx={style.addCount}>
+                          {item.quantity}
+                        </Typography>{" "}
+                        <Typography
+                          sx={style.add}
+                          onClick={() => {
+                            increase(item);
+                            getItemCount(+1);
+                          }}>
+                          +
                         </Typography>
                       </Box>
-                      <Box sx={style.cart10}>
-                        <Box
-                          sx={style.cart9}
-                          onClick={() => removeFromCart(item)}>
-                          <DeleteOutlineIcon />
-                          <Typography sx={style.itemDescr}>Remove</Typography>
-                        </Box>
-                        <Box sx={style.parentAdd}>
-                          <Typography
-                            sx={
-                              item.quantity === 1 && item.quantity !== undefined
-                                ? style.disable
-                                : style.add
-                            }
-                            onClick={() => {
-                              decrease(item);
-                              getItemCount(-1);
-                            }}>
-                            -
-                          </Typography>
-                          <Typography sx={style.addCount}>
-                            {item.quantity}
-                          </Typography>{" "}
-                          <Typography
-                            sx={style.add}
-                            onClick={() => {
-                              increase(item);
-                              getItemCount(+1);
-                            }}>
-                            +
-                          </Typography>
-                        </Box>
-                      </Box>
-                      {index !== item.length - 1 && (
-                        <Divider
-                          sx={{ background: "#ACACAC", margin: "0.5rem 0" }}
-                        />
-                      )}
                     </Box>
-                  ))}
-                </Box>
+                    {index !== item.length - 1 && (
+                      <Divider
+                        sx={{ background: "#ACACAC", margin: "0.5rem 0" }}
+                      />
+                    )}
+                  </Box>
+                ))}
               </Box>
               <Box sx={style.parentRigthContainer}>
                 <Box sx={style.rightContainer}>
@@ -181,9 +191,11 @@ function Cart() {
                     flexDirection: "column",
                     padding: "1rem",
                   }}>
-                  <Typography sx={style.subTotal}>Returns are easy</Typography>
                   <Typography sx={style.subTotal}>
-                    Free return within 7 days for ALL eligible items
+                    Delivery fess not include yet
+                  </Typography>
+                  <Typography sx={style.checkOut} onClick={() => clearCart()}>
+                    CLEAR CART
                   </Typography>
                 </Box>
                 <Box
@@ -196,11 +208,9 @@ function Cart() {
                     flexDirection: "column",
                     padding: "1rem",
                   }}>
+                  <Typography sx={style.subTotal}>Returns are easy</Typography>
                   <Typography sx={style.subTotal}>
-                    Delivery fess not include yet
-                  </Typography>
-                  <Typography sx={style.checkOut} onClick={() => clearCart()}>
-                    CLEAR CART
+                    Free return within 7 days for ALL eligible items
                   </Typography>
                 </Box>
               </Box>
