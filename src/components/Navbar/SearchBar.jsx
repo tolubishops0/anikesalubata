@@ -40,8 +40,9 @@ function SearchBar({ productList }) {
     boxShadow: "none",
     hoverBackgroundColor: "#f2f2f2",
     color: "#000",
-    fontSize: "14px",
-    fontFamily: "Helvetica, sans-serif",
+    fontSize: "0.8rem",
+    // fontFamily: "Helvetica, sans-serif",
+    fontStyle: "italic",
   };
 
   return (

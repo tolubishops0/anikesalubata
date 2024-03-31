@@ -2,11 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import { style } from "../Style";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "./FireBase/config";
 import Loader from "../Loader/Loader";
+import GoogleIcon from "@mui/icons-material/Google";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -36,7 +41,25 @@ function SignUp() {
         const errorMessage = error.message;
         toast.error("Error, please try again");
         // toast.error(errorMessage);
-         setIsLoading(false);
+        setIsLoading(false);
+      });
+  };
+
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        setIsLoading(false);
+        toast.success("login Succesful");
+        navigate("/");
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
       });
   };
 
@@ -44,33 +67,75 @@ function SignUp() {
     <React.Fragment>
       {isLoading && <Loader />}
       <ToastContainer />
-      <h1> sign up page</h1>
-      <form onSubmit={registerUser}>
-        <input
-          type="email"
-          placeholder="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          required
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <div>
-          <button type="submit">Sign up</button>
-        </div>
-      </form>
+      <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
+        <Box sx={style.authContainer}>
+          <Typography sx={style.pageHeader}>
+            {" "}
+            Welcome to Àníkẹ́ Sálúbàtà
+          </Typography>
+          <Typography sx={style.pageSubHeader}>
+            {" "}
+            Please enter your e-mail or phone number to log in or create a new
+            account.
+          </Typography>
+          <form onSubmit={registerUser} style={style.formContainer}>
+            <input
+              type="email"
+              placeholder="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-inputfield"
+            />
+            <input
+              type="password"
+              placeholder="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-inputfield"
+            />
+            <input
+              type="password"
+              placeholder="confirm password"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="auth-inputfield"
+            />
+            <button className="auth-inputfield-button" type="submit">
+              Sign up
+            </button>
+          </form>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}>
+            {" "}
+            <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
+              Already have an account?{" "}
+              <span style={{ color: "white", cursor: "pointer" }}>
+                Login In
+              </span>
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
+              <Box sx={{ px: 0.5, fontWeight: 600, color: "white" }}>OR</Box>
+              <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
+            </Box>
+            <Box onClick={signInWithGoogle} sx={style.buttonGoogleIcon}>
+              <GoogleIcon />
+              <Typography sx={style.goggleButon}>
+                {" "}
+                Continue with Google
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </React.Fragment>
   );
 }

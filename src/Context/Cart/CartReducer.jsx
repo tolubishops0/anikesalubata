@@ -5,7 +5,8 @@ import {
   DECREASE,
   CHECKOUT,
   CLEAR,
-  UPDATE_SEARCH_RESULTS
+  UPDATE_SEARCH_RESULTS,
+  AUTH_STATE,
 } from "./CartTypes";
 
 const saveToLocalStorage = (itemsCount, total, cartItems) => {
@@ -94,6 +95,16 @@ const CartReducer = (state, action) => {
       return {
         ...state,
         prodList: action.payload,
+      };
+
+    case AUTH_STATE:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          isLoggedIn: action.payload,
+          userDetails: action.payload,
+        },
       };
 
     default:

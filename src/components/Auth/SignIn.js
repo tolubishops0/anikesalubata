@@ -8,8 +8,8 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  GoogleAuthProvider,
 } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -57,11 +57,12 @@ function SignIn() {
         toast.error(error.message);
       });
   };
+
   const signOutWithGoogle = () => {
     signOut(auth)
       .then(() => {
         setIsLoading(false);
-        toast.success("log out Succesfull");
+        toast.success("logged out Succesfull");
         navigate("/");
       })
       .catch((error) => {
@@ -74,7 +75,7 @@ function SignIn() {
     <div>
       <ToastContainer />
       {isLoading && <Loader />}
-      <h1> sign in page</h1>
+      <Typography> Sign In</Typography>
       <form onSubmit={SignInUser}>
         <div>
           <p>email</p>

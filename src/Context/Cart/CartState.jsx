@@ -7,6 +7,10 @@ const CartState = ({ children }) => {
     cartItems: [],
     checkout: false,
     prodList: [],
+    auth: {
+      isLoggedIn: false,
+      userDetails: null,
+    },
   };
 
   const getFromLocalStorage = () => {
@@ -22,6 +26,10 @@ const CartState = ({ children }) => {
 
   const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
 
+  const auth = (payload) => {
+    dispatch({ type: "AUTH_STATE", payload });
+  };
+  
   const setProdList = (payload) => {
     dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
   };
@@ -62,6 +70,7 @@ const CartState = ({ children }) => {
         handleCheckout,
         clearCart,
         setProdList,
+        auth,
         ...state,
       }}>
       {children}
