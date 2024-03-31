@@ -177,7 +177,7 @@ function Cart() {
                   </Typography>
                   <Typography
                     sx={style.checkOut}
-                    onClick={() => navigate("/login")}>
+                    onClick={() => navigate("/signin")}>
                     CHECKOUT
                   </Typography>
                 </Box>
