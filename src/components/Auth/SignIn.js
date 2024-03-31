@@ -4,7 +4,12 @@ import { Box, Typography, Button } from "@mui/material";
 import { style } from "../Style";
 import Loader from "../Loader/Loader";
 import { auth } from "./FireBase/config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,7 +19,7 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const getUserSignIn = (e) => {
+  const SignInUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -24,14 +29,44 @@ function SignIn() {
         const user = userCredential.user;
         // ...
         setIsLoading(false);
-        toast.success("succes ");
+        toast.success("logged in successfully");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setIsLoading(false);
         toast.error("Error, please try again");
-        console.log(errorMessage)
+      });
+  };
+
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        setIsLoading(false);
+        toast.success("login Succesful");
+        navigate("/");
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
+      });
+  };
+  const signOutWithGoogle = () => {
+    signOut(auth)
+      .then(() => {
+        setIsLoading(false);
+        toast.success("log out Succesfull");
+        navigate("/");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
       });
   };
 
@@ -40,7 +75,7 @@ function SignIn() {
       <ToastContainer />
       {isLoading && <Loader />}
       <h1> sign in page</h1>
-      <form onSubmit={getUserSignIn}>
+      <form onSubmit={SignInUser}>
         <div>
           <p>email</p>
           <input
@@ -70,6 +105,13 @@ function SignIn() {
           <button onClick={() => navigate("/signup")}>Sign up</button>
         </div>
       </form>
+
+      <div>
+        <button onClick={signInWithGoogle}>Sign in with google</button>
+      </div>
+      <div>
+        <button onClick={signOutWithGoogle}>Sign out</button>
+      </div>
     </div>
   );
 }
