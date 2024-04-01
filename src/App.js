@@ -14,6 +14,7 @@ import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
 import ResetPassWord from "./components/Auth/ResetPassWord";
 import PageNotFound from "./components/PageNotFound";
+import Delivery from "./components/Delivery/Delivery";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset-password" element={<ResetPassWord />} />
+          <Route path="/user-details" element={<Delivery />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />

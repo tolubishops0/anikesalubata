@@ -12,9 +12,17 @@ function Cart() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const navigate = useNavigate();
-  const { cartItems, increase, decrease, removeFromCart, clearCart } =
-    useContext(CartContext);
+  const {
+    cartItems,
+    increase,
+    decrease,
+    removeFromCart,
+    clearCart,
+    authState,
+  } = useContext(CartContext);
   const { itemsCount, total } = sumItems(cartItems);
+  console.log(authState, "logged in from cart");
+  // console.log(userDetails, "details from cart");
 
   const goToDetail = (item) => {
     navigate(`/products/${item.name}/${item.shoeTypeId}`);

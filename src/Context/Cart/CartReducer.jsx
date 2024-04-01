@@ -100,9 +100,9 @@ const CartReducer = (state, action) => {
     case AUTH_STATE:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          isLoggedIn: action.payload,
+        authState: {
+          ...state.authState,
+          isLoggedIn: action.payload.uid ? true : false,
           userDetails: action.payload,
         },
       };

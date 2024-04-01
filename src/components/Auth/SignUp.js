@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "./FireBase/config";
 import Loader from "../Loader/Loader";
@@ -18,6 +19,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const registerUser = (e) => {
@@ -32,8 +34,12 @@ function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        updateProfile(user, { displayName: name });
+      })
+      .then((user) => {
+        console.log(user, "from signi");
         setIsLoading(false);
-        toast.success("Registeration Succesful");
+        toast.success("Registration Successful");
         navigate("/signin");
       })
       .catch((error) => {
@@ -78,7 +84,18 @@ function SignUp() {
             Please enter your e-mail or phone number to log in or create a new
             account.
           </Typography>
-          <form onSubmit={registerUser} style={style.formContainer}>
+          <form
+            onSubmit={registerUser}
+            style={style.formContainer}
+            type="submit">
+            <input
+              type="name"
+              placeholder="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="auth-inputfield"
+            />
             <input
               type="email"
               placeholder="email"
@@ -115,12 +132,6 @@ function SignUp() {
               gap: "1rem",
             }}>
             {" "}
-            <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
-              Already have an account?{" "}
-              <span style={{ color: "white", cursor: "pointer" }}>
-                Login In
-              </span>
-            </Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
               <Box sx={{ px: 0.5, fontWeight: 600, color: "white" }}>OR</Box>
@@ -133,6 +144,17 @@ function SignUp() {
                 Continue with Google
               </Typography>
             </Box>
+          </Box>
+
+          <Box sx={{ marginTop: "4rem" }}>
+            <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
+              Already have an account?{" "}
+              <span
+                onClick={() => navigate("/signin")}
+                style={{ color: "white", cursor: "pointer" }}>
+                Sign In
+              </span>
+            </Typography>
           </Box>
         </Box>
       </Box>

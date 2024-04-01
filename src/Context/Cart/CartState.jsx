@@ -7,7 +7,7 @@ const CartState = ({ children }) => {
     cartItems: [],
     checkout: false,
     prodList: [],
-    auth: {
+    authState: {
       isLoggedIn: false,
       userDetails: null,
     },
@@ -26,10 +26,10 @@ const CartState = ({ children }) => {
 
   const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
 
-  const auth = (payload) => {
+  const setAuthState = (payload) => {
     dispatch({ type: "AUTH_STATE", payload });
   };
-  
+
   const setProdList = (payload) => {
     dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
   };
@@ -70,7 +70,7 @@ const CartState = ({ children }) => {
         handleCheckout,
         clearCart,
         setProdList,
-        auth,
+        setAuthState,
         ...state,
       }}>
       {children}

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import { style } from "../Style";
 import Loader from "../Loader/Loader";
 import { auth } from "./FireBase/config";
+import GoogleIcon from "@mui/icons-material/Google";
+import CartContext from "../../Context/Cart/CartContext";
+
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -19,6 +22,8 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { setAuthState } = useContext(CartContext);
+
   const SignInUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -27,7 +32,13 @@ function SignIn() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // ...
+        const userDetails = {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          uid: user.uid,
+        };
+        // setAuthState(userDetails);
         setIsLoading(false);
         toast.success("logged in successfully");
         navigate("/");
@@ -36,7 +47,7 @@ function SignIn() {
         const errorCode = error.code;
         const errorMessage = error.message;
         setIsLoading(false);
-        toast.error("Error, please try again");
+        toast.error(errorMessage);
       });
   };
 
@@ -72,48 +83,92 @@ function SignIn() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <ToastContainer />
       {isLoading && <Loader />}
-      <Typography> Sign In</Typography>
-      <form onSubmit={SignInUser}>
-        <div>
-          <p>email</p>
-          <input
-            placeholder="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <p>password</p>
-          <input
-            placeholder="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="name"
-          />
-        </div>
-        <button type="submit">Sign in</button>
-        <div>
-          <button onClick={() => navigate("/reset-password")}>
-            forgot password?
-          </button>
-        </div>
-        <div>
-          <button onClick={() => navigate("/signup")}>Sign up</button>
-        </div>
-      </form>
-
-      <div>
-        <button onClick={signInWithGoogle}>Sign in with google</button>
-      </div>
-      <div>
-        <button onClick={signOutWithGoogle}>Sign out</button>
-      </div>
-    </div>
+      <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
+        <Box sx={style.authContainer}>
+          <Typography sx={style.pageHeader}>Sign In</Typography>
+          <form onSubmit={SignInUser} style={style.formContainer}>
+            <input
+              type="email"
+              placeholder="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-inputfield"
+            />
+            <input
+              placeholder="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="name"
+              className="auth-inputfield"
+            />
+            <button className="auth-inputfield-button" type="submit">
+              Sign in
+            </button>
+          </form>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}>
+            {/* <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                boxSizing: "border-box",
+              }}> */}
+            <Typography
+              onClick={() => navigate("/reset-password")}
+              sx={{ ...style.goggleButon, textAlign: "right" }}>
+              <span style={{ color: "white", cursor: "pointer" }}>
+                Forgot Password?
+              </span>
+            </Typography>
+            {/* <Typography
+                onClick={() => navigate("/signup")}
+                sx={{ ...style.goggleButon, textAlign: "center" }}>
+                <span style={{ color: "white", cursor: "pointer" }}>
+                  Sign Up
+                </span>
+              </Typography> */}
+            {/* </Box> */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
+              <Box sx={{ px: 0.5, fontWeight: 600, color: "white" }}>OR</Box>
+              <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
+            </Box>
+            <Box onClick={signInWithGoogle} sx={style.buttonGoogleIcon}>
+              <GoogleIcon />
+              <Typography sx={style.goggleButon}>
+                {" "}
+                Continue with Google
+              </Typography>
+            </Box>
+          </Box>
+          <Box sx={{ marginTop: "4rem" }}>
+            <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
+              Don't have an account?{" "}
+              <span
+                onClick={() => navigate("/signup")}
+                style={{ color: "white", cursor: "pointer" }}>
+                Sign Up
+              </span>
+            </Typography>
+          </Box>
+          <div>
+            <button onClick={signOutWithGoogle}>Sign out</button>
+          </div>
+        </Box>
+      </Box>
+    </React.Fragment>
   );
 }
 

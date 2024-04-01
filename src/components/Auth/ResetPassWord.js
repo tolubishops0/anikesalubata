@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { style } from "../Style";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "./FireBase/config";
+import Loader from "../Loader/Loader";
 
 function ResetPassWord() {
   const navigate = useNavigate();
@@ -31,32 +32,41 @@ function ResetPassWord() {
       });
   };
   return (
-    <div>
-      {isLoading && <ToastContainer />}
-      <h1> reset passowrd page</h1>
-
-      <form onSubmit={resetPassword} type="submit">
-        <div>
-          <p>password</p>
-          <input
-            value={email}
-            type="email"
-            placeholder="enter email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <div>
-            <button
-            // onClick={() => navigate("/signup")}
-            >
+    <React.Fragment>
+      {" "}
+      {isLoading && <Loader />}
+      <ToastContainer />
+      <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
+        <Box sx={style.authContainer}>
+          <Typography sx={style.pageHeader}> Reset Your Password</Typography>
+          <form
+            onSubmit={resetPassword}
+            type="submit"
+            style={style.formContainer}>
+            <input
+              value={email}
+              type="email"
+              placeholder="enter email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-inputfield"
+            />
+            <button className="auth-inputfield-button" type="submit">
               Reset Password
             </button>
-          </div>
-          <button onClick={() => navigate("/signin")}>Login</button>
-        </div>
-      </form>
-    </div>
+          </form>
+          <Box sx={{ marginTop: "4rem" }}>
+            <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
+              Remember your password?{" "}
+              <span
+                onClick={() => navigate("/signin")}
+                style={{ color: "white", cursor: "pointer" }}>
+                Sign In
+              </span>
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </React.Fragment>
   );
 }
 
