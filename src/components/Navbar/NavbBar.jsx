@@ -20,24 +20,28 @@ function NavbBar() {
   const { cartItems, setAuthState, authState } = useContext(CartContext);
   const { itemsCount } = sumItems(cartItems);
 
+  const { userDetails, storedUsertems } = authState || {};
+
+  // console.log(storedUsertems, 'storedUsertems');
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        const storedCartItems = localStorage.getItem(`cartItems`);
         const userDetails = {
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
           uid: user.uid,
+          storedCartItems,
         };
-        setUser(authState?.userDetails);
         setAuthState(userDetails);
+        setUser(authState);
       } else {
         setUser("");
       }
     });
-    // }
   }, []);
-
 
   return (
     <Box sx={style.navParentContainer}>
@@ -57,11 +61,11 @@ function NavbBar() {
                 <Typography sx={style.prodCount}>{itemsCount}</Typography>
               )}
             </Box>
-            {user?.uid && (
+            {userDetails?.uid && (
               <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography>Hi, {user?.name}</Typography>
-                {user.photo ? (
-                  <img src={user?.photoURL} />
+                <Typography>Hi, {userDetails?.name}</Typography>
+                {userDetails.photo ? (
+                  <img src={userDetails?.photoURL} />
                 ) : (
                   <AccountCircleIcon />
                 )}

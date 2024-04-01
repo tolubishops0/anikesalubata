@@ -77,6 +77,22 @@ const CartReducer = (state, action) => {
         ...sumItems(decreasedCartItems),
         cartItems: decreasedCartItems,
       };
+    case AUTH_STATE:
+      const isUserLoggedIn = action.payload?.uid ? true : false;
+      const userDetails = action.payload;
+      const storedUsertems = action.payload.storedCartItems;
+      localStorage.setItem("isUserLoggedIn", JSON.stringify(isUserLoggedIn));
+      localStorage.setItem("userDetails", JSON.stringify(userDetails));
+      localStorage.setItem("storedUsertems", JSON.stringify(storedUsertems));
+      return {
+        ...state,
+        authState: {
+          ...state.authState,
+          isLoggedIn: isUserLoggedIn,
+          userDetails: userDetails,
+          storedUsertems: storedUsertems,
+        },
+      };
     case CHECKOUT:
       saveToLocalStorage([]);
       return {
@@ -95,16 +111,6 @@ const CartReducer = (state, action) => {
       return {
         ...state,
         prodList: action.payload,
-      };
-
-    case AUTH_STATE:
-      return {
-        ...state,
-        authState: {
-          ...state.authState,
-          isLoggedIn: action.payload.uid ? true : false,
-          userDetails: action.payload,
-        },
       };
 
     default:

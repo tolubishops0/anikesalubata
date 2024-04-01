@@ -22,7 +22,9 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { setAuthState } = useContext(CartContext);
+  const { authState, cartItems, setAuthState } = useContext(CartContext);
+  // console.log(authState, "authState");
+  // console.log(cartItems, "cartItems");
 
   const SignInUser = (e) => {
     e.preventDefault();
@@ -38,10 +40,16 @@ function SignIn() {
           photo: user.photoURL,
           uid: user.uid,
         };
+
         // setAuthState(userDetails);
+      ;
         setIsLoading(false);
         toast.success("logged in successfully");
-        navigate("/");
+        if (cartItems.length > 0) {
+          navigate("/user-details");
+        } else {
+          navigate("/");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -75,6 +83,8 @@ function SignIn() {
         setIsLoading(false);
         toast.success("logged out Succesfull");
         navigate("/");
+        const userDetails = null;
+        setAuthState(userDetails);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -117,14 +127,6 @@ function SignIn() {
               flexDirection: "column",
               gap: "1rem",
             }}>
-            {/* <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                boxSizing: "border-box",
-              }}> */}
             <Typography
               onClick={() => navigate("/reset-password")}
               sx={{ ...style.goggleButon, textAlign: "right" }}>
@@ -132,14 +134,7 @@ function SignIn() {
                 Forgot Password?
               </span>
             </Typography>
-            {/* <Typography
-                onClick={() => navigate("/signup")}
-                sx={{ ...style.goggleButon, textAlign: "center" }}>
-                <span style={{ color: "white", cursor: "pointer" }}>
-                  Sign Up
-                </span>
-              </Typography> */}
-            {/* </Box> */}
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
               <Box sx={{ px: 0.5, fontWeight: 600, color: "white" }}>OR</Box>

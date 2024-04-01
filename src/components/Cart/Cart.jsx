@@ -18,11 +18,12 @@ function Cart() {
     decrease,
     removeFromCart,
     clearCart,
-    authState,
+    storedUsertems,
   } = useContext(CartContext);
   const { itemsCount, total } = sumItems(cartItems);
-  console.log(authState, "logged in from cart");
-  // console.log(userDetails, "details from cart");
+  // console.log(authState, "logged in from cart");
+  const itemsInCart = storedUsertems || cartItems;
+  console.log(itemsInCart, "items in cart");
 
   const goToDetail = (item) => {
     navigate(`/products/${item.name}/${item.shoeTypeId}`);
@@ -185,7 +186,14 @@ function Cart() {
                   </Typography>
                   <Typography
                     sx={style.checkOut}
-                    onClick={() => navigate("/signin")}>
+                    onClick={() =>
+                      navigate(
+                        // authState?.userDetails !== null
+                        //   ? "/user-details"
+                        //   :
+                        "/signin"
+                      )
+                    }>
                     CHECKOUT
                   </Typography>
                 </Box>
