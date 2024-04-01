@@ -19,6 +19,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber, setPhone] = useState();
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +32,7 @@ function SignUp() {
     }
     setIsLoading(true);
     // import createUserWithEmailAndPassword and auth from firebabse
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password, phoneNumber)
       .then((userCredential) => {
         const user = userCredential.user;
         updateProfile(user, { displayName: name });
@@ -112,12 +113,21 @@ function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
               className="auth-inputfield"
             />
+
             <input
               type="password"
               placeholder="confirm password"
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              className="auth-inputfield"
+            />
+            <input
+              type="text"
+              placeholder="phone"
+              required
+              value={phoneNumber}
+              onChange={(e) => setPhone(e.target.value)}
               className="auth-inputfield"
             />
             <button className="auth-inputfield-button" type="submit">

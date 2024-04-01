@@ -11,6 +11,7 @@ const CartState = ({ children }) => {
       isLoggedIn: false,
       userDetails: null,
       storedUsertems: [],
+      totalCost: null
     },
   };
 
@@ -21,7 +22,7 @@ const CartState = ({ children }) => {
   };
   const getLoggedUserDetailsFromLocalStorage = () => {
     const storedCartItemsForeLoggedInUser =
-      localStorage.getItem("storedUsertems");
+      localStorage.getItem("userDataAndCart");
 
     return storedCartItemsForeLoggedInUser
       ? JSON.parse(storedCartItemsForeLoggedInUser)
@@ -31,13 +32,16 @@ const CartState = ({ children }) => {
   const mergedInitialState = {
     ...initialState,
     cartItems: getFromLocalStorage(),
-    storedUsertems: getLoggedUserDetailsFromLocalStorage(),
+    authState: getLoggedUserDetailsFromLocalStorage(),
   };
 
   const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
 
-  const setAuthState = (payload) => {
-    dispatch({ type: "AUTH_STATE", payload });
+  const setAuthState = (userDetails, storedCartItems, totalCost) => {
+    dispatch({
+      type: "AUTH_STATE",
+      payload: { storedCartItems, userDetails, totalCost },
+    });
   };
 
   const setProdList = (payload) => {

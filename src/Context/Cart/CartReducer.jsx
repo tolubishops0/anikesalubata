@@ -7,6 +7,7 @@ import {
   CLEAR,
   UPDATE_SEARCH_RESULTS,
   AUTH_STATE,
+  GLOBAL_USER_STATE,
 } from "./CartTypes";
 
 const saveToLocalStorage = (itemsCount, total, cartItems) => {
@@ -78,19 +79,21 @@ const CartReducer = (state, action) => {
         cartItems: decreasedCartItems,
       };
     case AUTH_STATE:
-      const isUserLoggedIn = action.payload?.uid ? true : false;
-      const userDetails = action.payload;
-      const storedUsertems = action.payload.storedCartItems;
-      localStorage.setItem("isUserLoggedIn", JSON.stringify(isUserLoggedIn));
-      localStorage.setItem("userDetails", JSON.stringify(userDetails));
-      localStorage.setItem("storedUsertems", JSON.stringify(storedUsertems));
+      const { userDetails, storedCartItems, totalCost } = action.payload;
+      const userDataAndCart = {
+        isUserLoggedIn: userDetails?.uid ? true : false,
+        userDetails: userDetails,
+        storedUsertems: storedCartItems,
+        totalCost,
+      };
+      localStorage.setItem("userDataAndCart", JSON.stringify(userDataAndCart));
       return {
         ...state,
         authState: {
           ...state.authState,
-          isLoggedIn: isUserLoggedIn,
+          isLoggedIn: userDetails?.uid ? true : false,
           userDetails: userDetails,
-          storedUsertems: storedUsertems,
+          storedUsertems: storedCartItems,
         },
       };
     case CHECKOUT:

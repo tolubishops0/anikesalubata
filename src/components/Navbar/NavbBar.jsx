@@ -20,25 +20,27 @@ function NavbBar() {
   const { cartItems, setAuthState, authState } = useContext(CartContext);
   const { itemsCount } = sumItems(cartItems);
 
-  const { userDetails, storedUsertems } = authState || {};
+  const { userDetails } = authState || {};
 
-  // console.log(storedUsertems, 'storedUsertems');
+  // console.log(userDetails, ' nav');
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log(user)
         const storedCartItems = localStorage.getItem(`cartItems`);
+        const totalCost = localStorage.getItem(`total`);
         const userDetails = {
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
           uid: user.uid,
-          storedCartItems,
         };
-        setAuthState(userDetails);
+        setAuthState(userDetails, storedCartItems, totalCost);
         setUser(authState);
       } else {
         setUser("");
+        setAuthState();
       }
     });
   }, []);
