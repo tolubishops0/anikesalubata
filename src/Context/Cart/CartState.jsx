@@ -8,7 +8,7 @@ const CartState = ({ children }) => {
     checkout: false,
     prodList: [],
     authState: {
-      isLoggedIn: false,
+      isUserLoggedIn: false,
       userDetails: null,
       storedUsertems: [],
       totalCost: null

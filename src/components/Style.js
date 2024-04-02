@@ -666,7 +666,7 @@ export const style = {
     },
   },
   emptyCartIcon: {
-    width: "100%",
+    width: "90%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

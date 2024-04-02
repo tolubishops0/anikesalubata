@@ -91,7 +91,7 @@ const CartReducer = (state, action) => {
         ...state,
         authState: {
           ...state.authState,
-          isLoggedIn: userDetails?.uid ? true : false,
+          isUserLoggedIn: userDetails?.uid ? true : false,
           userDetails: userDetails,
           storedUsertems: storedCartItems,
         },

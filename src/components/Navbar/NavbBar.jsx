@@ -27,7 +27,7 @@ function NavbBar() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user)
+        // console.log(user)
         const storedCartItems = localStorage.getItem(`cartItems`);
         const totalCost = localStorage.getItem(`total`);
         const userDetails = {

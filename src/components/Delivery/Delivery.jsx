@@ -7,10 +7,9 @@ import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
 
 function Delivery() {
+  const navigate = useNavigate();
   const { authState } = useContext(CartContext);
   const { userDetails } = authState || {};
-
-  console.log(userDetails);
 
   const [name] = useState(userDetails?.name);
   const [email] = useState(userDetails?.email);
@@ -21,32 +20,48 @@ function Delivery() {
   const [city, setCity] = useState("");
   const [zipcode, setZipCode] = useState("");
 
-  const [countries, setCountries] = useState([]);
+  // const [countries, setCountries] = useState([]);
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
-        if (!response.ok) {
-          throw new Error("Failed to fetch countries");
-        }
-        const data = await response.json();
-        setCountries(data);
-        // console.log(data, "cuntries");
-      } catch (error) {
-        console.error("Error fetching countries:", error.message);
-      }
+  // useEffect(() => {
+  //   const fetchCountries = async () => {
+  //     try {
+  //       const response = await fetch("https://restcountries.com/v3.1/all");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch countries");
+  //       }
+  //       const data = await response.json();
+  //       setCountries(data);
+  //       // console.log(data, "cuntries");
+  //     } catch (error) {
+  //       console.error("Error fetching countries:", error.message);
+  //     }
+  //   };
+
+  //   // Call the function
+  //   fetchCountries();
+  // }, []);
+
+  const getAddressDetails = () => {
+    const address = {
+      name: name,
+      email: email,
+      phone: phone,
+      street: street,
+      country: country,
+      state: state,
+      street: street,
+      city: city,
+      zipcode: zipcode,
     };
+    // console.log(address);
+    if (address) {
+      navigate("/payments");
+    }
 
-    // Call the function
-    fetchCountries();
-  }, []);
+    console.log(address.name);
+  };
 
   const countriesList = [
-    {
-      name: "select your country",
-      id: "",
-    },
     {
       name: "Nigeria",
       id: "Nigeria",
@@ -67,7 +82,7 @@ function Delivery() {
         <Box sx={style.authContainer}>
           <Typography sx={style.pageHeader}> Delivery Details</Typography>
           <form
-            // onSubmit={registerUser}
+            onSubmit={getAddressDetails}
             style={style.formContainer}
             type="submit">
             <input
@@ -77,6 +92,7 @@ function Delivery() {
               value={name}
               // onChange={(e) => setName(e.target.value)}
               className="auth-inputfield"
+              disabled
             />
             <input
               type="email"
@@ -85,9 +101,10 @@ function Delivery() {
               value={email}
               // onChange={(e) => setEmail(e.target.value)}
               className="auth-inputfield"
+              disabled
             />
             <input
-              type="email"
+              type="number"
               placeholder="phonenumber"
               required
               value={phone}
@@ -102,15 +119,6 @@ function Delivery() {
               onChange={(e) => setStreet(e.target.value)}
               className="auth-inputfield"
             />
-
-            <select className="auth-inputfield" placeholder="phonenumber">
-              {countriesList.map((item, index) => (
-                <option onSelect={() => setCountry(item)} key={index}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-
             <input
               type="text"
               placeholder="state"
@@ -119,6 +127,15 @@ function Delivery() {
               onChange={(e) => setState(e.target.value)}
               className="auth-inputfield"
             />
+            <select
+              onChange={(e) => setCountry(e.target.value)}
+              className="auth-inputfield"
+              placeholder="country">
+              <option value="">Select your country</option>
+              {countriesList.map((item, index) => (
+                <option key={index}>{item.name}</option>
+              ))}
+            </select>
             <div className="auth-zipcodeinputfild">
               <input
                 type="text"
