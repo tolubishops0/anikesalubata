@@ -5,12 +5,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { Box, Typography, Divider } from "@mui/material";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
+import card from "../../Asset/cardpaymenticon.png";
 
 function Payment() {
   const navigate = useNavigate();
   const { authState } = useContext(CartContext);
-  const { userDetails } = authState || {};
+  const { userDetails, totalCost } = authState || {};
 
+  const [isChecked, setIsChecked] = useState(false);
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expMonth, setExpMonth] = useState("");
@@ -31,12 +33,55 @@ function Payment() {
     }
   };
 
+  const toggleSwitch = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <div>
       <Box>
         <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
-          <Box sx={style.authContainer}>
-            <Typography sx={style.pageHeader}> Delivery Details</Typography>
+          <Box
+            sx={{
+              textAlign: "right",
+              width: "90%",
+              margin: "0 auto",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+            <Box
+              sx={{
+                width: "3rem",
+                borderRadius: "50%",
+                background: "white",
+                padding: ".5rem",
+                "@media screen and (max-width:768px)": {
+                  padding: ".3rem",
+                  width: "2rem",
+                  height: "2rem",
+                },
+              }}>
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={card}
+                alt="card-pay"
+              />
+            </Box>
+
+            <div>
+              {" "}
+              <Typography sx={style.pageHeader}>
+                {" "}
+                {parseFloat(totalCost.replace("$", ""))}
+              </Typography>
+              <Typography sx={style.pageSubHeader}>
+                {userDetails.email}
+              </Typography>
+            </div>
+          </Box>
+          <Box sx={{ ...style.authContainer, marginTop: "2rem" }}>
+            <Typography sx={style.pageHeader}> Payment Details</Typography>
             <form
               onSubmit={getPaymentDetails}
               style={style.formContainer}
@@ -49,6 +94,7 @@ function Payment() {
                 onChange={(e) => setCardName(e.target.value)}
                 className="auth-inputfield"
               />
+
               <input
                 type="number"
                 placeholder="card number"
@@ -83,6 +129,33 @@ function Payment() {
                   className="auth-inputfieldzippayment"
                 />
               </div>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  gap: "1rem",
+                  marginRight: "auto",
+                }}>
+                <Typography sx={style.pageHeader}>
+                  Remember this card
+                </Typography>
+                <div className="switch-container">
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={toggleSwitch}
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                  <span className="switch-label">{isChecked}</span>
+                </div>
+                {/* <div>
+                <p>remember this card nex time</p> */}
+
+                {/* </div> */}
+              </Box>
               <button className="auth-inputfield-button" type="submit">
                 Complete order
               </button>

@@ -89,7 +89,6 @@
   color: #000;
   font-size: 0.8rem;
   padding-left: 0.5rem;
-  
 }
 .auth-inputfieldzippayment {
   width: 32%;
@@ -101,7 +100,6 @@
   color: #000;
   font-size: 0.8rem;
   padding-left: 0.5rem;
-  
 }
 .auth-inputfield-button {
   width: 100%;
@@ -136,4 +134,73 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3.5rem;
+  height: 1.3rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: blue;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 3rem;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  left: -0.2rem;
+  bottom: 0;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: black;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(2.5rem);
+  -ms-transform: translateX(2.5rem);
+  transform: translateX(2.5rem);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch-label {
+  margin-left: 10px;
 }
