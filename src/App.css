@@ -139,10 +139,10 @@
 
 /* .remeberCard {
   /* background-color: black; */
-/* } */ 
+/* } */
 
 input[type="checkbox"] {
-  background-color: red;
+  accent-color: black;
 }
 .switch-container {
   display: flex;
