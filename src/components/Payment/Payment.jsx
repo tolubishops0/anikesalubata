@@ -10,31 +10,70 @@ import card from "../../Asset/cardpaymenticon.png";
 function Payment() {
   const navigate = useNavigate();
   const { authState } = useContext(CartContext);
+
   const { userDetails, totalCost } = authState || {};
 
-  const [isChecked, setIsChecked] = useState(false);
-  const [cardName, setCardName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expMonth, setExpMonth] = useState("");
-  const [expYear, setExpYear] = useState("");
-  const [cvv, setCvv] = useState("");
-
   const getPaymentDetails = () => {
-    const cardDetails = {
-      cardName: cardName,
-      cardNumber: cardNumber,
-      expMonth: expMonth,
-      expYear: expYear,
-      cvv: cvv,
-    };
-    // console.log(address);
-    if (cardDetails) {
-      //   navigate("/payments");
-    }
+    // const cardDetails = {
+    //   cardName: cardName,
+    //   cardNumber: cardNumber,
+    //   cardExp: cardExp,
+    //   cvv: cvv,
+    // };
+    // if (cardDetails) {
+    // }
   };
+
+  const [isChecked, setIsChecked] = useState(false);
+  const [cardType, setCardType] = useState("");
+  const [cardState, setCardState] = useState({
+    name: "",
+    number: "",
+    exp: "",
+    cvv: "",
+  });
 
   const toggleSwitch = () => {
     setIsChecked(!isChecked);
+  };
+
+  const getCardType = (number) => {
+    const num = number.toString();
+    const visaPattern = /^4/;
+    const amexPattern = /^3[47]/;
+    const masterCardPattern = /^5[1-5]/;
+
+    if (visaPattern.test(num)) {
+      return "visa";
+    } else if (masterCardPattern.test(num)) {
+      return "mastercard";
+    } else if (amexPattern.test(num)) {
+      return "amex";
+    } else {
+      return "";
+    }
+  };
+
+  const handleCardInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "number") {
+      let formattedValue = formatCardNumber(value);
+      let cardType = getCardType(formattedValue);
+      setCardType(cardType);
+      setCardState((prevState) => ({ ...prevState, [name]: formattedValue }));
+    } else {
+      setCardState((prevState) => ({ ...prevState, [name]: value }));
+    }
+  };
+
+  const formatCardNumber = (number) => {
+    const numberWithoutSpaces = number.replace(/\s+/g, "");
+    const formattedNumber = numberWithoutSpaces
+      .replace(/(\d{4})/g, "$1 ")
+      .trim();
+    console.log(formattedNumber, "formattedNumber");
+
+    return formattedNumber;
   };
 
   return (
@@ -71,17 +110,17 @@ function Payment() {
 
             <div>
               {" "}
-              <Typography sx={style.pageHeader}>
-                {" "}
-                {parseFloat(totalCost.replace("$", ""))}
-              </Typography>
+              <Typography sx={style.pageHeader}> {`$${totalCost}`}</Typography>
               <Typography sx={style.pageSubHeader}>
                 {userDetails.email}
               </Typography>
             </div>
           </Box>
+          <Typography sx={{ ...style.pageHeader, textAlign: "center" }}>
+            {" "}
+            {`Payment Details ${cardType}`}
+          </Typography>
           <Box sx={{ ...style.authContainer, marginTop: "2rem" }}>
-            <Typography sx={style.pageHeader}> Payment Details</Typography>
             <form
               onSubmit={getPaymentDetails}
               style={style.formContainer}
@@ -90,72 +129,64 @@ function Payment() {
                 type="text"
                 placeholder="card name"
                 required
-                value={cardName}
-                onChange={(e) => setCardName(e.target.value)}
+                name="name"
+                value={cardState.name}
+                onChange={handleCardInputChange}
                 className="auth-inputfield"
               />
-
               <input
-                type="number"
+                type="text"
                 placeholder="card number"
                 required
-                value={cardNumber}
-                onChange={(e) => setCardNumber(e.target.value)}
+                name="number"
+                maxLength={16}
+                value={cardState.number}
                 className="auth-inputfield"
+                onChange={handleCardInputChange}
               />
               <div className="auth-zipcodeinputfild">
                 <input
                   type="text"
-                  placeholder="expYear"
+                  placeholder="Valid Through"
                   required
-                  value={expYear}
-                  onChange={(e) => setExpYear(e.target.value)}
-                  className="auth-inputfieldzippayment"
-                />
-                <input
-                  type="number"
-                  placeholder="expitation month"
-                  required
-                  value={expMonth}
-                  onChange={(e) => setExpMonth(e.target.value)}
+                  name="expiry"
+                  value={cardState.exp}
+                  onChange={handleCardInputChange}
                   className="auth-inputfieldzippayment"
                 />
                 <input
                   type="text"
                   placeholder="cvv"
                   required
-                  value={cvv}
-                  onChange={(e) => setCvv(e.target.value)}
+                  maxlength="3"
+                  name="cvc"
+                  value={cardState.cvv}
+                  onChange={handleCardInputChange}
                   className="auth-inputfieldzippayment"
                 />
               </div>
-              <Box
-                sx={{
+              <div
+                style={{
                   display: "flex",
-                  justifyContent: "flex-end",
+                  justifyContent: "right",
                   alignItems: "center",
-                  gap: "1rem",
-                  marginRight: "auto",
+                  gap: ".5rem",
                 }}>
-                <Typography sx={style.pageHeader}>
-                  Remember this card
+                <Typography sx={style.pageSubHeader}>
+                  Remember Card next time
                 </Typography>
-                <div className="switch-container">
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={toggleSwitch}
-                    />
-                    <span className="slider round"></span>
-                  </label>
-                  <span className="switch-label">{isChecked}</span>
-                </div>
-                {/* <div>
-                <p>remember this card nex time</p> */}
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={toggleSwitch}
+                  style={{
+                    // Apply custom styles to the checkbox
+                    background: isChecked ? "black" : "transparent",
+                  }}
+                />
+                <span class="remeberCard"></span>
+              </div>
 
-                {/* </div> */}
-              </Box>
               <button className="auth-inputfield-button" type="submit">
                 Complete order
               </button>

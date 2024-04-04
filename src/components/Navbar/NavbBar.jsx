@@ -28,15 +28,15 @@ function NavbBar() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // console.log(user)
-        const storedCartItems = localStorage.getItem(`cartItems`);
-        const totalCost = localStorage.getItem(`total`);
+        const storedCartItems = JSON.parse(localStorage.getItem(`cartItems`));
+        const totalCost = JSON.parse(localStorage.getItem(`total`));
         const userDetails = {
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
           uid: user.uid,
         };
-        setAuthState(userDetails, storedCartItems, totalCost);
+        setAuthState(userDetails, storedCartItems);
         setUser(authState);
       } else {
         setUser("");

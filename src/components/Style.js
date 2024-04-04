@@ -694,11 +694,11 @@ export const style = {
     cursor: "pointer",
   },
   authContainer: {
-    width: "45%",
+    width: "50%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "column",
+    // flexDirection: "column",
     margin: "0 auto",
     gap: "1rem",
     "@media screen and (max-width: 768px)": {
@@ -706,7 +706,7 @@ export const style = {
     },
   },
   formContainer: {
-    width: "100%",
+    width: "90%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

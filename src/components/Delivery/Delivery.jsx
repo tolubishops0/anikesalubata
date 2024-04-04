@@ -57,8 +57,6 @@ function Delivery() {
     if (address) {
       navigate("/payments");
     }
-
-    console.log(address.name);
   };
 
   const countriesList = [

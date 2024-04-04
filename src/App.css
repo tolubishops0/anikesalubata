@@ -80,7 +80,7 @@
 }
 
 .auth-inputfieldzipcdp {
-  width: 45%;
+  width: 50%;
   height: 3rem;
   border: 1px solid #000;
   border-radius: 5px;
@@ -91,7 +91,7 @@
   padding-left: 0.5rem;
 }
 .auth-inputfieldzippayment {
-  width: 32%;
+  width: 45%;
   height: 3rem;
   border: 1px solid #000;
   border-radius: 5px;
@@ -134,13 +134,20 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  background: "red";
 }
 
+/* .remeberCard {
+  /* background-color: black; */
+/* } */ 
+
+input[type="checkbox"] {
+  background-color: red;
+}
 .switch-container {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
 }
 
 .switch {

@@ -24,8 +24,6 @@ function Cart() {
 
   const { isUserLoggedIn } = authState || {};
 
-  console.log(isUserLoggedIn, "authState from cart");
-
   const goToDetail = (item) => {
     navigate(`/products/${item.name}/${item.shoeTypeId}`);
   };

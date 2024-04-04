@@ -79,21 +79,22 @@ const CartReducer = (state, action) => {
         cartItems: decreasedCartItems,
       };
     case AUTH_STATE:
-      const { userDetails, storedCartItems, totalCost } = action.payload;
+      const { userDetails, storedCartItems } = action.payload;
       const userDataAndCart = {
         isUserLoggedIn: userDetails?.uid ? true : false,
-        userDetails: userDetails,
-        storedUsertems: storedCartItems,
-        totalCost,
+        userDetails,
+        storedCartItems,
+        totalCost: storedCartItems?.reduce(
+          (total, item) =>
+            total + parseFloat(item.price?.replace("$", "")) * item.quantity,
+          0
+        ),
       };
       localStorage.setItem("userDataAndCart", JSON.stringify(userDataAndCart));
       return {
         ...state,
         authState: {
-          ...state.authState,
-          isUserLoggedIn: userDetails?.uid ? true : false,
-          userDetails: userDetails,
-          storedUsertems: storedCartItems,
+          ...userDataAndCart,
         },
       };
     case CHECKOUT:
