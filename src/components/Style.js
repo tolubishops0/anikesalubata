@@ -698,7 +698,7 @@ export const style = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // flexDirection: "column",
+    flexDirection: "column",
     margin: "0 auto",
     gap: "1rem",
     "@media screen and (max-width: 768px)": {
@@ -706,7 +706,7 @@ export const style = {
     },
   },
   formContainer: {
-    width: "90%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -733,5 +733,26 @@ export const style = {
   goggleButon: {
     fontSize: "0.8rem",
     fontWeight: "600",
+  },
+  payinptu: {
+    width: "100%",
+    border: "1px black thin",
+    borderRadius: "5px",
+    backgroundColor: "white",
+    boxShadow: "none",
+    // height: "3rem",
+  },
+  inputContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    gap: "0.8rem",
+  },
+
+  error: {
+    color: "red",
+    fontSize: "0.8rem",
   },
 };

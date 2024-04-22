@@ -169,7 +169,7 @@ function Cart() {
                         </Typography>
                       </Box>
                     </Box>
-                    {index !== item.length - 1 && (
+                    {index !== cartItems.length - 1 && (
                       <Divider
                         sx={{ background: "#ACACAC", margin: "0.5rem 0" }}
                       />

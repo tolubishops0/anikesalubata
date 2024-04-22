@@ -5,58 +5,28 @@ import "react-toastify/dist/ReactToastify.css";
 import { Box, Typography, Divider } from "@mui/material";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { deliverySchema } from "../FormValidation/FormValidation";
+import { useForm } from "react-hook-form";
 
 function Delivery() {
   const navigate = useNavigate();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(deliverySchema),
+  });
   const { authState } = useContext(CartContext);
   const { userDetails } = authState || {};
 
   const [name] = useState(userDetails?.name);
   const [email] = useState(userDetails?.email);
-  const [phone, setPhone] = useState("");
-  const [street, setStreet] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [zipcode, setZipCode] = useState("");
-
-  // const [countries, setCountries] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchCountries = async () => {
-  //     try {
-  //       const response = await fetch("https://restcountries.com/v3.1/all");
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch countries");
-  //       }
-  //       const data = await response.json();
-  //       setCountries(data);
-  //       // console.log(data, "cuntries");
-  //     } catch (error) {
-  //       console.error("Error fetching countries:", error.message);
-  //     }
-  //   };
-
-  //   // Call the function
-  //   fetchCountries();
-  // }, []);
-
-  const getAddressDetails = () => {
-    const address = {
-      name: name,
-      email: email,
-      phone: phone,
-      street: street,
-      country: country,
-      state: state,
-      street: street,
-      city: city,
-      zipcode: zipcode,
-    };
-    // console.log(address);
-    if (address) {
-      navigate("/payments");
-    }
+  
+  const getAddressDetails = (data) => {
+    navigate("/payments");
   };
 
   const countriesList = [
@@ -80,77 +50,100 @@ function Delivery() {
         <Box sx={style.authContainer}>
           <Typography sx={style.pageHeader}> Delivery Details</Typography>
           <form
-            onSubmit={getAddressDetails}
+            onSubmit={handleSubmit(getAddressDetails)}
             style={style.formContainer}
             type="submit">
-            <input
-              type="address"
-              placeholder="name"
-              required
-              value={name}
-              // onChange={(e) => setName(e.target.value)}
-              className="auth-inputfield"
-              disabled
-            />
-            <input
-              type="email"
-              placeholder="email"
-              required
-              value={email}
-              // onChange={(e) => setEmail(e.target.value)}
-              className="auth-inputfield"
-              disabled
-            />
-            <input
-              type="number"
-              placeholder="phonenumber"
-              required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="auth-inputfield"
-            />
-            <input
-              type="text"
-              placeholder="street"
-              required
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
-              className="auth-inputfield"
-            />
-            <input
-              type="text"
-              placeholder="state"
-              required
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              className="auth-inputfield"
-            />
-            <select
-              onChange={(e) => setCountry(e.target.value)}
-              className="auth-inputfield"
-              placeholder="country">
-              <option value="">Select your country</option>
-              {countriesList.map((item, index) => (
-                <option key={index}>{item.name}</option>
-              ))}
-            </select>
-            <div className="auth-zipcodeinputfild">
+            <div style={style.inputContainer}>
               <input
                 type="text"
-                placeholder="city"
+                placeholder="name"
                 required
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="auth-inputfieldzipcdp"
+                value={name}
+                className="auth-inputfield"
+                disabled
               />
+            </div>
+            <div style={style.inputContainer}>
+              <input
+                type="email"
+                placeholder="email"
+                required
+                value={email}
+                className="auth-inputfield"
+                disabled
+              />
+            </div>
+            <div style={style.inputContainer}>
               <input
                 type="number"
-                placeholder="zipCode"
-                required
-                value={zipcode}
-                onChange={(e) => setZipCode(e.target.value)}
-                className="auth-inputfieldzipcdp"
+                placeholder="phonenumber"
+                className="auth-inputfield"
+                {...register("phoneNumber")}
               />
+              {errors.phoneNumber && (
+                <span style={style.error}> {errors.phoneNumber?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <input
+                type="text"
+                placeholder="street"
+                className="auth-inputfield"
+                {...register("street")}
+              />
+              {errors.street && (
+                <span style={style.error}> {errors.street?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <input
+                type="text"
+                placeholder="state"
+                className="auth-inputfield"
+                {...register("state")}
+              />
+              {errors.state && (
+                <span style={style.error}> {errors.state?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <select
+                {...register("country")}
+                // onChange={(e) => setCountry(e.target.value)}
+                className="auth-inputfield"
+                placeholder="country">
+                <option value="">Select your country</option>
+                {countriesList.map((item, index) => (
+                  <option key={index}>{item.name}</option>
+                ))}
+              </select>
+              {errors.country && (
+                <span style={style.error}>{errors.country?.message}</span>
+              )}
+            </div>
+            <div className="auth-zipcodeinputfild">
+              <div style={style.inputContainer}>
+                <input
+                  type="text"
+                  placeholder="city"
+                  className="auth-inputfieldzipcdp"
+                  {...register("city")}
+                />
+                {errors.city && (
+                  <span style={style.error}> {errors.city?.message}</span>
+                )}
+              </div>
+              <div style={style.inputContainer}>
+                <input
+                  type="number"
+                  placeholder="zipCode"
+                  className="auth-inputfieldzipcdp"
+                  {...register("zipcode")}
+                />
+                {errors.zipcode && (
+                  <span style={style.error}> {errors.zipcode?.message}</span>
+                )}
+              </div>
             </div>
             <button className="auth-inputfield-button" type="submit">
               Continue to payment

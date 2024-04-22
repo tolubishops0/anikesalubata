@@ -62,14 +62,49 @@ export function formatExpirationDate(value) {
 }
 
 export const authSignUpSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
+  name: yup.string().required("name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  phoneNumber: yup.number().required("pls enter phone number"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .max(15, "Password must be at most 15 characters long")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords do not match")
+    .required(),
+});
+export const authSignInSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters long")
+    .max(15, "Password must be at most 15 characters long")
     .required("Password is required"),
-  confirmPassword: yup
+});
+
+export const deliverySchema = yup.object().shape({
+  phoneNumber: yup.string().required("pls enter phone number"),
+  street: yup.string().required("pls provide your street address"),
+  state: yup.string().required("pls provide your state"),
+  country: yup.string().required("pls select your country"),
+  city: yup.string().required("pls provide your city"),
+  zipcode: yup.string().required("pls provide your zipcode"),
+});
+
+export const cardSchema = yup.object().shape({
+  cardName: yup.string().required("Card name is required"),
+  // cardNumber: yup
+  //   .string()
+  //   .required("Card number is required")
+  //   .matches(/^\d{4} \d{4} \d{4} \d{4}$/, "Invalid card number"),
+  // cardExp: yup
+  //   .string()
+  //   .required("Expiration date is required")
+  //   .matches(/^\d{2}\/\d{2}$/, "Invalid expiration date"),
+  cvv: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Confirm Password is required"),
+    .required("CVV is required")
+    .matches(/^\d{3}$/, "Invalid CVV"),
 });

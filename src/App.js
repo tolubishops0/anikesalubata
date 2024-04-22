@@ -16,9 +16,13 @@ import ResetPassWord from "./components/Auth/ResetPassWord";
 import PageNotFound from "./components/PageNotFound";
 import Delivery from "./components/Delivery/Delivery";
 import Payment from "./components/Payment/Payment";
+import theme from '../src/theme'
+import { ThemeProvider } from "@mui/material";
+import SuccessPage from "./components/Payment/SuccessPage";
 
 function App() {
   return (
+    // <ThemeProvider theme={theme}>
     <CartState>
       <Router>
         <NavbBar />
@@ -35,11 +39,13 @@ function App() {
           <Route path="/reset-password" element={<ResetPassWord />} />
           <Route path="/user-details" element={<Delivery />} />
           <Route path="/payments" element={<Payment />} />
+          <Route path="/success-page" element={<SuccessPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />
       </Router>
     </CartState>
+    // </ThemeProvider>
   );
 }
 

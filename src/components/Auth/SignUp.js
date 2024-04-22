@@ -13,41 +13,51 @@ import {
 import { auth } from "./FireBase/config";
 import Loader from "../Loader/Loader";
 import GoogleIcon from "@mui/icons-material/Google";
+import { authSchema, authSignUpSchema } from "../FormValidation/FormValidation";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { useForm } from "react-hook-form";
 
 function SignUp() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNumber, setPhone] = useState();
-  const [name, setName] = useState("");
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(authSignUpSchema),
+  });
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  // const [phoneNumber, setPhone] = useState();
+  // const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const registerUser = (e) => {
-    //when you submit the form, it does not reload the age or the page does not reload
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      toast.error("passwords do not match");
-    }
+  const registerUser = (data) => {
     setIsLoading(true);
-    // import createUserWithEmailAndPassword and auth from firebabse
-    createUserWithEmailAndPassword(auth, email, password, phoneNumber)
+    createUserWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password,
+      data.phoneNumber
+    )
       .then((userCredential) => {
         const user = userCredential.user;
-        updateProfile(user, { displayName: name });
+        console.log(user)
+        updateProfile(user, { displayName: data.name });
       })
       .then((user) => {
-        console.log(user, "from signi");
         setIsLoading(false);
         toast.success("Registration Successful");
         navigate("/signin");
       })
       .catch((error) => {
-        // const errorCode = error.code;
         const errorMessage = error.message;
         toast.error("Error, please try again");
-        // toast.error(errorMessage);
         setIsLoading(false);
       });
   };
@@ -82,54 +92,84 @@ function SignUp() {
           </Typography>
           <Typography sx={style.pageSubHeader}>
             {" "}
-            Please enter your e-mail or phone number to log in or create a new
-            account.
+            Please enter the following to create a new account.
           </Typography>
           <form
-            onSubmit={registerUser}
+            onSubmit={handleSubmit(registerUser)}
             style={style.formContainer}
             type="submit">
-            <input
-              type="name"
-              placeholder="name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="auth-inputfield"
-            />
-            <input
-              type="email"
-              placeholder="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="auth-inputfield"
-            />
-            <input
-              type="password"
-              placeholder="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="auth-inputfield"
-            />
-
-            <input
-              type="password"
-              placeholder="confirm password"
-              required
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="auth-inputfield"
-            />
-            <input
-              type="text"
-              placeholder="phone"
-              required
-              value={phoneNumber}
-              onChange={(e) => setPhone(e.target.value)}
-              className="auth-inputfield"
-            />
+            <div style={style.inputContainer}>
+              <input
+                type="name"
+                placeholder="name"
+                // value={name}
+                // onChange={(e) => setName(e.target.value)}
+                className="auth-inputfield"
+                {...register("name")}
+              />
+              {errors.name && (
+                <span style={style.error}> {errors.name?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <input
+                type="email"
+                placeholder="email"
+                // required
+                // value={email}
+                // onChange={(e) => setEmail(e.target.value)}
+                className="auth-inputfield"
+                {...register("email")}
+              />
+              {errors.email && (
+                <span style={style.error}> {errors.email?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <input
+                type="password"
+                placeholder="password"
+                // required
+                // value={password}
+                // onChange={(e) => setPassword(e.target.value)}
+                className="auth-inputfield"
+                {...register("password")}
+              />
+              {errors.password && (
+                <span style={style.error}> {errors.password?.message}</span>
+              )}
+            </div>{" "}
+            <div style={style.inputContainer}>
+              <input
+                type="password"
+                placeholder="confirm password"
+                // required
+                // value={confirmPassword}
+                // onChange={(e) => setConfirmPassword(e.target.value)}
+                className="auth-inputfield"
+                {...register("confirmPassword")}
+              />
+              {errors.confirmPassword && (
+                <span style={style.error}>
+                  {" "}
+                  {errors.confirmPassword?.message}
+                </span>
+              )}{" "}
+            </div>{" "}
+            <div style={style.inputContainer}>
+              <input
+                type="number"
+                placeholder="phone"
+                // required
+                // value={phoneNumber}
+                // onChange={(e) => setPhone(e.target.value)}
+                className="auth-inputfield"
+                {...register("phoneNumber")}
+              />
+              {errors.phoneNumber && (
+                <span style={style.error}> {errors.phoneNumber?.message}</span>
+              )}
+            </div>{" "}
             <button className="auth-inputfield-button" type="submit">
               Sign up
             </button>

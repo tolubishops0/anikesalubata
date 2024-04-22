@@ -6,7 +6,6 @@ import pagenotfound from "../Asset/notfound.png";
 
 function PageNotFound() {
   const navigate = useNavigate();
-  console.log("page not found");
   return (
     <Box sx={{ backgroundColor: "#f8f8f8", padding: "2rem 0" }}>
       <Box sx={{ ...style.emptyCartIcon, gap: "1rem" }}>

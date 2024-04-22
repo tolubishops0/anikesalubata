@@ -2,30 +2,51 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Box, Typography, Divider } from "@mui/material";
+import {
+  FormHelperText,
+  InputAdornment,
+  Box,
+  Typography,
+  Divider,
+  OutlinedInput,
+  FormControl,
+  Input,
+  FilledInput,
+  InputLabel,
+  IconButton,
+  ThemeProvider,
+} from "@mui/material";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
 import card from "../../Asset/cardpaymenticon.png";
+import visa from "../../Asset/icons8-visa-48.png";
+import masterCard from "../../Asset/icons8-mastercard-48.png";
+import amex from "../../Asset/icons8-amex-48.png";
+import theme from "../../theme";
+import * as yup from "yup";
+import {
+  formatExpirationDate,
+  cardSchema,
+} from "../FormValidation/FormValidation";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function Payment() {
   const navigate = useNavigate();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    resolver: yupResolver(cardSchema),
+  });
   const { authState } = useContext(CartContext);
 
   const { userDetails, totalCost } = authState || {};
 
-  const getPaymentDetails = () => {
-    // const cardDetails = {
-    //   cardName: cardName,
-    //   cardNumber: cardNumber,
-    //   cardExp: cardExp,
-    //   cvv: cvv,
-    // };
-    // if (cardDetails) {
-    // }
-  };
-
   const [isChecked, setIsChecked] = useState(false);
-  const [cardType, setCardType] = useState("");
+  const [cardImg, setCardImg] = useState(null);
   const [cardState, setCardState] = useState({
     name: "",
     number: "",
@@ -33,37 +54,33 @@ function Payment() {
     cvv: "",
   });
 
+  const getPaymentDetails = (data) => {
+    console.log(data);
+    navigate("/success-page");
+    // const cardDetails = {
+    //   cardName: cardState.name,
+    //   cardNumber: cardState.number,
+    //   cardExp: cardState.exp,
+    //   cvv: cardState.cvv,
+    // };
+    // console.log(isValid);
+  };
+
   const toggleSwitch = () => {
     setIsChecked(!isChecked);
   };
 
-  const getCardType = (number) => {
-    const num = number.toString();
-    const visaPattern = /^4/;
-    const amexPattern = /^3[47]/;
-    const masterCardPattern = /^5[1-5]/;
-
-    if (visaPattern.test(num)) {
-      return "visa";
-    } else if (masterCardPattern.test(num)) {
-      return "mastercard";
-    } else if (amexPattern.test(num)) {
-      return "amex";
-    } else {
-      return "";
-    }
-  };
-
   const handleCardInputChange = (e) => {
     const { name, value } = e.target;
+    let formattedValue = value;
     if (name === "number") {
-      let formattedValue = formatCardNumber(value);
-      let cardType = getCardType(formattedValue);
-      setCardType(cardType);
-      setCardState((prevState) => ({ ...prevState, [name]: formattedValue }));
-    } else {
-      setCardState((prevState) => ({ ...prevState, [name]: value }));
+      formattedValue = formatCardNumber(value);
+      setCardImg(getCardType(formattedValue));
+    } else if (name === "exp") {
+      formattedValue = formatExpirationDate(value);
     }
+
+    setCardState((prevState) => ({ ...prevState, [name]: formattedValue }));
   };
 
   const formatCardNumber = (number) => {
@@ -71,13 +88,27 @@ function Payment() {
     const formattedNumber = numberWithoutSpaces
       .replace(/(\d{4})/g, "$1 ")
       .trim();
-    console.log(formattedNumber, "formattedNumber");
-
     return formattedNumber;
   };
 
+  const getCardType = (number) => {
+    const num = number.toString();
+    const visaPattern = /^4/;
+    const amexPattern = /^3[47]/;
+    const masterCardPattern = /^5[1-5]/;
+    if (visaPattern.test(num)) {
+      return visa;
+    } else if (masterCardPattern.test(num)) {
+      return masterCard;
+    } else if (amexPattern.test(num)) {
+      return amex;
+    } else {
+      return null;
+    }
+  };
+
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Box>
         <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
           <Box
@@ -109,7 +140,6 @@ function Payment() {
             </Box>
 
             <div>
-              {" "}
               <Typography sx={style.pageHeader}> {`$${totalCost}`}</Typography>
               <Typography sx={style.pageSubHeader}>
                 {userDetails.email}
@@ -117,53 +147,95 @@ function Payment() {
             </div>
           </Box>
           <Typography sx={{ ...style.pageHeader, textAlign: "center" }}>
-            {" "}
-            {`Payment Details ${cardType}`}
+            Payment Details
           </Typography>
           <Box sx={{ ...style.authContainer, marginTop: "2rem" }}>
             <form
-              onSubmit={getPaymentDetails}
+              onSubmit={handleSubmit(getPaymentDetails)}
               style={style.formContainer}
               type="submit">
-              <input
-                type="text"
-                placeholder="card name"
-                required
-                name="name"
-                value={cardState.name}
-                onChange={handleCardInputChange}
-                className="auth-inputfield"
-              />
-              <input
-                type="text"
-                placeholder="card number"
-                required
-                name="number"
-                maxLength={16}
-                value={cardState.number}
-                className="auth-inputfield"
-                onChange={handleCardInputChange}
-              />
+              <FormControl fullWidth variant="outlined">
+                <OutlinedInput
+                  sx={style.payinptu}
+                  id="outlined-adornment-weight"
+                  placeholder="card number"
+                  name="number"
+                  maxLength={19}
+                  value={formatCardNumber(cardState.number)}
+                  onChange={handleCardInputChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <img src={cardImg} alt="" />
+                    </InputAdornment>
+                  }
+                  aria-describedby="outlined-weight-helper-text"
+                  inputProps={{
+                    maxLength: 19,
+                    "aria-label": "weight",
+                  }}
+                  // {...register("cardNumber")}
+                />
+                {/* {errors.cardNumber && (
+                  <span style={style.error}> {errors.cardNumber?.message}</span>
+                )} */}
+              </FormControl>
+
+              <div style={style.inputContainer}>
+                <OutlinedInput
+                  sx={style.payinptu}
+                  id="outlined-adornment-weight"
+                  placeholder="card name"
+                  name="name"
+                  aria-describedby="outlined-weight-helper-text"
+                  inputProps={{
+                    maxLength: 19,
+                    "aria-label": "weight",
+                  }}
+                  {...register("cardName")}
+                />
+                {errors.cardName && (
+                  <span style={style.error}> {errors.cardName?.message}</span>
+                )}
+              </div>
+
               <div className="auth-zipcodeinputfild">
-                <input
-                  type="text"
-                  placeholder="Valid Through"
-                  required
-                  name="expiry"
-                  value={cardState.exp}
-                  onChange={handleCardInputChange}
-                  className="auth-inputfieldzippayment"
-                />
-                <input
-                  type="text"
-                  placeholder="cvv"
-                  required
-                  maxlength="3"
-                  name="cvc"
-                  value={cardState.cvv}
-                  onChange={handleCardInputChange}
-                  className="auth-inputfieldzippayment"
-                />
+                <div style={style.inputContainer}>
+                  <OutlinedInput
+                    sx={style.payinptu}
+                    id="outlined-adornment-weight"
+                    placeholder="Valid Through"
+                    name="exp"
+                    aria-describedby="outlined-weight-helper-text"
+                    value={formatExpirationDate(cardState.exp)} // Apply expiration date formatting
+                    onChange={handleCardInputChange}
+                    inputProps={{
+                      maxLength: 5,
+                      "aria-label": "weight",
+                    }}
+                  />
+                  {/* {errors.cardExp && (
+                    <span style={style.error}> {errors.cardExp?.message}</span>
+                  )} */}
+                </div>
+                <div style={style.inputContainer}>
+                  <OutlinedInput
+                    sx={style.payinptu}
+                    id="outlined-adornment-weight"
+                    placeholder="cvv"
+                    maxlength="3"
+                    name="cvv"
+                    aria-describedby="outlined-weight-helper-text"
+                    inputProps={{
+                      maxLength: 3,
+                      // type: "number",
+                      "aria-label": "weight",
+                    }}
+                    {...register("cvv")}
+                  />
+                  {errors.cvv && (
+                    <span style={style.error}> {errors.cvv?.message}</span>
+                  )}
+                </div>
               </div>
               <div
                 style={{
@@ -179,12 +251,7 @@ function Payment() {
                   type="checkbox"
                   checked={isChecked}
                   onChange={toggleSwitch}
-                  style={{
-                    // Apply custom styles to the checkbox
-                    background: isChecked ? "black" : "transparent",
-                  }}
                 />
-                <span class="remeberCard"></span>
               </div>
 
               <button className="auth-inputfield-button" type="submit">
@@ -194,7 +261,7 @@ function Payment() {
           </Box>
         </Box>
       </Box>
-    </div>
+    </ThemeProvider>
   );
 }
 

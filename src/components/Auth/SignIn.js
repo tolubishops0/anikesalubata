@@ -6,7 +6,9 @@ import Loader from "../Loader/Loader";
 import { auth } from "./FireBase/config";
 import GoogleIcon from "@mui/icons-material/Google";
 import CartContext from "../../Context/Cart/CartContext";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useForm } from "react-hook-form";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -15,34 +17,30 @@ import {
 } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { authSignInSchema } from "../FormValidation/FormValidation";
 
 function SignIn() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(authSignInSchema),
+  });
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { authState, cartItems, setAuthState } = useContext(CartContext);
-  // console.log(authState, "authState");
-  // console.log(cartItems, "cartItems");
 
-  const SignInUser = (e) => {
-    e.preventDefault();
+  const SignInUser = (data) => {
     setIsLoading(true);
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        const userDetails = {
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          uid: user.uid,
-        };
-
-        // setAuthState(userDetails);
-      ;
+        console.log(userCredential);
         setIsLoading(false);
         toast.success("logged in successfully");
         if (cartItems.length > 0) {
@@ -52,7 +50,6 @@ function SignIn() {
         }
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         setIsLoading(false);
         toast.error(errorMessage);
@@ -61,7 +58,6 @@ function SignIn() {
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-
     signInWithPopup(auth, provider)
       .then((result) => {
         setIsLoading(false);
@@ -99,23 +95,29 @@ function SignIn() {
       <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
         <Box sx={style.authContainer}>
           <Typography sx={style.pageHeader}>Sign In</Typography>
-          <form onSubmit={SignInUser} style={style.formContainer}>
-            <input
-              type="email"
-              placeholder="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="auth-inputfield"
-            />
-            <input
-              placeholder="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="name"
-              className="auth-inputfield"
-            />
+          <form onSubmit={handleSubmit(SignInUser)} style={style.formContainer}>
+            <div style={style.inputContainer}>
+              <input
+                type="email"
+                placeholder="email"
+                className="auth-inputfield"
+                {...register("email")}
+              />
+              {errors.email && (
+                <span style={style.error}> {errors.email?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <input
+                className="auth-inputfield"
+                placeholder="password"
+                type="password"
+                {...register("password")}
+              />
+              {errors.password && (
+                <span style={style.error}> {errors.password?.message}</span>
+              )}
+            </div>
             <button className="auth-inputfield-button" type="submit">
               Sign in
             </button>
