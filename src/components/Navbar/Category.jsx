@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { style } from "../Style";
 
 function Category() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -13,6 +14,11 @@ function Category() {
     navigate(`/products/${category?.toLowerCase().replace(" ", "+")}`);
   };
 
+  useEffect(() => {
+    if (location.pathname === "/cart") {
+      setSelectedCategory("");
+    }
+  }, [location.pathname]);
 
   return (
     <div>

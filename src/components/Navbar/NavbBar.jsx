@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-
+import PersonOffIcon from "@mui/icons-material/PersonOff";
+import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -69,7 +70,7 @@ function NavbBar() {
         {
           content: "Liked Items",
           onClick: () => {
-            navigate("/signout ");
+            // navigate("/ ");
             handleClose();
           },
         },
@@ -83,9 +84,9 @@ function NavbBar() {
           },
         },
         {
-          content: "Liked Items",
+          content: "Sign Up",
           onClick: () => {
-            navigate("/signin ");
+            navigate("/signup ");
             handleClose();
           },
         },
@@ -109,10 +110,12 @@ function NavbBar() {
                 Àníkẹ́ Sálúbàtà
               </Typography>
               <SearchBar productList={productList} />
-              <Box sx={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+              <Box
+                sx={{ display: "flex", gap: "2rem", alignItems: "flex-end" }}>
                 <Box sx={style.ShoppingCartOutlinedIcon}>
                   <ShoppingCartOutlinedIcon
                     fontSize="large"
+                    
                     onClick={() => navigate("/cart")}
                   />
                   {cartItems?.length > 0 && (
@@ -123,14 +126,21 @@ function NavbBar() {
                 <Menu
                   PaperProps={{
                     style: {
-                      padding: "0 1rem",
+                      margin: "0",
                     },
                   }}
                   anchorEl={showMenu}
                   open={Boolean(showMenu)}
                   onClose={handleClose}>
                   {menuItems.map((item, index) => (
-                    <MenuItem onClick={item.onClick} key={index}>
+                    <MenuItem
+                      sx={{
+                        ...style.categoryList,
+                        padding: "0.5rem 2rem",
+                        background: index === 0 ? "#ACACAC" : "none",
+                      }}
+                      onClick={item.onClick}
+                      key={index}>
                       {item.content}
                     </MenuItem>
                   ))}
@@ -138,12 +148,16 @@ function NavbBar() {
 
                 <Box
                   onClick={handleMenuClick}
-                  sx={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
-                  {userData?.photo ? (
-                    <img src={userData?.photoURL} />
+                  sx={{
+                    display: "flex",
+                    gap: ".5rem",
+                    alignItems: "flex-end",
+                  }}>
+                  {userData?.isUserLoggedIn ? (
+                    <PersonIcon fontSize="large" />
                   ) : (
-                    <AccountCircleIcon />
-                  )}
+                    <PersonOffIcon fontSize="large" />
+                  )}{" "}
                   {userData?.uid ? (
                     <Typography sx={style.UserName}>
                       Hi, {userData?.name}
@@ -161,16 +175,57 @@ function NavbBar() {
                 <Typography sx={style.brandName} onClick={() => navigate("/")}>
                   Àníkẹ́ Sálúbàtà
                 </Typography>
+
                 <Box
-                  sx={style.ShoppingCartOutlinedIcon}
-                  onClick={() => navigate("/cart")}>
-                  <ShoppingCartOutlinedIcon
-                    fontSize="large"
-                    onClick={() => navigate("/cart")}
-                  />
-                  {cartItems?.length > 0 && (
-                    <Typography sx={style.prodCount}>{itemsCount}</Typography>
-                  )}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-end",
+                    gap: "1rem",
+                  }}>
+                  <Box>
+                    {" "}
+                    {userData?.isUserLoggedIn ? (
+                      <PersonIcon onClick={handleMenuClick} fontSize="large" />
+                    ) : (
+                      <PersonOffIcon
+                        onClick={handleMenuClick}
+                        fontSize="large"
+                      />
+                    )}
+                  </Box>
+                  <Menu
+                    PaperProps={{
+                      style: {
+                        padding: "0",
+                      },
+                    }}
+                    anchorEl={showMenu}
+                    open={Boolean(showMenu)}
+                    onClose={handleClose}>
+                    {menuItems.map((item, index) => (
+                      <MenuItem
+                        sx={{
+                          padding: "0 2rem",
+                          background: index === 0 ? "#ACACAC" : "none",
+                        }}
+                        onClick={item.onClick}
+                        key={index}>
+                        {item.content}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                  <Box
+                    sx={style.ShoppingCartOutlinedIcon}
+                    onClick={() => navigate("/cart")}>
+                    <ShoppingCartOutlinedIcon
+                      fontSize="large"
+                      onClick={() => navigate("/cart")}
+                    />
+                    {cartItems?.length > 0 && (
+                      <Typography sx={style.prodCount}>{itemsCount}</Typography>
+                    )}
+                  </Box>
                 </Box>
               </Box>
               <Box sx={{ width: "100%", margin: "1rem auto" }}>

@@ -50,12 +50,16 @@ export const style = {
   ShoppingCartOutlinedIcon: {
     position: "relative",
     cursor: "pointer",
+    display: "flex",
+    "@media screen and (max-width:768px)": {
+      display: "block",
+    },
   },
   prodCount: {
     position: "absolute",
     bottom: "55%",
     left: "90%",
-    fontSize: "1.5rem",
+    fontSize: "1.2rem",
     fontWeight: "700",
     color: "red",
     "@media screen and (max-width: 768px)": {
@@ -288,12 +292,13 @@ export const style = {
     background: "white",
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
-    padding: "0 1rem",
+    padding: " 1.5rem 1rem",
     "@media screen and (max-width: 768px)": {
       width: "95%",
     },
     "@media screen and (max-width: 600px)": {
-      width: "90%",
+      width: "95%",
+      padding: " 1rem .5rem",
     },
   },
   parentRigthContainer: {
@@ -555,10 +560,6 @@ export const style = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "1rem 0",
-    "@media screen and (max-width: 768px)": {
-      padding: " 1rem 0",
-    },
   },
   cart9: {
     display: "flex",
@@ -674,7 +675,7 @@ export const style = {
     },
   },
   emptyCartIcon: {
-    width: "90%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
