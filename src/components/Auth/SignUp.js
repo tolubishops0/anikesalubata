@@ -2,7 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Box, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  InputAdornment,
+  OutlinedInput,
+  TextField,
+  IconButton,
+} from "@mui/material";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { style } from "../Style";
 import {
   GoogleAuthProvider,
@@ -18,6 +28,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
+import { TextFieldsSharp } from "@mui/icons-material";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -30,12 +41,12 @@ function SignUp() {
     resolver: yupResolver(authSignUpSchema),
   });
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [phoneNumber, setPhone] = useState();
-  // const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const registerUser = (data) => {
     setIsLoading(true);
@@ -47,7 +58,7 @@ function SignUp() {
     )
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user)
+        console.log(user);
         updateProfile(user, { displayName: data.name });
       })
       .then((user) => {
@@ -80,6 +91,8 @@ function SignUp() {
       });
   };
 
+  console.log(showPassword);
+
   return (
     <React.Fragment>
       {isLoading && <Loader />}
@@ -99,12 +112,10 @@ function SignUp() {
             style={style.formContainer}
             type="submit">
             <div style={style.inputContainer}>
-              <input
+              <TextField
+                sx={style.payinptu}
                 type="name"
                 placeholder="name"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
-                className="auth-inputfield"
                 {...register("name")}
               />
               {errors.name && (
@@ -112,41 +123,49 @@ function SignUp() {
               )}
             </div>
             <div style={style.inputContainer}>
-              <input
+              <TextField
+                sx={style.payinptu}
                 type="email"
                 placeholder="email"
-                // required
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
-                className="auth-inputfield"
                 {...register("email")}
               />
+
               {errors.email && (
                 <span style={style.error}> {errors.email?.message}</span>
               )}
             </div>
             <div style={style.inputContainer}>
-              <input
-                type="password"
+              <OutlinedInput
+                sx={style.payinptu}
+                id="outlined-adornment-weight"
+                type={showPassword ? "text" : "password"}
                 placeholder="password"
-                // required
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
-                className="auth-inputfield"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleClickShowPassword} edge="end">
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                aria-describedby="outlined-weight-helper-text"
+                inputProps={{
+                  "aria-label": "weight",
+                }}
                 {...register("password")}
               />
               {errors.password && (
                 <span style={style.error}> {errors.password?.message}</span>
               )}
-            </div>{" "}
+            </div>
             <div style={style.inputContainer}>
-              <input
+              <TextField
+                sx={style.payinptu}
                 type="password"
                 placeholder="confirm password"
-                // required
-                // value={confirmPassword}
-                // onChange={(e) => setConfirmPassword(e.target.value)}
-                className="auth-inputfield"
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword && (
@@ -157,13 +176,10 @@ function SignUp() {
               )}{" "}
             </div>{" "}
             <div style={style.inputContainer}>
-              <input
+              <TextField
+                sx={style.payinptu}
                 type="number"
                 placeholder="phone"
-                // required
-                // value={phoneNumber}
-                // onChange={(e) => setPhone(e.target.value)}
-                className="auth-inputfield"
                 {...register("phoneNumber")}
               />
               {errors.phoneNumber && (

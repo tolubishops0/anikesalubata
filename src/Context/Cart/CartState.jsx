@@ -40,6 +40,8 @@ const CartState = ({ children }) => {
   const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
 
   const setAuthState = (userDetails, storedCartItems, totalCost) => {
+    // console.log(userDetails, "userDetails");
+    // console.log(storedCartItems, "storedCartItems");
     dispatch({
       type: "AUTH_STATE",
       payload: { storedCartItems, userDetails, totalCost },
@@ -95,58 +97,3 @@ const CartState = ({ children }) => {
 };
 
 export default CartState;
-
-
-// <Box sx={style.authContainer}>
-//             <form
-//               onSubmit={getPaymentDetails}
-//               style={style.formContainer}
-//               type="submit">
-//               <input
-//                 type="text"
-//                 placeholder="card name"
-//                 required
-//                 value={cardName}
-//                 onChange={(e) => setCardName(e.target.value)}
-//                 className="auth-inputfield"
-//               />
-//               <input
-//                 type="number"
-//                 placeholder="card number"
-//                 required
-//                 value={cardNumber}
-//                 onChange={(e) => setCardNumber(e.target.value)}
-//                 className="auth-inputfield"
-//               />
-//               <div className="auth-zipcodeinputfild">
-//                 <input
-//                   type="text"
-//                   placeholder="expYear"
-//                   required
-//                   value={expYear}
-//                   onChange={(e) => setExpYear(e.target.value)}
-//                   className="auth-inputfieldzippayment"
-//                 />
-//                 <input
-//                   type="number"
-//                   placeholder="expitation month"
-//                   required
-//                   value={expMonth}
-//                   onChange={(e) => setExpMonth(e.target.value)}
-//                   className="auth-inputfieldzippayment"
-//                 />
-//                 <input
-//                   type="text"
-//                   placeholder="cvv"
-//                   required
-//                   value={cvv}
-//                   onChange={(e) => setCvv(e.target.value)}
-//                   className="auth-inputfieldzippayment"
-//                 />
-//               </div>
-//               <button className="auth-inputfield-button" type="submit">
-//                 Complete order
-//               </button>
-//             </form>
-//           </Box>
-//         </Box>

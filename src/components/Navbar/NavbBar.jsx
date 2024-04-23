@@ -1,8 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useMediaQuery,
+  Menu,
+  MenuItem,
+  Avatar,
+} from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchBar from "./SearchBar";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
@@ -16,18 +26,17 @@ function NavbBar() {
 
   const navigate = useNavigate();
   const [user, setUser] = useState();
+  const [showMenu, setShowMenu] = useState(null);
 
   const { cartItems, setAuthState, authState } = useContext(CartContext);
   const { itemsCount } = sumItems(cartItems);
 
   const { userDetails } = authState || {};
 
-  // console.log(userDetails, ' nav');
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // console.log(user)
+        console.log(user);
         const storedCartItems = JSON.parse(localStorage.getItem(`cartItems`));
         const totalCost = JSON.parse(localStorage.getItem(`total`));
         const userDetails = {
@@ -44,6 +53,48 @@ function NavbBar() {
       }
     });
   }, []);
+
+  const menuItems = user
+    ? [
+        {
+          content: "Sign Out",
+          onClick: () => {
+            navigate("/signout ");
+            handleClose();
+          },
+        },
+        {
+          content: "Liked Items",
+          onClick: () => {
+            navigate("/signout ");
+            handleClose();
+          },
+        },
+      ]
+    : [
+        {
+          content: "Sign In",
+          onClick: () => {
+            navigate("/signin ");
+            handleClose();
+          },
+        },
+        {
+          content: "Liked Items",
+          onClick: () => {
+            navigate("/signin ");
+            handleClose();
+          },
+        },
+      ];
+
+  const handleMenuClick = (event) => {
+    setShowMenu(showMenu ? null : event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setShowMenu(null);
+  };
 
   return (
     <Box sx={style.navParentContainer}>
@@ -63,16 +114,41 @@ function NavbBar() {
                 <Typography sx={style.prodCount}>{itemsCount}</Typography>
               )}
             </Box>
-            {userDetails?.uid && (
-              <Box sx={{ display: "flex", gap: "1rem" }}>
-                <Typography>Hi, {userDetails?.name}</Typography>
-                {userDetails.photo ? (
-                  <img src={userDetails?.photoURL} />
-                ) : (
-                  <AccountCircleIcon />
-                )}
-              </Box>
-            )}
+
+            <Menu
+              PaperProps={{
+                style: {
+                  boxShadow: 0,
+                  padding: "0 1rem",
+                },
+              }}
+              anchorEl={showMenu}
+              open={Boolean(showMenu)}
+              onClose={handleClose}>
+              {menuItems.map((item, index) => (
+                <MenuItem onClick={item.onClick} key={index}>
+                  {item.content}
+                </MenuItem>
+              ))}
+            </Menu>
+
+            <Box
+              onClick={handleMenuClick}
+              sx={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
+              {userDetails?.photo ? (
+                <img src={userDetails?.photoURL} />
+              ) : (
+                <AccountCircleIcon />
+              )}
+              {userDetails?.uid ? (
+                <Typography sx={style.UserName}>
+                  Hi, {userDetails?.name}
+                </Typography>
+              ) : (
+                <Typography sx={style.UserName}>Account</Typography>
+              )}
+              {showMenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </Box>
           </Box>
         </Box>
       ) : (

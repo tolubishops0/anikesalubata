@@ -39,6 +39,14 @@ export const style = {
       // fontSize: "1.5rem",
     },
   },
+  UserName: {
+    fontWeight: "600",
+    fontSize: "1rem",
+    cursor: "pointer",
+    "@media screen and (max-width:1200px)": {
+      // fontSize: "1.5rem",
+    },
+  },
   ShoppingCartOutlinedIcon: {
     position: "relative",
     cursor: "pointer",

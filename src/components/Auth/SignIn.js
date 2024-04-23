@@ -31,6 +31,11 @@ function SignIn() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const { authState, cartItems, setAuthState } = useContext(CartContext);
 
