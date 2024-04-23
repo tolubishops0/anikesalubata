@@ -83,6 +83,9 @@ export const authSignInSchema = yup.object().shape({
     .max(15, "Password must be at most 15 characters long")
     .required("Password is required"),
 });
+export const authResetSchema = yup.object().shape({
+  email: yup.string().email("Invalid email").required("Email is required"),
+});
 
 export const deliverySchema = yup.object().shape({
   phoneNumber: yup.string().required("pls enter phone number"),

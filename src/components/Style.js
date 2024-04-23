@@ -771,27 +771,18 @@ export const style = {
     position: "fixed",
     top: 0,
     left: 0,
-    width: "full",
-    height: "full",
+    width: "100%",
+    height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "rgc(0, 0, 0, 0.5)",
-    z: "50",
+    background: "rgba(0, 0, 0, 0.5)",
+    zIndex: 50,
   },
   loader: {
-    border: "14px solid #2196f3",
+    border: "8px solid #2196f3",
     borderRadius: "50%",
     width: 48,
     height: 48,
-    animation: "$spin 1s linear infinite",
-  },
-  "@keyframes spin": {
-    "0%": {
-      transform: "rotate(0deg)",
-    },
-    "100%": {
-      transform: "rotate(360deg)",
-    },
   },
 };
