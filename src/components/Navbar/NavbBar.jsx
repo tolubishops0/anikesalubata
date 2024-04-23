@@ -6,60 +6,63 @@ import {
   useMediaQuery,
   Menu,
   MenuItem,
-  Avatar,
+  InputAdornment,
+  OutlinedInput,
+  TextField,
 } from "@mui/material";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchBar from "./SearchBar";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
 import { sumItems } from "../../Context/Cart/CartReducer";
 import { productList } from "../../Asset/data";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Auth/FireBase/config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../Loader/Loader";
 
 function NavbBar() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
   const navigate = useNavigate();
-  const [user, setUser] = useState();
   const [showMenu, setShowMenu] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { cartItems, setAuthState, authState } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
   const { itemsCount } = sumItems(cartItems);
 
-  const { userDetails } = authState || {};
+  const userData = JSON.parse(localStorage.getItem("userData")) || {};
+  console.log(userData, "from nav");
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-        const storedCartItems = JSON.parse(localStorage.getItem(`cartItems`));
-        const totalCost = JSON.parse(localStorage.getItem(`total`));
-        const userDetails = {
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          uid: user.uid,
-        };
-        setAuthState(userDetails, storedCartItems);
-        setUser(authState);
-      } else {
-        setUser("");
-        setAuthState();
-      }
-    });
-  }, []);
+  const signOutWithGoogle = () => {
+    console.log("sgnout");
+    signOut(auth)
+      .then(() => {
+        setIsLoading(false);
+        toast.success("logged out Succesfull");
+        navigate("/");
+        const userData = null;
+        localStorage.setItem("userData", userData);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
+      });
+  };
 
-  const menuItems = user
+  const menuItems = userData?.isUserLoggedIn
     ? [
         {
           content: "Sign Out",
           onClick: () => {
-            navigate("/signout ");
+            signOutWithGoogle();
             handleClose();
           },
         },
@@ -97,84 +100,89 @@ function NavbBar() {
   };
 
   return (
-    <Box sx={style.navParentContainer}>
-      {!isSmallScreen ? (
-        <Box sx={style.navContainer}>
-          <Typography sx={style.brandName} onClick={() => navigate("/")}>
-            Àníkẹ́ Sálúbàtà
-          </Typography>
-          <SearchBar productList={productList} />
-          <Box sx={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-            <Box sx={style.ShoppingCartOutlinedIcon}>
-              <ShoppingCartOutlinedIcon
-                fontSize="large"
-                onClick={() => navigate("/cart")}
-              />
-              {cartItems?.length > 0 && (
-                <Typography sx={style.prodCount}>{itemsCount}</Typography>
-              )}
+    <>
+      {!isLoading ? (
+        <Box sx={style.navParentContainer}>
+          {!isSmallScreen ? (
+            <Box sx={style.navContainer}>
+              <Typography sx={style.brandName} onClick={() => navigate("/")}>
+                Àníkẹ́ Sálúbàtà
+              </Typography>
+              <SearchBar productList={productList} />
+              <Box sx={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+                <Box sx={style.ShoppingCartOutlinedIcon}>
+                  <ShoppingCartOutlinedIcon
+                    fontSize="large"
+                    onClick={() => navigate("/cart")}
+                  />
+                  {cartItems?.length > 0 && (
+                    <Typography sx={style.prodCount}>{itemsCount}</Typography>
+                  )}
+                </Box>
+
+                <Menu
+                  PaperProps={{
+                    style: {
+                      padding: "0 1rem",
+                    },
+                  }}
+                  anchorEl={showMenu}
+                  open={Boolean(showMenu)}
+                  onClose={handleClose}>
+                  {menuItems.map((item, index) => (
+                    <MenuItem onClick={item.onClick} key={index}>
+                      {item.content}
+                    </MenuItem>
+                  ))}
+                </Menu>
+
+                <Box
+                  onClick={handleMenuClick}
+                  sx={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
+                  {userData?.photo ? (
+                    <img src={userData?.photoURL} />
+                  ) : (
+                    <AccountCircleIcon />
+                  )}
+                  {userData?.uid ? (
+                    <Typography sx={style.UserName}>
+                      Hi, {userData?.name}
+                    </Typography>
+                  ) : (
+                    <Typography sx={style.UserName}>Account</Typography>
+                  )}
+                  {showMenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </Box>
+              </Box>
             </Box>
-
-            <Menu
-              PaperProps={{
-                style: {
-                  boxShadow: 0,
-                  padding: "0 1rem",
-                },
-              }}
-              anchorEl={showMenu}
-              open={Boolean(showMenu)}
-              onClose={handleClose}>
-              {menuItems.map((item, index) => (
-                <MenuItem onClick={item.onClick} key={index}>
-                  {item.content}
-                </MenuItem>
-              ))}
-            </Menu>
-
-            <Box
-              onClick={handleMenuClick}
-              sx={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
-              {userDetails?.photo ? (
-                <img src={userDetails?.photoURL} />
-              ) : (
-                <AccountCircleIcon />
-              )}
-              {userDetails?.uid ? (
-                <Typography sx={style.UserName}>
-                  Hi, {userDetails?.name}
+          ) : (
+            <Box sx={style.parentsmallNavbar}>
+              <Box sx={style.smallNavbar}>
+                <Typography sx={style.brandName} onClick={() => navigate("/")}>
+                  Àníkẹ́ Sálúbàtà
                 </Typography>
-              ) : (
-                <Typography sx={style.UserName}>Account</Typography>
-              )}
-              {showMenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                <Box
+                  sx={style.ShoppingCartOutlinedIcon}
+                  onClick={() => navigate("/cart")}>
+                  <ShoppingCartOutlinedIcon
+                    fontSize="large"
+                    onClick={() => navigate("/cart")}
+                  />
+                  {cartItems?.length > 0 && (
+                    <Typography sx={style.prodCount}>{itemsCount}</Typography>
+                  )}
+                </Box>
+              </Box>
+              <Box sx={{ width: "100%", margin: "1rem auto" }}>
+                <SearchBar productList={productList} />
+              </Box>
             </Box>
-          </Box>
+          )}
         </Box>
       ) : (
-        <Box sx={style.parentsmallNavbar}>
-          <Box sx={style.smallNavbar}>
-            <Typography sx={style.brandName} onClick={() => navigate("/")}>
-              Àníkẹ́ Sálúbàtà
-            </Typography>
-            <Box
-              sx={style.ShoppingCartOutlinedIcon}
-              onClick={() => navigate("/cart")}>
-              <ShoppingCartOutlinedIcon
-                fontSize="large"
-                onClick={() => navigate("/cart")}
-              />
-              {cartItems?.length > 0 && (
-                <Typography sx={style.prodCount}>{itemsCount}</Typography>
-              )}
-            </Box>
-          </Box>
-          <Box sx={{ width: "100%", margin: "1rem auto" }}>
-            <SearchBar productList={productList} />
-          </Box>
-        </Box>
+        <Loader />
       )}
-    </Box>
+    </>
   );
 }
 

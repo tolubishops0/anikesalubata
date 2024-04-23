@@ -1,52 +1,25 @@
-import { useReducer, useContext, useEffect } from "react";
+import { useReducer } from "react";
 import CartContext from "./CartContext";
 import CartReducer from "./CartReducer";
 
 const CartState = ({ children }) => {
-  const initializeAuthState = () => ({
-    isUserLoggedIn: false,
-    userDetails: [],
-    storedCartItems: [],
-    totalCost: null,
-  });
-
   const initialState = {
     cartItems: [],
     checkout: false,
     prodList: [],
-    authState: initializeAuthState(),
   };
-
   const getFromLocalStorage = () => {
     const storedCartItems = localStorage.getItem("cartItems");
 
     return storedCartItems ? JSON.parse(storedCartItems) : [];
   };
-  const getLoggedUserDetailsFromLocalStorage = () => {
-    const storedCartItemsForeLoggedInUser =
-      localStorage.getItem("userDataAndCart");
-
-    return storedCartItemsForeLoggedInUser
-      ? JSON.parse(storedCartItemsForeLoggedInUser)
-      : [];
-  };
 
   const mergedInitialState = {
     ...initialState,
     cartItems: getFromLocalStorage(),
-    authState: getLoggedUserDetailsFromLocalStorage(),
   };
 
   const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
-
-  const setAuthState = (userDetails, storedCartItems, totalCost) => {
-    // console.log(userDetails, "userDetails");
-    // console.log(storedCartItems, "storedCartItems");
-    dispatch({
-      type: "AUTH_STATE",
-      payload: { storedCartItems, userDetails, totalCost },
-    });
-  };
 
   const setProdList = (payload) => {
     dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
@@ -88,7 +61,6 @@ const CartState = ({ children }) => {
         handleCheckout,
         clearCart,
         setProdList,
-        setAuthState,
         ...state,
       }}>
       {children}

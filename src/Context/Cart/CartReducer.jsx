@@ -6,8 +6,6 @@ import {
   CHECKOUT,
   CLEAR,
   UPDATE_SEARCH_RESULTS,
-  AUTH_STATE,
-  GLOBAL_USER_STATE,
 } from "./CartTypes";
 
 const saveToLocalStorage = (itemsCount, total, cartItems) => {
@@ -46,7 +44,7 @@ const CartReducer = (state, action) => {
       };
     case REMOVE_ITEM:
       const filteredCartItems = state.cartItems?.filter(
-        (item) => item.id !== action.payload.id
+        (item) => item?.id !== action.payload?.id
       );
       saveToLocalStorage(filteredCartItems);
       return {
@@ -56,7 +54,7 @@ const CartReducer = (state, action) => {
       };
     case INCREASE:
       const increasedCartItems = state.cartItems?.map((item) =>
-        item.id === action.payload.id
+        item?.id === action.payload?.id
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
@@ -68,7 +66,7 @@ const CartReducer = (state, action) => {
       };
     case DECREASE:
       const decreasedCartItems = state.cartItems.map((item) =>
-        item.id === action.payload.id
+        item?.id === action.payload?.id
           ? { ...item, quantity: item.quantity - 1 }
           : item
       );
@@ -78,25 +76,7 @@ const CartReducer = (state, action) => {
         ...sumItems(decreasedCartItems),
         cartItems: decreasedCartItems,
       };
-    case AUTH_STATE:
-      const { userDetails, storedCartItems } = action.payload;
-      const userDataAndCart = {
-        isUserLoggedIn: userDetails?.uid ? true : false,
-        userDetails,
-        storedCartItems,
-        totalCost: storedCartItems?.reduce(
-          (total, item) =>
-            total + parseFloat(item.price?.replace("$", "")) * item.quantity,
-          0
-        ),
-      };
-      localStorage.setItem("userDataAndCart", JSON.stringify(userDataAndCart));
-      return {
-        ...state,
-        authState: {
-          ...userDataAndCart,
-        },
-      };
+
     case CHECKOUT:
       saveToLocalStorage([]);
       return {
@@ -110,13 +90,11 @@ const CartReducer = (state, action) => {
         cartItems: [],
         ...sumItems([]),
       };
-
     case UPDATE_SEARCH_RESULTS:
       return {
         ...state,
         prodList: action.payload,
       };
-
     default:
       return state;
   }

@@ -1,21 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { style } from "../Style";
 import success from "../../Asset/success.png";
+import CartContext from "../../Context/Cart/CartContext";
 
 function SuccessPage() {
   const navigate = useNavigate();
 
+  const { handleCheckout } = useContext(CartContext);
+
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
-      localStorage.removeItem(
-        "total",
-        "cartItems",
-        "userDataAndCart",
-        "itemsCount"
-      );
+      handleCheckout();
     }, 5000);
   }, []);
 

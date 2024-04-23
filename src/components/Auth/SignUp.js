@@ -24,11 +24,9 @@ import { auth } from "./FireBase/config";
 import Loader from "../Loader/Loader";
 import GoogleIcon from "@mui/icons-material/Google";
 import { authSchema, authSignUpSchema } from "../FormValidation/FormValidation";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
-import { TextFieldsSharp } from "@mui/icons-material";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -82,16 +80,12 @@ function SignUp() {
         toast.success("login Succesful");
         navigate("/");
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
       })
       .catch((error) => {
         setIsLoading(false);
         toast.error(error.message);
       });
   };
-
-  console.log(showPassword);
 
   return (
     <React.Fragment>

@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  InputAdornment,
+  OutlinedInput,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import { style } from "../Style";
 import Loader from "../Loader/Loader";
 import { auth } from "./FireBase/config";
 import GoogleIcon from "@mui/icons-material/Google";
-import CartContext from "../../Context/Cart/CartContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import CartContext from "../../Context/Cart/CartContext";
 import { useForm } from "react-hook-form";
 import {
   signInWithEmailAndPassword,
@@ -37,15 +46,21 @@ function SignIn() {
     setShowPassword(!showPassword);
   };
 
-  const { authState, cartItems, setAuthState } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
 
   const SignInUser = (data) => {
     setIsLoading(true);
-
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(userCredential);
+        const user = userCredential?.user;
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          uid: user.uid,
+          isUserLoggedIn: user.uid ? true : false,
+        };
+        localStorage.setItem("userData", JSON.stringify(userData));
         setIsLoading(false);
         toast.success("logged in successfully");
         if (cartItems.length > 0) {
@@ -60,6 +75,7 @@ function SignIn() {
         toast.error(errorMessage);
       });
   };
+
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -78,20 +94,20 @@ function SignIn() {
       });
   };
 
-  const signOutWithGoogle = () => {
-    signOut(auth)
-      .then(() => {
-        setIsLoading(false);
-        toast.success("logged out Succesfull");
-        navigate("/");
-        const userDetails = null;
-        setAuthState(userDetails);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        toast.error(error.message);
-      });
-  };
+  // const signOutWithGoogle = () => {
+  //   signOut(auth)
+  //     .then(() => {
+  //       setIsLoading(false);
+  //       toast.success("logged out Succesfull");
+  //       navigate("/");
+  //       const userDetails = null;
+  //       setAuthState(userDetails);
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       toast.error(error.message);
+  //     });
+  // };
 
   return (
     <React.Fragment>
@@ -102,21 +118,38 @@ function SignIn() {
           <Typography sx={style.pageHeader}>Sign In</Typography>
           <form onSubmit={handleSubmit(SignInUser)} style={style.formContainer}>
             <div style={style.inputContainer}>
-              <input
+              <TextField
+                sx={style.payinptu}
                 type="email"
                 placeholder="email"
-                className="auth-inputfield"
                 {...register("email")}
               />
+
               {errors.email && (
                 <span style={style.error}> {errors.email?.message}</span>
               )}
             </div>
             <div style={style.inputContainer}>
-              <input
-                className="auth-inputfield"
+              <OutlinedInput
+                sx={style.payinptu}
+                id="outlined-adornment-weight"
+                type={showPassword ? "text" : "password"}
                 placeholder="password"
-                type="password"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleClickShowPassword} edge="end">
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                aria-describedby="outlined-weight-helper-text"
+                inputProps={{
+                  "aria-label": "weight",
+                }}
                 {...register("password")}
               />
               {errors.password && (
@@ -165,9 +198,9 @@ function SignIn() {
               </span>
             </Typography>
           </Box>
-          <div>
+          {/* <div>
             <button onClick={signOutWithGoogle}>Sign out</button>
-          </div>
+          </div> */}
         </Box>
       </Box>
     </React.Fragment>

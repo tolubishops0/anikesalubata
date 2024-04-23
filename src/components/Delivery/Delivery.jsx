@@ -19,11 +19,11 @@ function Delivery() {
   } = useForm({
     resolver: yupResolver(deliverySchema),
   });
-  const { authState } = useContext(CartContext);
-  const { userDetails } = authState || {};
+  const userData = JSON.parse(localStorage.getItem("userData")) || {};
 
-  const [name] = useState(userDetails?.name);
-  const [email] = useState(userDetails?.email);
+
+  const [name] = useState(userData?.name);
+  const [email] = useState(userData?.email);
   
   const getAddressDetails = (data) => {
     navigate("/payments");

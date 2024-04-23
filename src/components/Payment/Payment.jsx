@@ -17,6 +17,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { style } from "../Style";
+import { sumItems } from "../../Context/Cart/CartReducer";
 import CartContext from "../../Context/Cart/CartContext";
 import card from "../../Asset/cardpaymenticon.png";
 import visa from "../../Asset/icons8-visa-48.png";
@@ -41,9 +42,11 @@ function Payment() {
   } = useForm({
     resolver: yupResolver(cardSchema),
   });
-  const { authState } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
+  const userData = JSON.parse(localStorage.getItem("userData")) || {};
+  const { itemsCount, total } = sumItems(cartItems);
 
-  const { userDetails, totalCost } = authState || {};
+  console.log(total);
 
   const [isChecked, setIsChecked] = useState(false);
   const [cardImg, setCardImg] = useState(null);
@@ -55,15 +58,7 @@ function Payment() {
   });
 
   const getPaymentDetails = (data) => {
-    console.log(data);
     navigate("/success-page");
-    // const cardDetails = {
-    //   cardName: cardState.name,
-    //   cardNumber: cardState.number,
-    //   cardExp: cardState.exp,
-    //   cvv: cardState.cvv,
-    // };
-    // console.log(isValid);
   };
 
   const toggleSwitch = () => {
@@ -140,9 +135,9 @@ function Payment() {
             </Box>
 
             <div>
-              <Typography sx={style.pageHeader}> {`$${totalCost}`}</Typography>
+              <Typography sx={style.pageHeader}> {`${total}`}</Typography>
               <Typography sx={style.pageSubHeader}>
-                {userDetails.email}
+                {userData?.email}
               </Typography>
             </div>
           </Box>

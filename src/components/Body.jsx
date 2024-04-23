@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import bgimg from "../Asset/bgimg.jpg";
 import { style } from "./Style";
+import Loader from "./Loader/Loader";
 
 function Body() {
   const handleNavigate = () => {
@@ -12,6 +13,7 @@ function Body() {
   const navigate = useNavigate();
   return (
     <Box sx={style.heroSection}>
+
       <img src={bgimg} alt="bgimg" style={style.img} />
       <Box sx={style.textContainer}>
         <Typography sx={style.header} className="slide-bannerTextHeader">

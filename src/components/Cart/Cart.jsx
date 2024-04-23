@@ -22,8 +22,9 @@ function Cart() {
   } = useContext(CartContext);
   const { itemsCount, total } = sumItems(cartItems);
 
-  const { isUserLoggedIn } = authState || {};
-
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const { userDetails, isUserLoggedIn } = userData || {};
+  
   const goToDetail = (item) => {
     navigate(`/products/${item.name}/${item.shoeTypeId}`);
   };
