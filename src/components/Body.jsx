@@ -14,11 +14,11 @@ function Body() {
   return (
     <Box sx={style.heroSection}>
 
-      <img src={bgimg} alt="bgimg" style={style.img} />
+      {/* <img src={bgimg} alt="bgimg" style={style.img} /> */}
       <Box sx={style.textContainer}>
         <Typography sx={style.header} className="slide-bannerTextHeader">
           {" "}
-          Your One-Stop Destination for Quality Handmade Shoes.{" "}
+          Your One-Stop Destination <br/> for Quality Handmade Shoes.{" "}
           {/* SAY SOMETHING ABOUT HANDMADE HERE  */}
         </Typography>
         <Typography sx={style.header2} className="slide-bannerTextSubtext">

@@ -106,22 +106,22 @@ const footer1 = [
     value: "loafers",
   },
   {
-    name: "Women's Slides",
-    value: "womenslides",
+    name: "Corporate",
+    value: "corporate",
   },
 ];
 const footer2 = [
   {
-    name: "Corporate",
-    value: "corporate",
+    name: "Boots",
+    value: "boots",
   },
   {
     name: "Men's Slides",
     value: "men+slides",
   },
   {
-    name: "Boots",
-    value: "boots",
+    name: "Women's Slides",
+    value: "womenslides",
   },
 ];
 
@@ -138,8 +138,8 @@ const otherLinks = [
     name: "Go to cart",
     link: "cart",
   },
-  {
-    name: "About Us",
-    link: "",
-  },
+  // {
+  //   name: "About Us",
+  //   link: "",
+  // },
 ];

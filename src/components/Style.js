@@ -35,8 +35,9 @@ export const style = {
     fontStyle: "italic",
     fontSize: "2rem",
     cursor: "pointer",
-    "@media screen and (max-width:1200px)": {
-      // fontSize: "1.5rem",
+    "@media screen and (max-width:600px)": {
+      fontSize: "1.5rem",
+      fontWeight: "700",
     },
   },
   UserName: {
@@ -68,17 +69,15 @@ export const style = {
     },
   },
   heroSection: {
-    position: "relative",
-    overflow: "hidden",
-    height: "75vh",
+    backgroundImage: `url(${bgimg})`,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundSize: "contain",
+    backgroundPosition: "bottom right",
     "@media screen and (max-width: 768px)": {
-      height: "50vh",
-    },
-    "@media screen and (max-width: 768px)": {
-      height: "55vh",
-    },
-    "@media screen and (max-width: 350px)": {
-      height: "70vh",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
     },
   },
   img: {
@@ -86,10 +85,11 @@ export const style = {
     width: "100%",
   },
   textContainer: {
-    position: "absolute",
-    top: "20%",
-    left: "5%",
-    width: "55%",
+    // position: "absolute",
+    // top: "20%",
+    padding: "5rem 0 ",
+    width: "90%",
+    margin: "0 auto",
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
@@ -101,6 +101,7 @@ export const style = {
     },
     "@media screen and (max-width: 768px)": {
       width: "90%",
+      gap: ".8rem",
     },
   },
   header: {
@@ -112,6 +113,7 @@ export const style = {
     },
     "@media screen and (max-width: 500px)": {
       fontSize: "1.5rem",
+      lineHeight: "2.5rem",
     },
   },
   header2: {
@@ -132,13 +134,13 @@ export const style = {
     backgroundColor: "white",
     fontWeight: "700",
     fontSize: "1.2rem",
-    width: "35%",
+    width: "20%",
     height: "4rem",
     borderRadius: "5px",
     transition: "background transform 1s ease",
     textTransform: "capitalize",
     "&:hover": {
-      background: "red",
+      background: "gray",
     },
     "@media screen and (max-width: 500px)": {
       width: "50%",
@@ -553,7 +555,7 @@ export const style = {
     gap: "1rem",
     // justifyContent: "center",
     "@media screen and (max-width: 768px)": {
-      gap: ".5rem",
+      gap: "1rem",
     },
   },
   cart3: {
@@ -587,14 +589,15 @@ export const style = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    "@media screen and (max-width: 500px)": {
+    "@media screen and (max-width: 600px)": {
       flexWrap: "wrap",
       gap: "2.5rem",
+      justifyContent: "space-between",
+      alignItems: "center",
     },
   },
   fotterCtegoryContainerIcons: {
     display: "flex",
-
     justifyContent: "center",
     alignItems: "right",
     gap: "1.5rem",
