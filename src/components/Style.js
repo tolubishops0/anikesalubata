@@ -86,8 +86,9 @@ export const style = {
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundSize: "contain",
+    backgroundSize: "cover",
     backgroundPosition: "bottom right",
+    backgroundRepeat: "no-repeat",
     "@media screen and (max-width: 768px)": {
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",

@@ -43,7 +43,7 @@ function Payment() {
   } = useForm({
     resolver: yupResolver(cardSchema),
   });
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, handleCheckout } = useContext(CartContext);
   const userData = JSON.parse(localStorage.getItem("userData")) || {};
   const { itemsCount, total } = sumItems(cartItems);
 
@@ -63,6 +63,7 @@ function Payment() {
   const getPaymentDetails = (data) => {
     setIsLoading(true);
     setTimeout(() => {
+      handleCheckout();
       navigate("/success-page");
       setIsLoading(false);
     }, 4000);

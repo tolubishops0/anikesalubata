@@ -31,7 +31,6 @@ function Body() {
             {/* SAY SOMETHING ABOUT HANDMADE HERE  */}
           </Typography>
         )}
-
         <Typography sx={style.header2} className="slide-bannerTextSubtext">
           Walk your talk, with Àníkẹ́ Sálúbàtà.{" "}
         </Typography>

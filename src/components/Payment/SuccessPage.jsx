@@ -8,12 +8,11 @@ import CartContext from "../../Context/Cart/CartContext";
 function SuccessPage() {
   const navigate = useNavigate();
 
-  const { handleCheckout } = useContext(CartContext);
 
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
-      handleCheckout();
+      
     }, 8000);
   }, []);
 
