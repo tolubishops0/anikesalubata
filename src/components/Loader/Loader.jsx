@@ -22,11 +22,11 @@ const style = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "rgba(0, 0, 0, 0.5)",
+    background: "rgba(0, 0, 0, 0.9)",
     zIndex: 50, 
   },
   loader: {
-    border: "8px solid #2196f3",
+    border: "6px solid #2196f3",
     borderRadius: "50%",
     width: 48,
     height: 48,

@@ -15,7 +15,15 @@ function Category() {
   };
 
   useEffect(() => {
-    if (location.pathname === "/cart") {
+    if (
+      location.pathname === "/cart" ||
+      location.pathname === "/signin" ||
+      location.pathname === "/signup" ||
+      location.pathname === "/reset-password" ||
+      location.pathname === "/user-details" ||
+      location.pathname === "/payments" ||
+      location.pathname === "/success-page"
+    ) {
       setSelectedCategory("");
     }
   }, [location.pathname]);

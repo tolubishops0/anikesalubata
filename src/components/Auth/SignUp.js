@@ -95,7 +95,15 @@ function SignUp() {
           <Box sx={style.authContainer}>
             <Typography sx={style.pageHeader}>
               {" "}
-              Welcome to Àníkẹ́ Sálúbàtà
+              Welcome to{" "}
+              <span
+                style={{
+                  fontStyle: "italic",
+                  color: "white",
+                  marginLeft: "0.5rem",
+                }}>
+                Àníkẹ́ Sálúbàtà
+              </span>
             </Typography>
             <Typography sx={style.pageSubHeader}>
               {" "}

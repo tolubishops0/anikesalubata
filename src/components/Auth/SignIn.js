@@ -101,7 +101,17 @@ function SignIn() {
       ) : (
         <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
           <Box sx={style.authContainer}>
-            <Typography sx={style.pageHeader}>Sign In</Typography>
+            <Typography sx={style.pageHeader}>
+              Sign In to
+              <span
+                style={{
+                  fontStyle: "italic",
+                  color: "white",
+                  marginLeft: "0.5rem",
+                }}>
+                Àníkẹ́ Sálúbàtà
+              </span>
+            </Typography>
             <form
               onSubmit={handleSubmit(SignInUser)}
               style={style.formContainer}>

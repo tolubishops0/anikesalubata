@@ -91,7 +91,7 @@ export const deliverySchema = yup.object().shape({
   phoneNumber: yup.string().required("pls enter phone number"),
   street: yup.string().required("pls provide your street address"),
   state: yup.string().required("pls provide your state"),
-  country: yup.string().required("pls select your country"),
+  // country: yup.string().required("pls select your country"),
   city: yup.string().required("pls provide your city"),
   zipcode: yup.string().required("pls provide your zipcode"),
 });

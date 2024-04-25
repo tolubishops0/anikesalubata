@@ -2,7 +2,19 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Box, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  InputAdornment,
+  OutlinedInput,
+  IconButton,
+  Select,
+  TextField,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import { style } from "../Style";
 import CartContext from "../../Context/Cart/CartContext";
 import * as yup from "yup";
@@ -21,11 +33,15 @@ function Delivery() {
   });
   const userData = JSON.parse(localStorage.getItem("userData")) || {};
 
-
   const [name] = useState(userData?.name);
   const [email] = useState(userData?.email);
-  
-  const getAddressDetails = (data) => {
+  const [country, setCountry] = useState("");
+
+  const handleChange = (e) => {
+    setCountry(e.target.value);
+  };
+
+  const getAddressDetails = () => {
     navigate("/payments");
   };
 
@@ -39,7 +55,7 @@ function Delivery() {
       id: "Ghana",
     },
     {
-      name: "togo",
+      name: "Togo",
       id: "togo",
     },
   ];
@@ -54,30 +70,30 @@ function Delivery() {
             style={style.formContainer}
             type="submit">
             <div style={style.inputContainer}>
-              <input
+              <TextField
                 type="text"
                 placeholder="name"
                 required
                 value={name}
-                className="auth-inputfield"
+                sx={style.payinptu}
                 disabled
               />
             </div>
             <div style={style.inputContainer}>
-              <input
+              <TextField
                 type="email"
                 placeholder="email"
                 required
                 value={email}
-                className="auth-inputfield"
+                sx={style.payinptu}
                 disabled
               />
             </div>
             <div style={style.inputContainer}>
-              <input
+              <TextField
                 type="number"
                 placeholder="phonenumber"
-                className="auth-inputfield"
+                sx={style.payinptu}
                 {...register("phoneNumber")}
               />
               {errors.phoneNumber && (
@@ -85,10 +101,10 @@ function Delivery() {
               )}
             </div>
             <div style={style.inputContainer}>
-              <input
+              <TextField
                 type="text"
                 placeholder="street"
-                className="auth-inputfield"
+                sx={style.payinptu}
                 {...register("street")}
               />
               {errors.street && (
@@ -96,37 +112,52 @@ function Delivery() {
               )}
             </div>
             <div style={style.inputContainer}>
-              <input
+              <TextField
                 type="text"
                 placeholder="state"
-                className="auth-inputfield"
+                sx={style.payinptu}
                 {...register("state")}
               />
               {errors.state && (
                 <span style={style.error}> {errors.state?.message}</span>
               )}
             </div>
-            <div style={style.inputContainer}>
-              <select
-                {...register("country")}
-                // onChange={(e) => setCountry(e.target.value)}
-                className="auth-inputfield"
-                placeholder="country">
-                <option value="">Select your country</option>
-                {countriesList.map((item, index) => (
-                  <option key={index}>{item.name}</option>
-                ))}
-              </select>
-              {errors.country && (
-                <span style={style.error}>{errors.country?.message}</span>
+            <FormControl style={style.inputContainer}>
+              {!country && (
+                <InputLabel sx={{ color: "#c0c0c0" }} shrink={false}>
+                  country
+                </InputLabel>
               )}
-            </div>
+
+              <Select
+                // {...register("country")}
+                sx={style.payinptu}
+                placeholder="Select  your country"
+              onChange={(e) => handleChange(e)}
+              >
+                {countriesList.map((item, index) => (
+                  <MenuItem
+                    value={item.name}
+                    sx={{
+                      fontWeight: "500",
+                      color: "black",
+                      backgroundColor: "white",
+                    }}
+                    key={index}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              {/* {errors.country && (
+                <span style={style.error}>{errors.country?.message}</span>
+              )} */}
+            </FormControl>
             <div className="auth-zipcodeinputfild">
               <div style={style.inputContainer}>
-                <input
+                <TextField
                   type="text"
                   placeholder="city"
-                  className="auth-inputfieldzipcdp"
+                  sx={style.payinptu}
                   {...register("city")}
                 />
                 {errors.city && (
@@ -134,10 +165,10 @@ function Delivery() {
                 )}
               </div>
               <div style={style.inputContainer}>
-                <input
+                <TextField
                   type="number"
                   placeholder="zipCode"
-                  className="auth-inputfieldzipcdp"
+                  sx={style.payinptu}
                   {...register("zipcode")}
                 />
                 {errors.zipcode && (

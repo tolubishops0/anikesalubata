@@ -4,6 +4,7 @@ export const style = {
   navParentContainer: {
     // height: "10rem",
     background: "white",
+    // padding: "1rem 0",
   },
   navContainer: {
     display: "flex",
@@ -13,14 +14,12 @@ export const style = {
     height: "6rem",
     margin: "0 auto",
   },
-  parentsmallNavbar: {
+  navContainersmsearch: {
     display: "flex",
+    justifyContent: "center",
     alignItems: "center",
-    flexDirection: "column",
-    gap: "1rem",
     width: "90%",
-    paddingTop: "1.5rem",
-    margin: "0 auto",
+    margin: "0 auto 1rem auto",
   },
   smallNavbar: {
     display: "flex",
@@ -35,25 +34,39 @@ export const style = {
     fontStyle: "italic",
     fontSize: "2rem",
     cursor: "pointer",
+    "@media screen and (max-width:1200px)": {
+      fontSize: "1.6rem",
+      fontWeight: "700",
+    },
+    "@media screen and (max-width:1000px)": {
+      fontSize: "1.8rem",
+    },
     "@media screen and (max-width:600px)": {
       fontSize: "1.5rem",
-      fontWeight: "700",
+    },
+    "@media screen and (max-width:450px)": {
+      fontSize: "1.3rem",
     },
   },
   UserName: {
     fontWeight: "600",
     fontSize: "1rem",
     cursor: "pointer",
-    "@media screen and (max-width:1200px)": {
-      // fontSize: "1.5rem",
+    "@media screen and (max-width:600px)": {
+      fontSize: "0.8rem",
     },
   },
   ShoppingCartOutlinedIcon: {
     position: "relative",
     cursor: "pointer",
     display: "flex",
-    "@media screen and (max-width:768px)": {
-      display: "block",
+  },
+  rightNav: {
+    display: "flex",
+    gap: "2rem",
+    alignItems: "flex-end",
+    "@media screen and (max-width:1200px)": {
+      gap: ".5rem",
     },
   },
   prodCount: {
@@ -85,8 +98,6 @@ export const style = {
     width: "100%",
   },
   textContainer: {
-    // position: "absolute",
-    // top: "20%",
     padding: "5rem 0 ",
     width: "90%",
     margin: "0 auto",
@@ -94,10 +105,10 @@ export const style = {
     flexDirection: "column",
     gap: "1.5rem",
     "@media screen and (max-width:1200px)": {
-      width: "60%",
+      width: "90%",
     },
     "@media screen and (max-width: 1000px)": {
-      width: "75%",
+      // width: "75%",
     },
     "@media screen and (max-width: 768px)": {
       width: "90%",
@@ -107,13 +118,26 @@ export const style = {
   header: {
     fontSize: "3rem",
     fontWeight: "700",
+    lineHeight: "6rem",
     color: "white",
+    "@media screen and (max-width:1300px)": {
+      fontSize: "2rem",
+    },
+    "@media screen and (max-width: 1000px)": {
+      // width: "75%",
+    },
     "@media screen and (max-width: 768px)": {
-      fontSize: "2.5rem",
+      fontSize: "2rem",
     },
     "@media screen and (max-width: 500px)": {
       fontSize: "1.5rem",
       lineHeight: "2.5rem",
+    },
+    "@media screen and (max-width: 400px)": {
+      fontSize: "1.3rem",
+    },
+    "@media screen and (max-width: 350px)": {
+      fontSize: "1.2rem",
     },
   },
   header2: {
@@ -126,6 +150,9 @@ export const style = {
     },
     "@media screen and (max-width: 500px)": {
       fontSize: "1rem",
+    },
+    "@media screen and (max-width: 400px)": {
+      fontSize: "0.95rem",
     },
   },
   bannerTextButton: {
@@ -142,8 +169,11 @@ export const style = {
     "&:hover": {
       background: "gray",
     },
-    "@media screen and (max-width: 500px)": {
+    "@media screen and (max-width: 768px)": {
       width: "50%",
+    },
+    "@media screen and (max-width: 350px)": {
+      fontSize: "1rem",
     },
   },
   categoryContainer: {
@@ -590,10 +620,11 @@ export const style = {
     justifyContent: "space-between",
     alignItems: "flex-start",
     "@media screen and (max-width: 600px)": {
+      flexDirection: "column",
       flexWrap: "wrap",
-      gap: "2.5rem",
-      justifyContent: "space-between",
-      alignItems: "center",
+      gap: "1.5rem",
+      // justifyContent: "space-between",
+      alignItems: "flex-start",
     },
   },
   fotterCtegoryContainerIcons: {

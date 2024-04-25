@@ -9,10 +9,10 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 
 function Footer() {
   const navigate = useNavigate();
+  const currYear = new Date().getFullYear();
   const handleCategory = (category) => {
     navigate(`/products/${category?.toLowerCase().replace(" ", "+")}`);
   };
-  const currYear = new Date().getFullYear();
 
   return (
     <Box sx={{ background: "black" }}>

@@ -30,7 +30,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "../Loader/Loader";
 
 function NavbBar() {
-  const isSmallScreen = useMediaQuery("(max-width: 768px)");
+  const isSmallScreen = useMediaQuery("(max-width: 1000px)");
+  const isSmallScreensm = useMediaQuery("(max-width: 600px)");
 
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(null);
@@ -50,7 +51,7 @@ function NavbBar() {
         toast.success("logged out Succesfull");
         navigate("/");
         const userData = null;
-        localStorage.setItem("userData", userData);
+        localStorage.removeItem("userData");
       })
       .catch((error) => {
         setIsLoading(false);
@@ -104,133 +105,108 @@ function NavbBar() {
     <>
       {!isLoading ? (
         <Box sx={style.navParentContainer}>
-          {!isSmallScreen ? (
-            <Box sx={style.navContainer}>
-              <Typography sx={style.brandName} onClick={() => navigate("/")}>
-                Àníkẹ́ Sálúbàtà
-              </Typography>
-              <SearchBar productList={productList} />
-              <Box
-                sx={{ display: "flex", gap: "2rem", alignItems: "flex-end" }}>
+          <Box sx={style.navContainer}>
+            <Typography sx={style.brandName} onClick={() => navigate("/")}>
+              Àníkẹ́ Sálúbàtà
+            </Typography>
+            {!isSmallScreen && <SearchBar productList={productList} />}
+            <Box sx={style.rightNav}>
+              {!isSmallScreensm ? (
                 <Box sx={style.ShoppingCartOutlinedIcon}>
                   <ShoppingCartOutlinedIcon
                     fontSize="large"
-                    
                     onClick={() => navigate("/cart")}
                   />
                   {cartItems?.length > 0 && (
                     <Typography sx={style.prodCount}>{itemsCount}</Typography>
                   )}
                 </Box>
-
-                <Menu
-                  PaperProps={{
-                    style: {
-                      margin: "0",
-                    },
-                  }}
-                  anchorEl={showMenu}
-                  open={Boolean(showMenu)}
-                  onClose={handleClose}>
-                  {menuItems.map((item, index) => (
-                    <MenuItem
-                      sx={{
-                        ...style.categoryList,
-                        padding: "0.5rem 2rem",
-                        background: index === 0 ? "#ACACAC" : "none",
-                      }}
-                      onClick={item.onClick}
-                      key={index}>
-                      {item.content}
-                    </MenuItem>
-                  ))}
-                </Menu>
-
-                <Box
-                  onClick={handleMenuClick}
-                  sx={{
-                    display: "flex",
-                    gap: ".5rem",
-                    alignItems: "flex-end",
-                  }}>
-                  {userData?.isUserLoggedIn ? (
-                    <PersonIcon fontSize="large" />
-                  ) : (
-                    <PersonOffIcon fontSize="large" />
-                  )}{" "}
-                  {userData?.uid ? (
-                    <Typography sx={style.UserName}>
-                      Hi, {userData?.name}
-                    </Typography>
-                  ) : (
-                    <Typography sx={style.UserName}>Account</Typography>
+              ) : (
+                <Box sx={style.ShoppingCartOutlinedIcon}>
+                  <ShoppingCartOutlinedIcon
+                    fontSize="small"
+                    onClick={() => navigate("/cart")}
+                  />
+                  {cartItems?.length > 0 && (
+                    <Typography sx={style.prodCount}>{itemsCount}</Typography>
                   )}
-                  {showMenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </Box>
-              </Box>
-            </Box>
-          ) : (
-            <Box sx={style.parentsmallNavbar}>
-              <Box sx={style.smallNavbar}>
-                <Typography sx={style.brandName} onClick={() => navigate("/")}>
-                  Àníkẹ́ Sálúbàtà
-                </Typography>
+              )}
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "flex-end",
-                    gap: "1rem",
-                  }}>
-                  <Box>
+              <Menu
+                PaperProps={{
+                  style: {
+                    margin: "0",
+                  },
+                }}
+                anchorEl={showMenu}
+                open={Boolean(showMenu)}
+                onClose={handleClose}>
+                {menuItems.map((item, index) => (
+                  <MenuItem
+                    sx={{
+                      ...style.categoryList,
+                      padding: "0.5rem 2rem",
+                      background: index === 0 ? "#ACACAC" : "none",
+                    }}
+                    onClick={item.onClick}
+                    key={index}>
+                    {item.content}
+                  </MenuItem>
+                ))}
+              </Menu>
+
+              <Box
+                onClick={handleMenuClick}
+                sx={{
+                  display: "flex",
+                  gap: ".5rem",
+                  alignItems: "flex-end",
+                }}>
+                {!isSmallScreensm ? (
+                  <>
                     {" "}
                     {userData?.isUserLoggedIn ? (
-                      <PersonIcon onClick={handleMenuClick} fontSize="large" />
+                      <PersonIcon fontSize="large" />
                     ) : (
-                      <PersonOffIcon
-                        onClick={handleMenuClick}
-                        fontSize="large"
-                      />
+                      <PersonOffIcon fontSize="large" />
                     )}
-                  </Box>
-                  <Menu
-                    PaperProps={{
-                      style: {
-                        padding: "0",
-                      },
-                    }}
-                    anchorEl={showMenu}
-                    open={Boolean(showMenu)}
-                    onClose={handleClose}>
-                    {menuItems.map((item, index) => (
-                      <MenuItem
-                        sx={{
-                          padding: "0 2rem",
-                          background: index === 0 ? "#ACACAC" : "none",
-                        }}
-                        onClick={item.onClick}
-                        key={index}>
-                        {item.content}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                  <Box
-                    sx={style.ShoppingCartOutlinedIcon}
-                    onClick={() => navigate("/cart")}>
-                    <ShoppingCartOutlinedIcon
-                      fontSize="large"
-                      onClick={() => navigate("/cart")}
-                    />
-                    {cartItems?.length > 0 && (
-                      <Typography sx={style.prodCount}>{itemsCount}</Typography>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    {userData?.isUserLoggedIn ? (
+                      <PersonIcon fontSize="small" />
+                    ) : (
+                      <PersonOffIcon fontSize="small" />
                     )}
-                  </Box>
-                </Box>
+                  </>
+                )}
+
+                {userData?.uid ? (
+                  <Typography sx={style.UserName}>
+                    Hi, {userData?.name}
+                  </Typography>
+                ) : (
+                  <Typography sx={style.UserName}>Account</Typography>
+                )}
+                {!isSmallScreensm ? (
+                  showMenu ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )
+                ) : showMenu ? (
+                  <ExpandLessIcon fontSize="small" />
+                ) : (
+                  <ExpandMoreIcon fontSize="small" />
+                )}
               </Box>
-              <Box sx={{ width: "100%", margin: "1rem auto" }}>
-                <SearchBar productList={productList} />
-              </Box>
+            </Box>
+          </Box>
+          {isSmallScreen && (
+            <Box sx={style.navContainersmsearch}>
+              <SearchBar productList={productList} />
             </Box>
           )}
         </Box>

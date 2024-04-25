@@ -14,7 +14,7 @@ function SuccessPage() {
     setTimeout(() => {
       navigate("/");
       handleCheckout();
-    }, 5000);
+    }, 8000);
   }, []);
 
   return (
@@ -25,7 +25,7 @@ function SuccessPage() {
         <Typography
           sx={style.checkOut}
           onClick={() => navigate("/products/all")}>
-          Redirecting to the productlist
+          You will be redirected to the productlist
         </Typography>
       </Box>
     </Box>
