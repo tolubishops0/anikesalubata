@@ -150,118 +150,126 @@ function Payment() {
                 </Typography>
               </div>
             </Box>
-            <Typography sx={{ ...style.pageHeader, textAlign: "center" }}>
-              Payment Details
-            </Typography>
-            <Box sx={{ ...style.authContainer, marginTop: "2rem" }}>
-              <form
-                onSubmit={handleSubmit(getPaymentDetails)}
-                style={style.formContainer}
-                type="submit">
-                <FormControl fullWidth variant="outlined">
-                  <OutlinedInput
-                    sx={style.payinptu}
-                    id="outlined-adornment-weight"
-                    placeholder="card number"
-                    name="number"
-                    maxLength={19}
-                    value={formatCardNumber(cardState.number)}
-                    onChange={handleCardInputChange}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <img src={cardImg} alt="" />
-                      </InputAdornment>
-                    }
-                    aria-describedby="outlined-weight-helper-text"
-                    inputProps={{
-                      maxLength: 19,
-                      "aria-label": "weight",
-                    }}
-                    // {...register("cardNumber")}
-                  />
-                  {/* {errors.cardNumber && (
+            <Box
+              sx={{
+                marginTop: "2rem",
+              }}>
+              <Typography sx={{ ...style.pageHeader, textAlign: "center" }}>
+                Payment Details
+              </Typography>
+              <Box sx={{ ...style.authContainer, marginTop: "2rem" }}>
+                <form
+                  onSubmit={handleSubmit(getPaymentDetails)}
+                  style={style.formContainer}
+                  type="submit">
+                  <FormControl fullWidth variant="outlined">
+                    <OutlinedInput
+                      sx={style.payinptu}
+                      id="outlined-adornment-weight"
+                      placeholder="card number"
+                      name="number"
+                      maxLength={19}
+                      value={formatCardNumber(cardState.number)}
+                      onChange={handleCardInputChange}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <img src={cardImg} alt="" />
+                        </InputAdornment>
+                      }
+                      aria-describedby="outlined-weight-helper-text"
+                      inputProps={{
+                        maxLength: 19,
+                        "aria-label": "weight",
+                      }}
+                      // {...register("cardNumber")}
+                    />
+                    {/* {errors.cardNumber && (
                   <span style={style.error}> {errors.cardNumber?.message}</span>
                 )} */}
-                </FormControl>
+                  </FormControl>
 
-                <div style={style.inputContainer}>
-                  <OutlinedInput
-                    sx={style.payinptu}
-                    id="outlined-adornment-weight"
-                    placeholder="card name"
-                    name="name"
-                    aria-describedby="outlined-weight-helper-text"
-                    inputProps={{
-                      maxLength: 19,
-                      "aria-label": "weight",
-                    }}
-                    {...register("cardName")}
-                  />
-                  {errors.cardName && (
-                    <span style={style.error}> {errors.cardName?.message}</span>
-                  )}
-                </div>
-
-                <div className="auth-zipcodeinputfild">
                   <div style={style.inputContainer}>
                     <OutlinedInput
                       sx={style.payinptu}
                       id="outlined-adornment-weight"
-                      placeholder="Valid Through"
-                      name="exp"
-                      aria-describedby="outlined-weight-helper-text"
-                      value={formatExpirationDate(cardState.exp)} // Apply expiration date formatting
-                      onChange={handleCardInputChange}
-                      inputProps={{
-                        maxLength: 5,
-                        "aria-label": "weight",
-                      }}
-                    />
-                    {/* {errors.cardExp && (
-                    <span style={style.error}> {errors.cardExp?.message}</span>
-                  )} */}
-                  </div>
-                  <div style={style.inputContainer}>
-                    <OutlinedInput
-                      sx={style.payinptu}
-                      id="outlined-adornment-weight"
-                      placeholder="cvv"
-                      maxlength="3"
-                      name="cvv"
+                      placeholder="card name"
+                      name="name"
                       aria-describedby="outlined-weight-helper-text"
                       inputProps={{
-                        maxLength: 3,
-                        // type: "number",
+                        maxLength: 19,
                         "aria-label": "weight",
                       }}
-                      {...register("cvv")}
+                      {...register("cardName")}
                     />
-                    {errors.cvv && (
-                      <span style={style.error}> {errors.cvv?.message}</span>
+                    {errors.cardName && (
+                      <span style={style.error}>
+                        {" "}
+                        {errors.cardName?.message}
+                      </span>
                     )}
                   </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "right",
-                    alignItems: "center",
-                    gap: ".5rem",
-                  }}>
-                  <Typography sx={style.pageSubHeader}>
-                    Remember Card next time
-                  </Typography>
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={toggleSwitch}
-                  />
-                </div>
 
-                <button className="auth-inputfield-button" type="submit">
-                  Complete order
-                </button>
-              </form>
+                  <div className="auth-zipcodeinputfild">
+                    <div style={style.inputContainer}>
+                      <OutlinedInput
+                        sx={style.payinptu}
+                        id="outlined-adornment-weight"
+                        placeholder="Valid Through"
+                        name="exp"
+                        aria-describedby="outlined-weight-helper-text"
+                        value={formatExpirationDate(cardState.exp)} // Apply expiration date formatting
+                        onChange={handleCardInputChange}
+                        inputProps={{
+                          maxLength: 5,
+                          "aria-label": "weight",
+                        }}
+                      />
+                      {/* {errors.cardExp && (
+                    <span style={style.error}> {errors.cardExp?.message}</span>
+                  )} */}
+                    </div>
+                    <div style={style.inputContainer}>
+                      <OutlinedInput
+                        sx={style.payinptu}
+                        id="outlined-adornment-weight"
+                        placeholder="cvv"
+                        maxlength="3"
+                        name="cvv"
+                        aria-describedby="outlined-weight-helper-text"
+                        inputProps={{
+                          maxLength: 3,
+                          // type: "number",
+                          "aria-label": "weight",
+                        }}
+                        {...register("cvv")}
+                      />
+                      {errors.cvv && (
+                        <span style={style.error}> {errors.cvv?.message}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "right",
+                      alignItems: "center",
+                      gap: ".5rem",
+                    }}>
+                    <Typography sx={style.pageSubHeader}>
+                      Remember Card next time
+                    </Typography>
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={toggleSwitch}
+                    />
+                  </div>
+
+                  <button className="auth-inputfield-button" type="submit">
+                    Complete order
+                  </button>
+                </form>
+              </Box>
             </Box>
           </Box>
         </Box>
