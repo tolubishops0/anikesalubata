@@ -148,7 +148,10 @@ function ProductDetail() {
           <Box
             sx={{
               width: "60%",
-              "@media screen and (max-width: 600px)": {
+              "@media screen and (max-width: 1250px)": {
+                width: "40%",
+              },
+              "@media screen and (max-width: 1000px)": {
                 width: "100%",
               },
             }}>

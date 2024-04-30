@@ -138,11 +138,10 @@ function LikedItems() {
           </Box>
         ) : (
           <Box sx={style.emptyCartIcon}>
-            {/* <img src={emptycart} alt="empty cart img" /> */}
             <Typography
               sx={style.checkOut}
               onClick={() => navigate("/products/all")}>
-              Back to shopping
+              Go to ProductListings
             </Typography>
           </Box>
         )}

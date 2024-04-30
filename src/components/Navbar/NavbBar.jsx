@@ -62,7 +62,11 @@ function NavbBar() {
         {
           content: "Liked Items",
           onClick: () => {
-            navigate("/liked-items");
+            setIsLoading(true);
+            setTimeout(() => {
+              navigate("/liked-items");
+              setIsLoading(false);
+            }, 3000);
             handleClose();
           },
         },

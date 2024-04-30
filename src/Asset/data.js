@@ -55,7 +55,7 @@ export const productList = [
 
   {
     img: loafer10a,
-    name: "brown suede casual Loafers",
+    name: "Brown suede casual Loafers",
     price: "$700",
     id: 15,
     sizes: [40, 41, 43, 44, 45],
@@ -68,7 +68,7 @@ export const productList = [
 
   {
     img: loafer6a,
-    name: "Men's leather black loafers with chain top",
+    name: "Men's leather black loafers",
     price: "$350",
     id: 4,
     sizes: [40, 41, 43, 44, 45],
@@ -80,7 +80,7 @@ export const productList = [
   },
   {
     img: loafer8a,
-    name: "Smooth leather bold chain top loafers ",
+    name: "Smooth leather bold chain loafers ",
     price: "$1000",
     id: 7,
     sizes: [40, 41, 43, 44, 45],

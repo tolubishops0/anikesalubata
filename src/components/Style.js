@@ -80,6 +80,10 @@ export const style = {
       fontSize: "1rem",
       left: "85%",
     },
+    "@media screen and (max-width: 600px)": {
+      fontSize: "0.8rem",
+      left: "50%",
+    },
   },
   heroSection: {
     backgroundImage: `url(${bgimg})`,
@@ -271,8 +275,14 @@ export const style = {
     border: "0",
     boxShadow: "0",
     borderRadius: "5px",
+    "@media screen and (max-width: 1000px)": {
+      minWidth: "40%",
+    },
     "@media screen and (max-width: 768px)": {
-      minWidth: "75%",
+      minWidth: "45%",
+    },
+    "@media screen and (max-width: 600px)": {
+      minWidth: "85%",
     },
     // "&:hover": {
     //   background: "none",
@@ -347,7 +357,10 @@ export const style = {
     display: "flex",
     gap: "1rem",
     width: "40%",
-    "@media screen and (max-width: 768px)": {
+    "@media screen and (max-width: 1250px)": {
+      width: "60%",
+    },
+    "@media screen and (max-width: 1000px)": {
       width: "100%",
       flexDirection: "column-reverse",
     },
@@ -371,7 +384,7 @@ export const style = {
     alignItems: "center",
     padding: "1rem 1rem ",
     gap: "3rem",
-    "@media screen and (max-width: 768px)": {
+    "@media screen and (max-width: 1000px)": {
       flexDirection: "column",
       gap: "1.5rem",
     },
@@ -385,8 +398,11 @@ export const style = {
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
-    "@media screen and (max-width: 768px)": {
+    "@media screen and (max-width: 1000px)": {
       flexDirection: "row",
+      width: "50%",
+    },
+    "@media screen and (max-width: 600px)": {
       width: "100%",
     },
   },
@@ -396,6 +412,10 @@ export const style = {
     borderRadius: "10px",
     cursor: "pointer",
     border: isActive ? "1px solid black" : "1px solid transparent",
+    "@media screen and (max-width: 1000px)": {
+      width: "20%",
+      height: "4rem",
+    },
     "@media screen and (max-width: 768px)": {
       width: "20%",
       height: "4rem",
@@ -409,8 +429,11 @@ export const style = {
   middleImage: {
     width: "90%",
     height: "23rem",
-    "@media screen and (max-width: 768px)": {
+    "@media screen and (max-width: 1000px)": {
       width: "100%",
+      height: "23rem",
+    },
+    "@media screen and (max-width: 768px)": {
       height: "18rem",
     },
   },
@@ -697,7 +720,7 @@ export const style = {
     fontWeight: "400",
     textTransform: "capitalize",
     "@media screen and (max-width: 768px)": {
-      fontSize: "0.6rem",
+      // fontSize: "0.7rem",
     },
   },
   prodListCost: {

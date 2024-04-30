@@ -23,7 +23,6 @@ function Modal(props) {
   const navigate = useNavigate();
   const { addToCart, cartItems } = useContext(CartContext);
   const isSmallScreen = useMediaQuery("(min-width: 768px)");
-
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const [maxWidth, setMaxWidth] = useState("");
@@ -32,13 +31,27 @@ function Modal(props) {
     setSelectedSizes({ ...selectedSizes, [size]: quantity });
   };
 
+  const getsize = cartItems.filter(
+    (item) => item.name === props.selectedProduct.name
+  );
+  let qt = {};
+
+  getsize.forEach((item) => {
+    qt[item.size] = (qt[item.size] || 0) + item.quantity;
+  });
+
   useEffect(() => {
+    const updatedSelectedSizes = {};
+    props.selectedProduct.sizes.forEach((size) => {
+      updatedSelectedSizes[size] = qt[size] || 0;
+    });
+    setSelectedSizes(updatedSelectedSizes);
     if (isSmallScreen) {
       setMaxWidth("sm");
     } else {
       setMaxWidth("xs");
     }
-  }, [isSmallScreen]);
+  }, [ isSmallScreen, props.selectedProduct.sizes]);
 
   const addToCartFunt = () => {
     const itemsToAdd = Object.entries(selectedSizes).map(
