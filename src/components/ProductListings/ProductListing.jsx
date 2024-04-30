@@ -19,12 +19,25 @@ function ProductListing() {
   const searchTerm = searchParams.get("q");
   const { category } = useParams();
 
+  const shuffleArray = (array) => {
+    const shuffledArray = [...array]; 
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
+
   useEffect(() => {
+    let shuffledProducts = shuffleArray(productList); 
     if (category) {
       if (category === "all") {
-        setProdList(productList);
+        shuffledProducts = shuffleArray(shuffledProducts);
       } else {
-        const results = productList.filter(
+        shuffledProducts = shuffledProducts.filter(
           (product) =>
             product.name?.toLowerCase().includes(category.replace(" ", "+")) ||
             product.description
@@ -34,9 +47,9 @@ function ProductListing() {
               ?.toLowerCase()
               .includes(category.replace(" ", "+"))
         );
-        setProdList(results);
       }
     }
+    setProdList(shuffledProducts); // Set the shuffled array as the product list
   }, [category]);
 
   useEffect(() => {
@@ -49,7 +62,7 @@ function ProductListing() {
             .includes(searchTerm.toLowerCase()) ||
           product.searchEng?.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setProdList(results);
+      setProdList(shuffleArray(results)); // Shuffle the filtered results
     }
   }, [searchTerm]);
 

@@ -84,6 +84,21 @@ export const productList = [
     otherImgs: [corp6a],
     ratings: 4.7,
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {
     img: loafer2a,
     name: "Men's Leather slip-on loafers",
@@ -225,7 +240,7 @@ export const productList = [
   },
   {
     img: boot3a,
-    name: "Blue buckled suede Chelsea Heavy Boots",
+    name: "Blue buckled suede Boots",
     price: "$920",
     id: 113,
     sizes: [40, 41, 43, 44, 45],
@@ -492,4 +507,6 @@ export const productList = [
     otherImgs: [corp5b],
     ratings: 4.7,
   },
+
+
 ];
