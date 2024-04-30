@@ -346,7 +346,7 @@ export const style = {
   leftContainer: {
     display: "flex",
     gap: "1rem",
-    width: "60%",
+    width: "40%",
     "@media screen and (max-width: 768px)": {
       width: "100%",
       flexDirection: "column-reverse",
@@ -369,10 +369,11 @@ export const style = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "1rem",
+    padding: "1rem 1rem ",
     gap: "3rem",
     "@media screen and (max-width: 768px)": {
       flexDirection: "column",
+      gap: "1.5rem",
     },
   },
   avSize: {
@@ -380,7 +381,7 @@ export const style = {
     fontSize: ".9rem",
   },
   sideImgThumbNails: {
-    width: "10%",
+    width: "15%",
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
@@ -394,7 +395,7 @@ export const style = {
     height: "4rem",
     borderRadius: "10px",
     cursor: "pointer",
-    border: isActive ? "2px solid black" : "1.5px solid transparent",
+    border: isActive ? "1px solid black" : "1px solid transparent",
     "@media screen and (max-width: 768px)": {
       width: "20%",
       height: "4rem",
@@ -408,6 +409,14 @@ export const style = {
   middleImage: {
     width: "90%",
     height: "23rem",
+    "@media screen and (max-width: 768px)": {
+      width: "100%",
+      height: "18rem",
+    },
+  },
+  likeding: {
+    // width: "90%",
+    // height: "23rem",
     "@media screen and (max-width: 768px)": {
       width: "100%",
       height: "18rem",
@@ -435,13 +444,14 @@ export const style = {
     },
   },
   parentSizesDetail: {
-    width: "98%",
+    width: "50%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     "@media screen and (max-width: 768px)": {
       flexWrap: "wrap",
       gap: ".5rem",
+      width: "98%",
     },
   },
   parentContainer: {
@@ -461,7 +471,7 @@ export const style = {
     },
   },
   sizes: {
-    padding: ".2rem .8rem",
+    padding: ".4rem .8rem",
     background: "black",
     color: "white",
     textAlign: "center",
@@ -502,10 +512,24 @@ export const style = {
       color: "gray",
     },
   },
+  addToCartButtonliked: {
+    padding: "0.6rem",
+    background: "black",
+    color: "white",
+    fontWeight: "600",
+    textAlign: "center",
+    cursor: "pointer",
+    "&:hover": {
+      color: "gray",
+    },
+  },
   productNameCost: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "stretch",
+    "@media screen and (max-width: 768px)": {
+      alignItems: "center",
+    },
   },
   productName: {
     fontWeight: "600",
@@ -567,6 +591,19 @@ export const style = {
     },
     "@media screen and (max-width: 600px)": {
       width: "40%",
+      height: "4.5rem",
+    },
+  },
+  cartimglikeitem: {
+    width: "5%",
+    // height: "6rem",
+    // cursor: "pointer",
+    // "@media screen and (max-width: 900px)": {
+    //   width: "25%",
+    //   height: "6rem",
+    // },
+    "@media screen and (max-width: 600px)": {
+      width: "100%",
       height: "4.5rem",
     },
   },
@@ -656,17 +693,17 @@ export const style = {
   },
   prodListName: {
     color: "black",
-    fontSize: "1rem",
-    fontWeight: "600",
+    fontSize: ".8rem",
+    fontWeight: "400",
     textTransform: "capitalize",
     "@media screen and (max-width: 768px)": {
-      fontSize: "0.7rem",
+      fontSize: "0.6rem",
     },
   },
   prodListCost: {
     color: "grey",
-    fontSize: "1rem",
-    fontWeight: "600",
+    fontSize: ".8rem",
+    fontWeight: "500",
     textTransform: "capitalize",
   },
   cartHeader: {
@@ -816,5 +853,28 @@ export const style = {
     borderRadius: "50%",
     width: 48,
     height: 48,
+  },
+
+  likedItemContainer: {
+    background: "white",
+    display: "flex",
+    alignItems: "center",
+    gap: "3rem",
+    width: "90%",
+    padding: "1rem",
+    border: "1px solid #f8f8f8",
+    borderRadius: "10px",
+    "@media screen and (max-width: 768px)": {
+      flexDirection: "column",
+      gap: "1rem",
+    },
+  },
+  parentlikedItemContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    margin: "0 auto",
+    gap: "1rem",
   },
 };

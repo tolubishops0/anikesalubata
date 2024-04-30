@@ -41,10 +41,8 @@ function NavbBar() {
   const { itemsCount } = sumItems(cartItems);
 
   const userData = JSON.parse(localStorage.getItem("userData")) || {};
-  console.log(userData, "from nav");
 
   const signOutWithGoogle = () => {
-    console.log("sgnout");
     signOut(auth)
       .then(() => {
         setIsLoading(false);
@@ -62,16 +60,16 @@ function NavbBar() {
   const menuItems = userData?.isUserLoggedIn
     ? [
         {
-          content: "Sign Out",
+          content: "Liked Items",
           onClick: () => {
-            signOutWithGoogle();
+            navigate("/liked-items");
             handleClose();
           },
         },
         {
-          content: "Liked Items",
+          content: "Sign Out",
           onClick: () => {
-            // navigate("/ ");
+            signOutWithGoogle();
             handleClose();
           },
         },
@@ -103,116 +101,113 @@ function NavbBar() {
 
   return (
     <>
-      {!isLoading ? (
-        <Box sx={style.navParentContainer}>
-          <Box sx={style.navContainer}>
-            <Typography sx={style.brandName} onClick={() => navigate("/")}>
-              Àníkẹ́ Sálúbàtà
-            </Typography>
-            {!isSmallScreen && <SearchBar productList={productList} />}
-            <Box sx={style.rightNav}>
-              {!isSmallScreensm ? (
-                <Box sx={style.ShoppingCartOutlinedIcon}>
-                  <ShoppingCartOutlinedIcon
-                    fontSize="large"
-                    onClick={() => navigate("/cart")}
-                  />
-                  {cartItems?.length > 0 && (
-                    <Typography sx={style.prodCount}>{itemsCount}</Typography>
-                  )}
-                </Box>
-              ) : (
-                <Box sx={style.ShoppingCartOutlinedIcon}>
-                  <ShoppingCartOutlinedIcon
-                    fontSize="small"
-                    onClick={() => navigate("/cart")}
-                  />
-                  {cartItems?.length > 0 && (
-                    <Typography sx={style.prodCount}>{itemsCount}</Typography>
-                  )}
-                </Box>
-              )}
-
-              <Menu
-                PaperProps={{
-                  style: {
-                    margin: "0",
-                  },
-                }}
-                anchorEl={showMenu}
-                open={Boolean(showMenu)}
-                onClose={handleClose}>
-                {menuItems.map((item, index) => (
-                  <MenuItem
-                    sx={{
-                      ...style.categoryList,
-                      padding: "0.5rem 2rem",
-                      background: index === 0 ? "#ACACAC" : "none",
-                    }}
-                    onClick={item.onClick}
-                    key={index}>
-                    {item.content}
-                  </MenuItem>
-                ))}
-              </Menu>
-
-              <Box
-                onClick={handleMenuClick}
-                sx={{
-                  display: "flex",
-                  gap: ".5rem",
-                  alignItems: "flex-end",
-                }}>
-                {!isSmallScreensm ? (
-                  <>
-                    {" "}
-                    {userData?.isUserLoggedIn ? (
-                      <PersonIcon fontSize="large" />
-                    ) : (
-                      <PersonOffIcon fontSize="large" />
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    {userData?.isUserLoggedIn ? (
-                      <PersonIcon fontSize="small" />
-                    ) : (
-                      <PersonOffIcon fontSize="small" />
-                    )}
-                  </>
-                )}
-
-                {userData?.uid ? (
-                  <Typography sx={style.UserName}>
-                    Hi, {userData?.name}
-                  </Typography>
-                ) : (
-                  <Typography sx={style.UserName}>Account</Typography>
-                )}
-                {!isSmallScreensm ? (
-                  showMenu ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )
-                ) : showMenu ? (
-                  <ExpandLessIcon fontSize="small" />
-                ) : (
-                  <ExpandMoreIcon fontSize="small" />
+      {isLoading && <Loader />}
+      <Box sx={style.navParentContainer}>
+        <Box sx={style.navContainer}>
+          <Typography sx={style.brandName} onClick={() => navigate("/")}>
+            Àníkẹ́ Sálúbàtà
+          </Typography>
+          {!isSmallScreen && <SearchBar productList={productList} />}
+          <Box sx={style.rightNav}>
+            {!isSmallScreensm ? (
+              <Box sx={style.ShoppingCartOutlinedIcon}>
+                <ShoppingCartOutlinedIcon
+                  fontSize="large"
+                  onClick={() => navigate("/cart")}
+                />
+                {cartItems?.length > 0 && (
+                  <Typography sx={style.prodCount}>{itemsCount}</Typography>
                 )}
               </Box>
+            ) : (
+              <Box sx={style.ShoppingCartOutlinedIcon}>
+                <ShoppingCartOutlinedIcon
+                  fontSize="small"
+                  onClick={() => navigate("/cart")}
+                />
+                {cartItems?.length > 0 && (
+                  <Typography sx={style.prodCount}>{itemsCount}</Typography>
+                )}
+              </Box>
+            )}
+
+            <Menu
+              PaperProps={{
+                style: {
+                  margin: "0",
+                },
+              }}
+              anchorEl={showMenu}
+              open={Boolean(showMenu)}
+              onClose={handleClose}>
+              {menuItems.map((item, index) => (
+                <MenuItem
+                  sx={{
+                    ...style.categoryList,
+                    padding: "0.5rem 2rem",
+                    background: index === 0 ? "#ACACAC" : "none",
+                  }}
+                  onClick={item.onClick}
+                  key={index}>
+                  {item.content}
+                </MenuItem>
+              ))}
+            </Menu>
+
+            <Box
+              onClick={handleMenuClick}
+              sx={{
+                display: "flex",
+                gap: ".5rem",
+                alignItems: "flex-end",
+              }}>
+              {!isSmallScreensm ? (
+                <>
+                  {" "}
+                  {userData?.isUserLoggedIn ? (
+                    <PersonIcon fontSize="large" />
+                  ) : (
+                    <PersonOffIcon fontSize="large" />
+                  )}
+                </>
+              ) : (
+                <>
+                  {" "}
+                  {userData?.isUserLoggedIn ? (
+                    <PersonIcon fontSize="small" />
+                  ) : (
+                    <PersonOffIcon fontSize="small" />
+                  )}
+                </>
+              )}
+
+              {userData?.uid ? (
+                <Typography sx={style.UserName}>
+                  Hi, {userData?.name}
+                </Typography>
+              ) : (
+                <Typography sx={style.UserName}>Account</Typography>
+              )}
+              {!isSmallScreensm ? (
+                showMenu ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )
+              ) : showMenu ? (
+                <ExpandLessIcon fontSize="small" />
+              ) : (
+                <ExpandMoreIcon fontSize="small" />
+              )}
             </Box>
           </Box>
-          {isSmallScreen && (
-            <Box sx={style.navContainersmsearch}>
-              <SearchBar productList={productList} />
-            </Box>
-          )}
         </Box>
-      ) : (
-        <Loader />
-      )}
+        {isSmallScreen && (
+          <Box sx={style.navContainersmsearch}>
+            <SearchBar productList={productList} />
+          </Box>
+        )}
+      </Box>
     </>
   );
 }

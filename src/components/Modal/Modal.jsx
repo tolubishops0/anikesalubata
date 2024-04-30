@@ -21,11 +21,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Modal(props) {
   const navigate = useNavigate();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, cartItems } = useContext(CartContext);
   const isSmallScreen = useMediaQuery("(min-width: 768px)");
 
   const [selectedSizes, setSelectedSizes] = useState({});
-  const [fullWidth, setFullWidth] = React.useState(true);
+
   const [maxWidth, setMaxWidth] = useState("");
 
   const handleSizeChange = (size, quantity) => {
@@ -60,9 +60,6 @@ function Modal(props) {
       0
     );
     props.getItemCount(itemCount);
-    // window.alert(
-    //   `${itemCount} item${itemCount > 1 ? "s" : ""} added to your cart`
-    // );
   };
 
   const constinueShopping = () => {

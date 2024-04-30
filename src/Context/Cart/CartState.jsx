@@ -7,6 +7,7 @@ const CartState = ({ children }) => {
     cartItems: [],
     checkout: false,
     prodList: [],
+    likedProd: [],
   };
   const getFromLocalStorage = () => {
     const storedCartItems = localStorage.getItem("cartItems");
@@ -23,6 +24,14 @@ const CartState = ({ children }) => {
 
   const setProdList = (payload) => {
     dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
+  };
+
+  const addToLike = (payload) => {
+    dispatch({ type: "FAVOURITE_PRODUCT", payload });
+  };
+
+  const removeFromLiked = (payload) => {
+    dispatch({ type: "REMOVE_FAVOURITE_PRODUCT", payload });
   };
 
   const addToCart = (payload) => {
@@ -61,6 +70,8 @@ const CartState = ({ children }) => {
         handleCheckout,
         clearCart,
         setProdList,
+        addToLike,
+        removeFromLiked,
         ...state,
       }}>
       {children}

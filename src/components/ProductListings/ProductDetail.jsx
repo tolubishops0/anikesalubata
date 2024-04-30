@@ -2,26 +2,31 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import { Typography, Box, useMediaQuery } from "@mui/material";
-import sampleImg from "../../Asset/samplimg.jpg";
+
 import { style } from "../Style";
 import Rating from "@mui/material/Rating";
 import CartContext from "../../Context/Cart/CartContext";
 import { productList } from "../../Asset/data";
 import Modal from "../Modal/Modal";
 import Alert from "@mui/material/Alert";
-import CheckIcon from "@mui/icons-material/Check";
+
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function ProductDetail() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, addToLike, removeFromLiked } =
+    useContext(CartContext);
   const selectedProduct = productList.find((item) => item.id === Number(id));
   const [isSelected, setIsSelected] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [activeImg, setActiveImg] = useState(selectedProduct?.img);
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const [activeImgIndex, setActiveImgIndex] = useState(0);
+
   const shoeTypeId = Number(id);
   const sideImgArr = [selectedProduct?.img, ...selectedProduct?.otherImgs];
 
@@ -30,7 +35,21 @@ function ProductDetail() {
       (item) => item.shoeTypeId === shoeTypeId
     );
     setIsSelected(selectedProductItems.length);
+
+    const storedLikedProducts = JSON.parse(localStorage.getItem("likedItems"));
+    if (storedLikedProducts?.find((item) => item.id === selectedProduct.id)) {
+      setIsLiked(true);
+    }
   }, [cartItems, shoeTypeId]);
+
+  const handleLikedProduct = (selectedProduct) => {
+    setIsLiked(!isLiked);
+    if (!isLiked) {
+      addToLike(selectedProduct);
+    } else {
+      removeFromLiked(selectedProduct);
+    }
+  };
 
   const getTotalQuantity = () => {
     const selectedProductItems = cartItems.filter(
@@ -128,7 +147,7 @@ function ProductDetail() {
           </Box>
           <Box
             sx={{
-              width: "40%",
+              width: "60%",
               "@media screen and (max-width: 600px)": {
                 width: "100%",
               },
@@ -138,13 +157,18 @@ function ProductDetail() {
                 <Typography sx={style.productName}>
                   {selectedProduct.name}
                 </Typography>
+                <Typography
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => handleLikedProduct(selectedProduct)}>
+                  {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </Typography>
+              </Box>
+              <Box sx={style.productNameCost}>
                 {!isSmallScreen && (
                   <Typography sx={style.productName}>
                     {selectedProduct.price}
                   </Typography>
                 )}
-              </Box>
-              <Box sx={style.productNameCost}>
                 <Rating
                   name="size-small"
                   defaultValue={selectedProduct.ratings}

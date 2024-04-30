@@ -75,4 +75,8 @@ const categoryList = [
     name: "Women's Slides",
     value: "woman slides",
   },
+  {
+    name: "Birkenstocks",
+    value: "birkenstocks",
+  },
 ];

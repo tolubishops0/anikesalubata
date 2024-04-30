@@ -6,12 +6,18 @@ import {
   CHECKOUT,
   CLEAR,
   UPDATE_SEARCH_RESULTS,
+  FAVOURITE_PRODUCT,
+  REMOVE_FAVOURITE_PRODUCT,
 } from "./CartTypes";
 
 const saveToLocalStorage = (itemsCount, total, cartItems) => {
   localStorage.setItem("itemsCount", JSON.stringify(itemsCount));
   localStorage.setItem("total", JSON.stringify(total));
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
+};
+const saveLikedProductToLocalStorage = (likedProd) => {
+  console.log(likedProd, "liked");
+  localStorage.setItem("likedItems", JSON.stringify(likedProd));
 };
 
 export const sumItems = (cartItems) => {
@@ -76,7 +82,22 @@ const CartReducer = (state, action) => {
         ...sumItems(decreasedCartItems),
         cartItems: decreasedCartItems,
       };
-
+    case FAVOURITE_PRODUCT:
+      const likedItems = [...state.likedProd, action.payload];
+      saveLikedProductToLocalStorage(likedItems);
+      return {
+        ...state,
+        likedProd: likedItems,
+      };
+    case REMOVE_FAVOURITE_PRODUCT:
+      const filteredLikedItems = state.likedProd?.filter(
+        (item) => item.id !== action.payload?.id
+      );
+      saveLikedProductToLocalStorage(filteredLikedItems);
+      return {
+        ...state,
+        likedProd: filteredLikedItems,
+      };
     case CHECKOUT:
       saveToLocalStorage([]);
       return {
@@ -95,6 +116,7 @@ const CartReducer = (state, action) => {
         ...state,
         prodList: action.payload,
       };
+
     default:
       return state;
   }

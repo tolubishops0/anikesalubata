@@ -27,7 +27,7 @@ function SearchBar({ productList }) {
     }
     const results = productList.filter(
       (product) =>
-        productList.name?.includes(searchTerm.toLowerCase()) ||
+        product.name?.includes(searchTerm.toLowerCase()) ||
         product.description?.includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);

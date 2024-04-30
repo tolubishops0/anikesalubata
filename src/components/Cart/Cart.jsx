@@ -18,7 +18,6 @@ function Cart() {
     decrease,
     removeFromCart,
     clearCart,
-    authState,
   } = useContext(CartContext);
   const { itemsCount, total } = sumItems(cartItems);
 

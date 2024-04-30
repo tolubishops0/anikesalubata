@@ -16,9 +16,8 @@ import ResetPassWord from "./components/Auth/ResetPassWord";
 import PageNotFound from "./components/PageNotFound";
 import Delivery from "./components/Delivery/Delivery";
 import Payment from "./components/Payment/Payment";
-import theme from '../src/theme'
-import { ThemeProvider } from "@mui/material";
 import SuccessPage from "./components/Payment/SuccessPage";
+import LikedItems from "./components/LikedItems/LikedItems";
 
 function App() {
   return (
@@ -40,6 +39,7 @@ function App() {
           <Route path="/user-details" element={<Delivery />} />
           <Route path="/payments" element={<Payment />} />
           <Route path="/success-page" element={<SuccessPage />} />
+          <Route path="/liked-items" element={<LikedItems />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />
