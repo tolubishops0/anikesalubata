@@ -124,10 +124,10 @@ function Cart() {
                                 flexDirection: "column",
                                 justifyContent: "flex-start",
                               }}>
-                              <Typography sx={style.description}>
+                              <Typography sx={style.subTotal}>
                                 Size: {item.size} EU
                               </Typography>
-                              <Typography sx={style.description}>
+                              <Typography sx={style.subTotal}>
                                 {item.price}
                               </Typography>
                             </Box>
@@ -139,10 +139,10 @@ function Cart() {
                                 justifyContent: "space-between",
                                 alignItems: "stretch",
                               }}>
-                              <Typography sx={style.description}>
+                              <Typography sx={style.subTotal}>
                                 Size: {item.size} EU
                               </Typography>
-                              <Typography sx={style.description}>
+                              <Typography sx={style.subTotal}>
                                 {item.price}
                               </Typography>
                             </Box>
