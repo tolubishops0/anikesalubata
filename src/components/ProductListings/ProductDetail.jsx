@@ -85,7 +85,7 @@ function ProductDetail() {
     if (isSelected !== 0) {
       const totalQty = getTotalQuantity();
       return (
-        <Box sx={style.parentAdd}>
+        <Box sx={style.parentAddd}>
           <Typography sx={style.add} onClick={handleModal}>
             -
           </Typography>
@@ -157,13 +157,21 @@ function ProductDetail() {
             }}>
             <Box sx={style.productDesc}>
               <Box sx={style.productNameCost}>
-                <Typography sx={style.description}>
+                <Typography sx={style.productName}>
                   {selectedProduct.name}
                 </Typography>
                 <Typography
                   sx={{ cursor: "pointer" }}
                   onClick={() => handleLikedProduct(selectedProduct)}>
-                  {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  {isLiked ? (
+                    <FavoriteIcon
+                      fontSize={isSmallScreen ? "small" : "medium"}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon
+                      fontSize={isSmallScreen ? "small" : "medium"}
+                    />
+                  )}
                 </Typography>
               </Box>
               <Box sx={style.productNameCost}>
@@ -175,9 +183,9 @@ function ProductDetail() {
                 <Rating
                   name="size-small"
                   defaultValue={selectedProduct.ratings}
-                  size="small"
+                  size={isSmallScreen ? "small" : "medium"}
                   readOnly
-                />{" "}
+                />
                 {isSmallScreen && (
                   <Typography sx={style.productName}>
                     {selectedProduct.price}
@@ -198,7 +206,7 @@ function ProductDetail() {
                   ))}
                 </Box>
               </Box>
-              <Typography sx={style.productName}>
+              <Typography sx={style.description}>
                 {selectedProduct.description}
               </Typography>
               {renderAddToCartButton()}

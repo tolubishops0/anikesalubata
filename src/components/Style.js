@@ -496,6 +496,15 @@ export const style = {
       gap: "1.5rem",
     },
   },
+  parentAddd: {
+    display: "flex",
+    gap: "3rem",
+    // justifyContent: "space-between",
+    alignItems: "center",
+    "@media screen and (max-width: 768px)": {
+      gap: "1.5rem",
+    },
+  },
   sizes: {
     padding: ".4rem .8rem",
     background: "black",
@@ -525,8 +534,8 @@ export const style = {
     fontWeight: "600",
   },
   description: {
-    fontWeight: "600",
-    fontSize: "1.05rem",
+    fontWeight: "500",
+    fontSize: "1rem",
   },
   addToCartButton: {
     padding: "0.6rem 0",
@@ -558,7 +567,7 @@ export const style = {
   productNameCost: {
     display: "flex",
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "stretch",
     gap: "2rem",
     "@media screen and (max-width: 768px)": {
       alignItems: "stretch",
@@ -566,7 +575,7 @@ export const style = {
   },
   productName: {
     fontWeight: "600",
-    fontSize: "1.2rem",
+    fontSize: "1rem",
     "@media screen and (max-width: 768px)": {
       fontSize: "1rem",
     },
@@ -775,12 +784,16 @@ export const style = {
     fontSize: ".8rem",
     color: "white",
     padding: "1rem",
-    background: "black",
     textAlign: "center",
     cursor: "pointer",
     borderRadius: "5px",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
     "&:hover": {
-      color: "gray",
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
     },
   },
   subTotal: {
