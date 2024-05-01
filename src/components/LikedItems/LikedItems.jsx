@@ -9,6 +9,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CartContext from "../../Context/Cart/CartContext";
 
 function LikedItems() {
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
+
   const { addToLike, removeFromLiked } = useContext(CartContext);
   const navigate = useNavigate();
   const [likedProducts, setLikedProducts] = useState([]);
@@ -71,7 +73,7 @@ function LikedItems() {
           padding: "2rem 0",
           display: "flex",
           flexDirection: "column",
-          gap: "1rem",
+          gap: ".6rem",
           alignItems: "center",
           justifyContent: "center",
         }}>
@@ -91,37 +93,61 @@ function LikedItems() {
                 sx={style.likedItemContainer}
                 onClick={() => addToCart(item)}
                 key={index}>
-                <Box sx={style.likeding} onClick={() => goToDetail(item)}>
-                  <img
-                    src={item.img}
-                    alt="productimg"
-                    style={style.thumbNailimg}
-                  />
-                </Box>
                 <Box
                   sx={{
+                    width: "80%",
                     display: "flex",
-                    flexDirection: "column",
-                    gap: ".5rem",
-                    flex: "4",
-                    "@media screen and (max-width: 768px)": {},
+                    gap: "1rem",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    "@media screen and (max-width: 1250px)": {
+                      flexDirection: "column",
+                      width: "100%",
+                    },
                   }}>
-                  <Box sx={style.productNameCost}>
-                    <Typography sx={style.productName}>{item.name}</Typography>
-                    <Typography
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handleLikedProduct(selectedProduct)}>
-                      {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                    </Typography>
+                  <Box sx={style.likeding} onClick={() => goToDetail(item)}>
+                    <img
+                      src={item.img}
+                      alt="productimg"
+                      style={style.thumbNailimg}
+                    />
                   </Box>
-                  <Typography sx={style.description}>
-                    {item.description}
-                  </Typography>
-                  <Typography sx={style.productName}>{item.price}</Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: ".5rem",
+                      "@media screen and (max-width: 768px)": {
+                        width: "100%",
+                      },
+                    }}>
+                    <Box sx={style.productNameCost}>
+                      <Typography sx={style.description}>
+                        {item.name}
+                      </Typography>
+                      <Typography
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handleLikedProduct(selectedProduct)}>
+                        {isLiked ? (
+                          <FavoriteIcon
+                            fontSize={isSmallScreen ? "small" : "medium"}
+                          />
+                        ) : (
+                          <FavoriteBorderIcon
+                            fontSize={isSmallScreen ? "small" : "medium"}
+                          />
+                        )}
+                      </Typography>
+                    </Box>
+                    <Typography sx={style.productName}>
+                      {item.description}
+                    </Typography>
+                    <Typography sx={style.productName}>{item.price}</Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
-                    flex: "1",
+                    width: "10%",
                     "@media screen and (max-width: 768px)": {
                       width: "100%",
                     },
@@ -133,7 +159,6 @@ function LikedItems() {
                   </Typography>
                 </Box>
               </Box>
-              //   </Box>
             ))}
           </Box>
         ) : (

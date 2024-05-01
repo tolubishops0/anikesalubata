@@ -241,7 +241,7 @@ export const style = {
     fontWeight: "600",
     transition: "color transform 5s ease-in-out",
     cursor: "pointer",
-    // width: "fit-content",
+    borderRadius: "5px",
     textAlign: "left",
     padding: ".5rem 1rem",
     textTransform: "capitalize",
@@ -273,7 +273,7 @@ export const style = {
   productCard: {
     minWidth: "25%",
     border: "0",
-    boxShadow: "0",
+    // boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
     borderRadius: "5px",
     "@media screen and (max-width: 1000px)": {
       minWidth: "40%",
@@ -309,10 +309,12 @@ export const style = {
     justifyContent: "space-between",
     alignItems: "flex-start",
     gap: "1rem",
+    // boxSizing: "border-box",
     "@media screen and (max-width: 768px)": {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
+      gap: "0",
     },
   },
   productDetailContainerTop: (iscartEmpty, isSmallScreen) => ({
@@ -322,6 +324,8 @@ export const style = {
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
     display: "flex",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
+    boxSizing: "border-box",
     justifyContent: iscartEmpty
       ? "center"
       : isSmallScreen
@@ -332,15 +336,13 @@ export const style = {
   }),
   productDetailContainerLeft: {
     width: "80%",
-    background: "white",
-    border: "1px solid #f8f8f8",
-    borderRadius: "10px",
-    padding: " 1.5rem 1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: ".6rem",
     "@media screen and (max-width: 768px)": {
-      width: "95%",
+      width: "100%",
     },
     "@media screen and (max-width: 600px)": {
-      width: "95%",
       padding: " 1rem .5rem",
     },
   },
@@ -348,7 +350,7 @@ export const style = {
     width: "20%",
     display: "flex",
     flexDirection: "column",
-    gap: "1rem",
+    gap: ".6rem",
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },
@@ -373,6 +375,7 @@ export const style = {
     gap: ".8rem",
     flexDirection: "column",
     padding: "1rem",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
     // "@media screen and (max-width: 768px)": {
     //   width: "100%",
     //   flexDirection: "column-reverse",
@@ -438,10 +441,10 @@ export const style = {
     },
   },
   likeding: {
-    // width: "90%",
-    // height: "23rem",
+    width: "25% !important",
+    height: "12rem",
     "@media screen and (max-width: 768px)": {
-      width: "100%",
+      width: "100% !important",
       height: "18rem",
     },
   },
@@ -501,6 +504,7 @@ export const style = {
     cursor: "pointer",
     fontSize: "0.9rem",
     fontWeight: "500",
+    borderRadius: "5px",
   },
   add: {
     padding: ".2rem .8rem",
@@ -508,29 +512,32 @@ export const style = {
     color: "white",
     textAlign: "center",
     cursor: "pointer",
+    borderRadius: "5px",
   },
   disable: {
     padding: ".2rem .8rem",
     background: "gray",
     color: "black",
     textAlign: "center",
+    borderRadius: "5px",
   },
   addCount: {
     fontWeight: "600",
   },
   description: {
-    fontWeight: "500",
+    fontWeight: "600",
     fontSize: "1.05rem",
   },
   addToCartButton: {
     padding: "0.6rem 0",
     background: "black",
-    // borderRadius: "5px",
+    borderRadius: "5px",
     width: "100%",
     color: "white",
     fontWeight: "600",
     textAlign: "center",
     cursor: "pointer",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
     "&:hover": {
       color: "gray",
     },
@@ -542,21 +549,27 @@ export const style = {
     fontWeight: "600",
     textAlign: "center",
     cursor: "pointer",
+    borderRadius: "5px",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
     "&:hover": {
       color: "gray",
     },
   },
   productNameCost: {
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "stretch",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: "2rem",
     "@media screen and (max-width: 768px)": {
-      alignItems: "center",
+      alignItems: "stretch",
     },
   },
   productName: {
     fontWeight: "600",
     fontSize: "1.2rem",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "1rem",
+    },
   },
   productDesc: {
     display: "flex",
@@ -590,6 +603,7 @@ export const style = {
     width: "45%",
     height: "3rem",
     cursor: "pointer",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
   },
   buttonGoToCart: {
     display: "flex",
@@ -603,10 +617,11 @@ export const style = {
     height: "3rem",
     backgroundColor: " black",
     cursor: "pointer",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
   },
   cartimg: {
-    width: "10%",
-    height: "4rem",
+    width: "12%",
+    height: "6rem",
     cursor: "pointer",
     "@media screen and (max-width: 900px)": {
       width: "25%",
@@ -641,9 +656,14 @@ export const style = {
     },
   },
   cartItem: {
+    background: "white",
+    border: "1px solid #f8f8f8",
+    borderRadius: "10px",
+    padding: " 1.5rem 1rem",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
     display: "flex",
     flexDirection: "column",
-    gap: "1rem",
+    // gap: "1rem",
     // justifyContent: "center",
     "@media screen and (max-width: 768px)": {
       gap: "1rem",
@@ -758,6 +778,7 @@ export const style = {
     background: "black",
     textAlign: "center",
     cursor: "pointer",
+    borderRadius: "5px",
     "&:hover": {
       color: "gray",
     },
@@ -844,7 +865,11 @@ export const style = {
     borderRadius: "5px",
     backgroundColor: "white",
     boxShadow: "none",
-    // height: "3rem",
+    // color: "black",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
+  },
+  inputText: {
+    color: "black",
   },
   inputContainer: {
     width: "100%",
@@ -879,17 +904,20 @@ export const style = {
   },
 
   likedItemContainer: {
+    boxSizing: "border-box",
     background: "white",
     display: "flex",
     alignItems: "center",
     gap: "3rem",
-    width: "90%",
-    padding: "1rem",
+    width: "100%",
+    padding: "0.5rem",
     border: "1px solid #f8f8f8",
     borderRadius: "10px",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
     "@media screen and (max-width: 768px)": {
       flexDirection: "column",
       gap: "1rem",
+      padding: "1rem",
     },
   },
   parentlikedItemContainer: {

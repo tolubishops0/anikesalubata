@@ -85,20 +85,6 @@ export const productList = [
     ratings: 4.7,
   },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   {
     img: loafer2a,
     name: "Men's Leather slip-on loafers",
@@ -184,7 +170,7 @@ export const productList = [
     img: corp2a,
     name: "Leather lace up shoes",
     price: "$120",
-    id: 102,
+    id: 265,
     sizes: [40, 41, 43, 44, 45],
     description: "Classic office or corporate shoes for a timeless look",
     searchEng: "brogues, leather Corporate black office Men's Men male",
@@ -218,7 +204,7 @@ export const productList = [
     img: corp4a,
     name: "Corporate Leather Oxfords",
     price: "$120",
-    id: 102,
+    id: 439,
     sizes: [40, 41, 43, 44, 45],
     description: "Smooth Corporate Leather Oxfords ",
     searchEng: "oxford, leather  Men's Men male Unisex women female",
@@ -239,15 +225,15 @@ export const productList = [
     ratings: 4.6,
   },
   {
-    img: boot3a,
-    name: "Blue buckled suede Boots",
+    img: boot3b,
+    name: "Blue/Black buckled suede Boots",
     price: "$920",
     id: 113,
     sizes: [40, 41, 43, 44, 45],
     description: "Casual and classy boots perfect for various occasions",
     searchEng:
       "boots, suede ankle boots Chelsea Men's Men male Unisex women female",
-    otherImgs: [boot3b],
+    otherImgs: [boot3a],
     ratings: 4.3,
   },
   {
@@ -267,7 +253,7 @@ export const productList = [
     img: w2a,
     name: "White Women's Slides",
     price: "$920",
-    id: 115,
+    id: 23,
     sizes: [40, 41, 43, 44, 45],
     description: "Casual and classy women sandals perfect for summer outings",
     searchEng:
@@ -389,7 +375,7 @@ export const productList = [
   {
     img: birk3a,
     name: "Birkenstocks Slides",
-    price: "$120",
+    price: "$1020",
     id: 125,
     sizes: [40, 41, 43, 44, 45],
     description: "Classic double strap buckle Birkenstocks for a timeless look",
@@ -507,6 +493,4 @@ export const productList = [
     otherImgs: [corp5b],
     ratings: 4.7,
   },
-
-
 ];

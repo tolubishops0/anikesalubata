@@ -12,18 +12,13 @@ function Cart() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const navigate = useNavigate();
-  const {
-    cartItems,
-    increase,
-    decrease,
-    removeFromCart,
-    clearCart,
-  } = useContext(CartContext);
+  const { cartItems, increase, decrease, removeFromCart, clearCart } =
+    useContext(CartContext);
   const { itemsCount, total } = sumItems(cartItems);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
   const { userDetails, isUserLoggedIn } = userData || {};
-  
+
   const goToDetail = (item) => {
     navigate(`/products/${item.name}/${item.shoeTypeId}`);
   };
@@ -66,7 +61,10 @@ function Cart() {
             padding: "2rem 0",
             display: "flex",
             flexDirection: "column",
-            gap: "1rem",
+            gap: ".6rem",
+            "@media screen and (max-width: 768px)": {
+              gap: "0rem",
+            },
           }}>
           <Box
             sx={style.productDetailContainerTop(
@@ -107,28 +105,44 @@ function Cart() {
                           <img
                             src={item.img}
                             alt="productimg"
-                            style={{ height: "100%", width: "100%" }}
+                            style={{
+                              height: "100%",
+                              width: "100%",
+                              borderRadius: "10px",
+                            }}
                           />
                         </Box>
                         <Box>
-                          <Typography sx={style.itemDescr}>
-                            {item.description}
+                          <Typography sx={style.productName}>
+                            {item.name}
                           </Typography>
                           {!isSmallScreen && (
-                            <Typography sx={style.itemDescr}>
-                              Size: {item.size} EU
-                            </Typography>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "flex-start",
+                                flexDirection: "column",
+                                justifyContent: "flex-start",
+                              }}>
+                              <Typography sx={style.description}>
+                                Size: {item.size} EU
+                              </Typography>
+                              <Typography sx={style.description}>
+                                {item.price}
+                              </Typography>
+                            </Box>
                           )}
                           {isSmallScreen && (
                             <Box
                               sx={{
                                 display: "flex",
                                 justifyContent: "space-between",
+                                alignItems: "stretch",
                               }}>
-                              <Typography sx={style.itemDescr}>
+                              <Typography sx={style.description}>
                                 Size: {item.size} EU
                               </Typography>
-                              <Typography sx={style.itemDescr}>
+                              <Typography sx={style.description}>
                                 {item.price}
                               </Typography>
                             </Box>
@@ -136,6 +150,15 @@ function Cart() {
                         </Box>
                       </Box>
                     </Box>
+                    <Divider
+                      sx={{
+                        background: "#ACACAC",
+                        margin: "1rem 0",
+                        "@media screen and (max-width: 768px)": {
+                          margin: ".5rem 0",
+                        },
+                      }}
+                    />
                     <Box sx={style.cart10}>
                       <Box
                         sx={style.cart9}
@@ -169,11 +192,11 @@ function Cart() {
                         </Typography>
                       </Box>
                     </Box>
-                    {index !== cartItems.length - 1 && (
+                    {/* {index !== cartItems.length - 1 && (
                       <Divider
                         sx={{ background: "#ACACAC", margin: "0.5rem 0" }}
                       />
-                    )}
+                    )} */}
                   </Box>
                 ))}
               </Box>
@@ -200,6 +223,7 @@ function Cart() {
                     gap: ".8rem",
                     flexDirection: "column",
                     padding: "1rem",
+                    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
                   }}>
                   <Typography sx={style.subTotal}>
                     Delivery fess not include yet
@@ -217,6 +241,7 @@ function Cart() {
                     gap: ".8rem",
                     flexDirection: "column",
                     padding: "1rem",
+                    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
                   }}>
                   <Typography sx={style.subTotal}>Returns are easy</Typography>
                   <Typography sx={style.subTotal}>

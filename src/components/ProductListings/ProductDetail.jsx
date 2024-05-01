@@ -157,7 +157,7 @@ function ProductDetail() {
             }}>
             <Box sx={style.productDesc}>
               <Box sx={style.productNameCost}>
-                <Typography sx={style.productName}>
+                <Typography sx={style.description}>
                   {selectedProduct.name}
                 </Typography>
                 <Typography
@@ -198,7 +198,7 @@ function ProductDetail() {
                   ))}
                 </Box>
               </Box>
-              <Typography sx={style.description}>
+              <Typography sx={style.productName}>
                 {selectedProduct.description}
               </Typography>
               {renderAddToCartButton()}

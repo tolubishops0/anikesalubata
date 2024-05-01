@@ -49,7 +49,7 @@ function ProductListing() {
         );
       }
     }
-    setProdList(shuffledProducts); // Set the shuffled array as the product list
+    setProdList(shuffledProducts);
   }, [category]);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function ProductListing() {
             .includes(searchTerm.toLowerCase()) ||
           product.searchEng?.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setProdList(shuffleArray(results)); // Shuffle the filtered results
+      setProdList(shuffleArray(results));
     }
   }, [searchTerm]);
 
