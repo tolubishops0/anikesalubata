@@ -1,7 +1,7 @@
 # ANIKESTORE
 
 ## Project Description
-This project is a React-based frontend for showcasing handmade shoes as part of my side business. It serves as a demonstration of my skills with React, particularly with context management, local storage data handling, and integrating Firebase for authentication. The site allows users to browse products by category, search (with autocomplete feature), and manage items in their cart.
+This project is a React-based frontend for showcasing handmade shoes which is my side business. It serves as a demonstration of my skills with React, particularly with context management, local storage data handling, and integrating Firebase for authentication. The site allows users to browse products by category, search (with autocomplete feature), and manage items in their cart.
 
 ### Features
 - Browse products by categories such as loafers, corporate shoes, slides, boots, and Birkenstocks.
