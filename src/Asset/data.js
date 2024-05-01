@@ -179,7 +179,7 @@ export const productList = [
   },
   {
     img: loafer9a,
-    name: "Tasseled suede loafers gold chain",
+    name: "Tasseled suede loafers",
     price: "$310.50",
     id: 109,
     sizes: [40, 41, 43, 44, 45],

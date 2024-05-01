@@ -205,8 +205,13 @@ export const style = {
     padding: ".5rem",
     textTransform: "capitalize",
     minWidth: "fit-content",
+    color:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
+    transition: "color 3s ease-in-out",
     "&:hover": {
-      color: "gray",
+      color:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "color 3s ease-in-out",
     },
     "@media screen and (max-width: 500px)": {
       minWidth: "fit-content",
@@ -239,16 +244,22 @@ export const style = {
   selectedcategoryList: {
     fontSize: "1rem",
     fontWeight: "600",
-    transition: "color transform 5s ease-in-out",
     cursor: "pointer",
     borderRadius: "5px",
     textAlign: "left",
     padding: ".5rem 1rem",
     textTransform: "capitalize",
     color: "white",
-    background: "black",
     textAlign: "center",
     minWidth: "fit-content",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
+    "&:hover": {
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
     // "@media screen and (max-width: 768px)": {
     //   minWidth: "60%",
     // },
@@ -441,8 +452,8 @@ export const style = {
     },
   },
   likeding: {
-    width: "25% !important",
-    height: "12rem",
+    width: "20% !important",
+    height: "10rem",
     "@media screen and (max-width: 768px)": {
       width: "100% !important",
       height: "18rem",
@@ -514,6 +525,14 @@ export const style = {
     fontSize: "0.9rem",
     fontWeight: "500",
     borderRadius: "5px",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
+    "&:hover": {
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
   },
   add: {
     padding: ".2rem .8rem",
@@ -522,6 +541,14 @@ export const style = {
     textAlign: "center",
     cursor: "pointer",
     borderRadius: "5px",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
+    "&:hover": {
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
   },
   disable: {
     padding: ".2rem .8rem",
@@ -534,7 +561,7 @@ export const style = {
     fontWeight: "600",
   },
   description: {
-    fontWeight: "500",
+    fontWeight: "600",
     fontSize: "1rem",
   },
   addToCartButton: {
@@ -547,8 +574,16 @@ export const style = {
     textAlign: "center",
     cursor: "pointer",
     boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
     "&:hover": {
-      color: "gray",
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
+    "&:active": {
+      transform: "translateY(1px)",
     },
   },
   addToCartButtonliked: {
@@ -560,8 +595,16 @@ export const style = {
     cursor: "pointer",
     borderRadius: "5px",
     boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
     "&:hover": {
-      color: "gray",
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
+    "&:active": {
+      transform: "translateY(4px)",
     },
   },
   productNameCost: {
@@ -573,11 +616,18 @@ export const style = {
       alignItems: "stretch",
     },
   },
+  producctName: {
+    fontWeight: "600",
+    fontSize: ".8rem",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "1rem",
+    },
+  },
   productName: {
     fontWeight: "600",
     fontSize: "1rem",
     "@media screen and (max-width: 768px)": {
-      fontSize: "1rem",
+      fontSize: ".9rem",
     },
   },
   productDesc: {
@@ -627,6 +677,17 @@ export const style = {
     backgroundColor: " black",
     cursor: "pointer",
     boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
+    "&:hover": {
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
+    "&:active": {
+      transform: "translateY(1px)",
+    },
   },
   cartimg: {
     width: "12%",
@@ -795,12 +856,15 @@ export const style = {
         "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
       transition: "backgroundImage 3s ease-in-out",
     },
+    "&:active": {
+      transform: "translateY(1px)",
+    },
   },
   subTotal: {
     fontSize: "0.8rem",
     fontWeight: "600",
     "@media screen and (max-width: 768px)": {
-      fontSize: "1rem",
+      fontSize: ".7rem",
     },
   },
   emptyCartIcon: {
@@ -867,6 +931,18 @@ export const style = {
     boxSizing: "border-box",
     color: "white",
     cursor: "pointer",
+    boxShadow: "1px 14px 14px -11px rgba(0,0,0,0.46)",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
+    "&:hover": {
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
+    },
+    "&:active": {
+      transform: "translateY(1px)",
+    },
   },
   goggleButon: {
     fontSize: "0.8rem",

@@ -7,20 +7,31 @@ import {
   CardContent,
   CardActionArea,
   CardMedia,
+  useMediaQuery,
 } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import { style } from "../Style";
 import { productList } from "../../Asset/data";
 import CartContext from "../../Context/Cart/CartContext";
 
 function ProductListing() {
-  const { prodList, setProdList } = useContext(CartContext);
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
+
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { prodList, setProdList, addToLike, removeFromLiked } =
+    useContext(CartContext);
+  const selectedProduct = productList.find((item) => item.id === Number(id));
+
+  const [isLiked, setIsLiked] = useState(false);
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("q");
   const { category } = useParams();
 
   const shuffleArray = (array) => {
-    const shuffledArray = [...array]; 
+    const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledArray[i], shuffledArray[j]] = [
@@ -32,7 +43,7 @@ function ProductListing() {
   };
 
   useEffect(() => {
-    let shuffledProducts = shuffleArray(productList); 
+    let shuffledProducts = shuffleArray(productList);
     if (category) {
       if (category === "all") {
         shuffledProducts = shuffleArray(shuffledProducts);
@@ -73,6 +84,15 @@ function ProductListing() {
     navigate(url);
   };
 
+  const handleLikedProduct = (selectedProduct) => {
+    setIsLiked(!isLiked);
+    if (!isLiked) {
+      addToLike(selectedProduct);
+    } else {
+      removeFromLiked(selectedProduct);
+    }
+  };
+
   return (
     <>
       <Box sx={{ background: "#ACACAC" }}>
@@ -91,10 +111,30 @@ function ProductListing() {
                     alt="product"
                   />
                   <CardContent sx={style.parentStyle}>
-                    <Typography sx={style.prodListName}>{item.name}</Typography>
-                    <Typography sx={style.prodListCost}>
-                      {item.price}
-                    </Typography>
+                    <Typography sx={style.subTotal}>{item.name}</Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "stretch",
+                      }}>
+                      <Typography sx={style.prodListCost}>
+                        {item.price}
+                      </Typography>
+                      <Typography
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handleLikedProduct(selectedProduct)}>
+                        {isLiked ? (
+                          <FavoriteIcon
+                            fontSize={isSmallScreen ? "small" : "medium"}
+                          />
+                        ) : (
+                          <FavoriteBorderIcon
+                            fontSize={isSmallScreen ? "small" : "medium"}
+                          />
+                        )}
+                      </Typography>
+                    </Box>
                   </CardContent>
                 </CardActionArea>
               </Card>

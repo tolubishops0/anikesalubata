@@ -20,6 +20,7 @@ function LikedItems() {
   const [isLiked, setIsLiked] = useState(true);
 
   useEffect(() => {
+    console.log("here");
     setLikedProducts(JSON.parse(localStorage.getItem("likedItems")));
   }, [isLiked]);
 
@@ -32,7 +33,7 @@ function LikedItems() {
   const addToCart = (item) => {
     setselectedProduct(item);
   };
-  const handleLikedProduct = (selectedProduct) => {
+  const handleLikedProduct = (selectedProduct, index) => {
     setIsLiked(!isLiked);
     removeFromLiked(selectedProduct);
   };
@@ -127,7 +128,7 @@ function LikedItems() {
                       </Typography>
                       <Typography
                         sx={{ cursor: "pointer" }}
-                        onClick={() => handleLikedProduct(selectedProduct)}>
+                        onClick={() => handleLikedProduct(selectedProduct, index)}>
                         {isLiked ? (
                           <FavoriteIcon
                             fontSize={isSmallScreen ? "small" : "medium"}
@@ -139,10 +140,12 @@ function LikedItems() {
                         )}
                       </Typography>
                     </Box>
-                    <Typography sx={style.productName}>
+                    <Typography sx={style.producctName}>
                       {item.description}
                     </Typography>
-                    <Typography sx={style.productName}>{item.price}</Typography>
+                    <Typography sx={style.producctName}>
+                      {item.price}
+                    </Typography>
                   </Box>
                 </Box>
                 <Box
