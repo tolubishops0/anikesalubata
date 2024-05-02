@@ -20,12 +20,16 @@ function Body() {
         {" "}
         <video
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          src={video}
+          type="video/mp4"
           autoPlay
           muted
           loop
-          playsinline>
-          <source src={video} type="video/mp4" />
-        </video>
+          playsinline
+          controls="true"
+        />
+        {/* <source src={video} type="video/mp4" /> */}
+        {/* </video> */}
       </Box>
       <Box sx={style.textContainer}>
         {isSmallScreen ? (
