@@ -21,12 +21,12 @@ function Body() {
         <video
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
           src={video}
-          type="video/mp4"
+          // type="video/mp4"
           autoPlay
           muted
           loop
-          playsinline
-          controls="true"
+          playsInline
+          // controls="true"
         />
         {/* <source src={video} type="video/mp4" /> */}
         {/* </video> */}
