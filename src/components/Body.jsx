@@ -24,6 +24,7 @@ function Body() {
           autoPlay
           muted
           loop
+          playsInline
         />
       </Box>
       <Box sx={style.textContainer}>
