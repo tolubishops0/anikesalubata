@@ -12,6 +12,7 @@ import Alert from "@mui/material/Alert";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ProductListingDetailPage from "./ProductListingDetailPage";
 
 function ProductDetail() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
@@ -25,11 +26,17 @@ function ProductDetail() {
   const [activeImg, setActiveImg] = useState(selectedProduct?.img);
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [otherProductList, setOtherProductList] = useState([]);
 
   const shoeTypeId = Number(id);
   const sideImgArr = [selectedProduct?.img, ...selectedProduct?.otherImgs];
 
   useEffect(() => {
+    const otherProdList = productList.filter(
+      (item) => item.shoeTypeId !== shoeTypeId
+    );
+    setOtherProductList(otherProdList);
+
     const selectedProductItems = cartItems.filter(
       (item) => item.shoeTypeId === shoeTypeId
     );
@@ -213,6 +220,7 @@ function ProductDetail() {
           </Box>
         </Box>
       </Box>
+      {/* <ProductListingDetailPage otherProductList={otherProductList} /> */}
 
       {openModal && (
         <Modal
