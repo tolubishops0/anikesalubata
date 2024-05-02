@@ -15,6 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { style } from "../Style";
 import { productList } from "../../Asset/data";
 import CartContext from "../../Context/Cart/CartContext";
+import Loader from "../Loader/Loader";
 
 function ProductListing() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
@@ -26,6 +27,7 @@ function ProductListing() {
   const selectedProduct = productList.find((item) => item.id === Number(id));
 
   const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("q");
   const { category } = useParams();
@@ -78,32 +80,38 @@ function ProductListing() {
   }, [searchTerm]);
 
   const getProductDetail = (id) => {
-    const url = searchTerm
-      ? `/products/${searchTerm}/${id}`
-      : `/products/${category}/${id}`;
-    navigate(url);
+    setIsLoading(true);
+    setTimeout(() => {
+      const url = searchTerm
+        ? `/products/${searchTerm}/${id}`
+        : `/products/${category}/${id}`;
+      setIsLoading(false);
+      navigate(url);
+    }, 3000);
   };
+  console.log(isLoading);
 
   const handleLikedProduct = (selectedProduct) => {
+    console.log(selectedProduct);
     setIsLiked(!isLiked);
-    if (!isLiked) {
-      addToLike(selectedProduct);
-    } else {
-      removeFromLiked(selectedProduct);
-    }
+    // if (!isLiked) {
+    //   addToLike(selectedProduct);
+    // } else {
+    //   removeFromLiked(selectedProduct);
+    // }
   };
+
+  // console.log(isLiked);
 
   return (
     <>
+      {isLoading && <Loader />}
       <Box sx={{ background: "#ACACAC" }}>
         <Box sx={style.productListContainer}>
           <Box sx={style.productList}>
             {prodList?.map((item, index) => (
-              <Card
-                key={index}
-                sx={style.productCard}
-                onClick={() => getProductDetail(item.id)}>
-                <CardActionArea>
+              <Card key={index} sx={style.productCard}>
+                <CardActionArea onClick={() => getProductDetail(item.id)}>
                   <CardMedia
                     component="img"
                     height="280"
@@ -120,19 +128,6 @@ function ProductListing() {
                       }}>
                       <Typography sx={style.prodListCost}>
                         {item.price}
-                      </Typography>
-                      <Typography
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleLikedProduct(selectedProduct)}>
-                        {isLiked ? (
-                          <FavoriteIcon
-                            fontSize={isSmallScreen ? "small" : "medium"}
-                          />
-                        ) : (
-                          <FavoriteBorderIcon
-                            fontSize={isSmallScreen ? "small" : "medium"}
-                          />
-                        )}
                       </Typography>
                     </Box>
                   </CardContent>

@@ -86,39 +86,35 @@ export const style = {
     },
   },
   heroSection: {
-    backgroundImage: `url(${bgimg})`,
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundSize: "cover",
-    backgroundPosition: "bottom right",
-    backgroundRepeat: "no-repeat",
-    "@media screen and (max-width: 768px)": {
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-    },
+    position: "relative",
+    // backgroundImage: `url(${bgimg})`,
+    // display: "flex",
+    // justifyContent: "flex-start",
+    // alignItems: "center",
+    // backgroundSize: "cover",
+    // backgroundPosition: "bottom right",
+    // backgroundRepeat: "no-repeat",
+    // "@media screen and (max-width: 768px)": {
+    //   backgroundRepeat: "no-repeat",
+    //   backgroundSize: "cover",
+    // },
   },
   img: {
     height: "100%",
     width: "100%",
   },
+  heroSectionbg: {
+    height: "100vh",
+    width: "100%",
+  },
   textContainer: {
-    padding: "5rem 0 ",
-    width: "90%",
-    margin: "0 auto",
+    position: "absolute",
+    top: "15%",
+    left: "5%",
     display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     flexDirection: "column",
-    gap: "1.5rem",
-    "@media screen and (max-width:1200px)": {
-      width: "90%",
-    },
-    "@media screen and (max-width: 1000px)": {
-      // width: "75%",
-    },
-    "@media screen and (max-width: 768px)": {
-      width: "90%",
-      gap: ".8rem",
-    },
   },
   header: {
     fontSize: "3rem",
@@ -162,17 +158,21 @@ export const style = {
   },
   bannerTextButton: {
     marginTop: "1rem",
-    color: "black",
-    backgroundColor: "white",
+    color: "white",
     fontWeight: "700",
     fontSize: "1.2rem",
-    width: "20%",
+    width: "25%",
     height: "4rem",
     borderRadius: "5px",
     transition: "background transform 1s ease",
     textTransform: "capitalize",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
     "&:hover": {
-      background: "gray",
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
     },
     "@media screen and (max-width: 768px)": {
       width: "50%",
@@ -628,6 +628,13 @@ export const style = {
     fontSize: "1rem",
     "@media screen and (max-width: 768px)": {
       fontSize: ".9rem",
+    },
+  },
+  productNamme: {
+    fontWeight: "600",
+    fontSize: "1.2rem",
+    "@media screen and (max-width: 768px)": {
+      fontSize: "1rem",
     },
   },
   productDesc: {

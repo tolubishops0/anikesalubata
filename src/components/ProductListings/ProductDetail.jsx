@@ -18,8 +18,7 @@ function ProductDetail() {
 
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const { cartItems, addToLike, removeFromLiked } =
-    useContext(CartContext);
+  const { cartItems, addToLike, removeFromLiked } = useContext(CartContext);
   const selectedProduct = productList.find((item) => item.id === Number(id));
   const [isSelected, setIsSelected] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -40,7 +39,7 @@ function ProductDetail() {
     if (storedLikedProducts?.find((item) => item.id === selectedProduct.id)) {
       setIsLiked(true);
     }
-  }, [cartItems, shoeTypeId]);
+  }, [cartItems]);
 
   const handleLikedProduct = (selectedProduct) => {
     setIsLiked(!isLiked);
@@ -157,7 +156,7 @@ function ProductDetail() {
             }}>
             <Box sx={style.productDesc}>
               <Box sx={style.productNameCost}>
-                <Typography sx={style.productName}>
+                <Typography sx={style.productNamme}>
                   {selectedProduct.name}
                 </Typography>
                 <Typography
