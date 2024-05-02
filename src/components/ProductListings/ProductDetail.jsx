@@ -72,7 +72,7 @@ function ProductDetail() {
 
     setTimeout(() => {
       setCartAlert((prevAlert) => ({ ...prevAlert, show: false }));
-    }, 2000);
+    }, 1000);
   };
 
   const getOtherImg = (item, index) => {

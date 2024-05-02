@@ -106,6 +106,9 @@ export const style = {
   heroSectionbg: {
     height: "100vh",
     width: "100%",
+    "@media screen and (max-width: 768px)": {
+      height: "50vh",
+    },
   },
   textContainer: {
     position: "absolute",
@@ -115,6 +118,10 @@ export const style = {
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "column",
+    "@media screen and (max-width:768px)": {
+      width: "90%",
+      top: "20%",
+    },
   },
   header: {
     fontSize: "3rem",
@@ -454,6 +461,7 @@ export const style = {
   likeding: {
     width: "20% !important",
     height: "10rem",
+    cursor: "pointer",
     "@media screen and (max-width: 768px)": {
       width: "100% !important",
       height: "18rem",
@@ -869,7 +877,7 @@ export const style = {
   },
   subTotal: {
     fontSize: "0.8rem",
-    fontWeight: "600",
+    fontWeight: "700",
     "@media screen and (max-width: 768px)": {
       fontSize: ".7rem",
     },
@@ -1022,6 +1030,6 @@ export const style = {
     alignItems: "center",
     width: "100%",
     margin: "0 auto",
-    gap: "1rem",
+    gap: ".5rem",
   },
 };

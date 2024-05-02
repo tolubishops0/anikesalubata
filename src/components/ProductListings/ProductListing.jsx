@@ -87,9 +87,8 @@ function ProductListing() {
         : `/products/${category}/${id}`;
       setIsLoading(false);
       navigate(url);
-    }, 3000);
+    }, 1000);
   };
-  console.log(isLoading);
 
   const handleLikedProduct = (selectedProduct) => {
     console.log(selectedProduct);

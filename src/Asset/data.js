@@ -1,7 +1,3 @@
-import sampleImg from "./samplimg.jpg";
-import sampleImg2 from "./bgimg.jpg";
-import sampleImg3 from "./bgmg.jpg";
-
 import loafer2a from "./loaf2a.jpg";
 import loafer2b from "./loaf2b.jpg";
 import loafer4a from "./loaf4a.jpg";
@@ -300,7 +296,7 @@ export const productList = [
   },
   {
     img: w6a,
-    name: "Vinyl/Leather strap slip-ons",
+    name: "Vinyl Leather strap slip-ons",
     price: "$940",
     id: 119,
     sizes: [40, 41, 43, 44, 45],
