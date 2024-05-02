@@ -20,12 +20,12 @@ function Body() {
         {" "}
         <video
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          src={video}
           autoPlay
           muted
           loop
-          playsInline
-        />
+          playsinline>
+          <source src={video} type="video/mp4" />
+        </video>
       </Box>
       <Box sx={style.textContainer}>
         {isSmallScreen ? (
@@ -40,7 +40,7 @@ function Body() {
           </Typography>
         )}
         <Typography sx={style.header2} className="slide-bannerTextSubtext">
-          Walk your talk, with Àníkẹ́ Sálúbàtà.
+          Walk your talk, with Àníkẹ́ Sálúbàtà.{" "}
         </Typography>
         <Button
           onClick={handleNavigate}
