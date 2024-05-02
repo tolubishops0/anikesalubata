@@ -44,6 +44,7 @@ function ProductListing() {
     return shuffledArray;
   };
 
+
   useEffect(() => {
     let shuffledProducts = shuffleArray(productList);
     if (category) {
@@ -78,6 +79,14 @@ function ProductListing() {
       setProdList(shuffleArray(results));
     }
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (prodList) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  }, []);
 
   const getProductDetail = (id) => {
     setIsLoading(true);
@@ -118,7 +127,7 @@ function ProductListing() {
                     alt="product"
                   />
                   <CardContent sx={style.parentStyle}>
-                    <Typography sx={style.subTotal}>{item.name}</Typography>
+                    <Typography sx={style.productName}>{item.name}</Typography>
                     <Box
                       sx={{
                         display: "flex",

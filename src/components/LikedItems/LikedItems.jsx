@@ -55,6 +55,7 @@ function LikedItems() {
       setCartAlert((prevAlert) => ({ ...prevAlert, show: false }));
     }, 1000);
   };
+
   return (
     <Box
       sx={{
@@ -131,23 +132,28 @@ function LikedItems() {
                       },
                     }}>
                     <Box sx={style.productNameCost}>
-                      <Typography sx={style.description}>
+                      <Typography sx={style.productNamme}>
                         {item.name}
                       </Typography>
                       <Typography
-                        sx={{ cursor: "pointer" }}
+                        sx={{
+                          cursor: "pointer",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: "0.3rem",
+                        }}
                         onClick={() => handleLikedProduct(item)}>
                         <FavoriteIcon
                           fontSize={isSmallScreen ? "small" : "medium"}
                         />
                       </Typography>
                     </Box>
-                    <Typography sx={style.producctName}>
+                    <Typography sx={style.productName}>
                       {item.description}
                     </Typography>
-                    <Typography sx={style.producctName}>
-                      {item.price}
-                    </Typography>
+                    <Typography sx={style.productName}>{item.price}</Typography>
                   </Box>
                 </Box>
                 <Box

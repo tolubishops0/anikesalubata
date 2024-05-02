@@ -106,7 +106,7 @@ export const style = {
   heroSectionbg: {
     height: "100vh",
     width: "100%",
-    "@media screen and (max-width: 768px)": {
+    "@media screen and (max-width: 900px)": {
       height: "50vh",
     },
   },
@@ -118,15 +118,16 @@ export const style = {
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "column",
-    "@media screen and (max-width:768px)": {
+    gap: "1rem",
+    "@media screen and (max-width: 900px)": {
       width: "90%",
-      top: "20%",
+      top: "25%",
     },
   },
   header: {
     fontSize: "3rem",
     fontWeight: "700",
-    lineHeight: "6rem",
+    lineHeight: "4rem",
     color: "white",
     "@media screen and (max-width:1300px)": {
       fontSize: "2rem",
@@ -157,7 +158,7 @@ export const style = {
       fontSize: "1.2rem",
     },
     "@media screen and (max-width: 500px)": {
-      fontSize: "1rem",
+      fontSize: ".9rem",
     },
     "@media screen and (max-width: 400px)": {
       fontSize: "0.95rem",
@@ -376,7 +377,7 @@ export const style = {
   leftContainer: {
     display: "flex",
     gap: "1rem",
-    width: "40%",
+    width: "60%",
     "@media screen and (max-width: 1250px)": {
       width: "60%",
     },
@@ -415,7 +416,7 @@ export const style = {
     fontSize: ".9rem",
   },
   sideImgThumbNails: {
-    width: "15%",
+    width: "10%",
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
@@ -489,7 +490,7 @@ export const style = {
     },
   },
   parentSizesDetail: {
-    width: "50%",
+    width: "80%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -618,8 +619,8 @@ export const style = {
   productNameCost: {
     display: "flex",
     justifyContent: "flex-start",
-    alignItems: "stretch",
-    gap: "2rem",
+    alignItems: "center",
+    gap: "1rem",
     "@media screen and (max-width: 768px)": {
       alignItems: "stretch",
     },
@@ -634,14 +635,17 @@ export const style = {
   productName: {
     fontWeight: "600",
     fontSize: "1rem",
+    // "@media screen and (max-width: 768px)": {
+    //   fontSize: ".9rem",
+    // },
     "@media screen and (max-width: 768px)": {
       fontSize: ".9rem",
     },
   },
   productNamme: {
-    fontWeight: "600",
-    fontSize: "1.2rem",
-    "@media screen and (max-width: 768px)": {
+    fontWeight: "700",
+    fontSize: "1.5rem",
+    "@media screen and (max-width: 1200px)": {
       fontSize: "1rem",
     },
   },

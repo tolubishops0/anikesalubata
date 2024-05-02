@@ -153,7 +153,7 @@ function ProductDetail() {
           </Box>
           <Box
             sx={{
-              width: "60%",
+              width: "40%",
               "@media screen and (max-width: 1250px)": {
                 width: "40%",
               },
@@ -167,7 +167,13 @@ function ProductDetail() {
                   {selectedProduct.name}
                 </Typography>
                 <Typography
-                  sx={{ cursor: "pointer" }}
+                  sx={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "0.2rem",
+                  }}
                   onClick={() => handleLikedProduct(selectedProduct)}>
                   {isLiked ? (
                     <FavoriteIcon
@@ -187,6 +193,14 @@ function ProductDetail() {
                   </Typography>
                 )}
                 <Rating
+                  sx={{
+                    cursor: "pointer",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "0.3rem",
+                  }}
                   name="size-small"
                   defaultValue={selectedProduct.ratings}
                   size={isSmallScreen ? "small" : "medium"}
