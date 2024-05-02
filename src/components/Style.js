@@ -112,7 +112,7 @@ export const style = {
   },
   textContainer: {
     position: "absolute",
-    top: "15%",
+    top: "20%",
     left: "5%",
     display: "flex",
     justifyContent: "flex-start",
@@ -127,7 +127,7 @@ export const style = {
   header: {
     fontSize: "3rem",
     fontWeight: "700",
-    lineHeight: "4rem",
+    lineHeight: "5rem",
     color: "white",
     "@media screen and (max-width:1300px)": {
       fontSize: "2rem",
