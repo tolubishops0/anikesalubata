@@ -57,13 +57,15 @@ function SignUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         updateProfile(user, { displayName: data.name });
-      })
-      .then((user) => {
-        setIsLoading(false);
-        toast.success("Registration Successful");
-        navigate("/signin");
+        if (user) {
+          console.log(user);
+          setIsLoading(false);
+          toast.success("Registration Successful");
+          navigate("/signin");
+        }
       })
       .catch((error) => {
+        console.log(error, "error");
         toast.error("Error, please try again");
         setIsLoading(false);
       });
