@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -30,7 +30,6 @@ import { authSignInSchema } from "../FormValidation/FormValidation";
 
 function SignIn() {
   const navigate = useNavigate();
-
   const {
     register,
     formState: { errors },
@@ -81,6 +80,7 @@ function SignIn() {
     signInWithPopup(auth, provider)
       .then((result) => {
         setIsLoading(false);
+        console.log(result);
         toast.success("login Succesful");
         navigate("/");
         const credential = GoogleAuthProvider.credentialFromResult(result);
