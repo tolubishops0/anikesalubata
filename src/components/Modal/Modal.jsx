@@ -51,7 +51,7 @@ function Modal(props) {
     } else {
       setMaxWidth("xs");
     }
-  }, [ isSmallScreen, props.selectedProduct.sizes]);
+  }, [isSmallScreen, props.selectedProduct.sizes]);
 
   const addToCartFunt = () => {
     const itemsToAdd = Object.entries(selectedSizes).map(
@@ -66,6 +66,10 @@ function Modal(props) {
         shoeTypeId: props?.selectedProduct.id,
       })
     );
+    // console.log(
+    //   itemsToAdd.filter((item) => item.quantity > 0),
+    //   "itemsToAdd from modal"
+    // );
     addToCart(itemsToAdd.filter((item) => item.quantity > 0));
     props.handleModal();
     const itemCount = itemsToAdd.reduce(

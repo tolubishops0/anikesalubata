@@ -86,44 +86,48 @@ export const style = {
     },
   },
   heroSection: {
-    backgroundImage: `url(${bgimg})`,
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundSize: "cover",
-    backgroundPosition: "bottom right",
-    backgroundRepeat: "no-repeat",
-    "@media screen and (max-width: 768px)": {
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-    },
+    position: "relative",
+    // backgroundImage: `url(${bgimg})`,
+    // display: "flex",
+    // justifyContent: "flex-start",
+    // alignItems: "center",
+    // backgroundSize: "cover",
+    // backgroundPosition: "bottom right",
+    // backgroundRepeat: "no-repeat",
+    // "@media screen and (max-width: 768px)": {
+    //   backgroundRepeat: "no-repeat",
+    //   backgroundSize: "cover",
+    // },
   },
   img: {
     height: "100%",
     width: "100%",
   },
+  heroSectionbg: {
+    height: "100vh",
+    width: "100%",
+    "@media screen and (max-width: 900px)": {
+      height: "50vh",
+    },
+  },
   textContainer: {
-    padding: "5rem 0 ",
-    width: "90%",
-    margin: "0 auto",
+    position: "absolute",
+    top: "20%",
+    left: "5%",
     display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     flexDirection: "column",
-    gap: "1.5rem",
-    "@media screen and (max-width:1200px)": {
+    gap: "1rem",
+    "@media screen and (max-width: 900px)": {
       width: "90%",
-    },
-    "@media screen and (max-width: 1000px)": {
-      // width: "75%",
-    },
-    "@media screen and (max-width: 768px)": {
-      width: "90%",
-      gap: ".8rem",
+      top: "25%",
     },
   },
   header: {
     fontSize: "3rem",
     fontWeight: "700",
-    lineHeight: "6rem",
+    lineHeight: "5rem",
     color: "white",
     "@media screen and (max-width:1300px)": {
       fontSize: "2rem",
@@ -154,7 +158,7 @@ export const style = {
       fontSize: "1.2rem",
     },
     "@media screen and (max-width: 500px)": {
-      fontSize: "1rem",
+      fontSize: ".9rem",
     },
     "@media screen and (max-width: 400px)": {
       fontSize: "0.95rem",
@@ -162,17 +166,21 @@ export const style = {
   },
   bannerTextButton: {
     marginTop: "1rem",
-    color: "black",
-    backgroundColor: "white",
+    color: "white",
     fontWeight: "700",
     fontSize: "1.2rem",
-    width: "20%",
+    width: "25%",
     height: "4rem",
     borderRadius: "5px",
     transition: "background transform 1s ease",
     textTransform: "capitalize",
+    transition: "backgroundImage 3s ease-in-out",
+    backgroundImage:
+      "linear-gradient(80deg, rgba(40,41,41,1) 16%, rgba(0,0,0,1) 82%, rgba(8,8,8,0.6521739130434783) 100%)",
     "&:hover": {
-      background: "gray",
+      backgroundImage:
+        "linear-gradient(80deg, rgba(0,0,0,1) 16%, rgba(8,8,8,0.6521739130434783) 82%, rgba(40,41,41,1) 100%)",
+      transition: "backgroundImage 3s ease-in-out",
     },
     "@media screen and (max-width: 768px)": {
       width: "50%",
@@ -369,7 +377,7 @@ export const style = {
   leftContainer: {
     display: "flex",
     gap: "1rem",
-    width: "40%",
+    width: "60%",
     "@media screen and (max-width: 1250px)": {
       width: "60%",
     },
@@ -408,7 +416,7 @@ export const style = {
     fontSize: ".9rem",
   },
   sideImgThumbNails: {
-    width: "15%",
+    width: "10%",
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
@@ -442,7 +450,7 @@ export const style = {
   },
   middleImage: {
     width: "90%",
-    height: "23rem",
+    height: "36rem",
     "@media screen and (max-width: 1000px)": {
       width: "100%",
       height: "23rem",
@@ -454,6 +462,7 @@ export const style = {
   likeding: {
     width: "20% !important",
     height: "10rem",
+    cursor: "pointer",
     "@media screen and (max-width: 768px)": {
       width: "100% !important",
       height: "18rem",
@@ -481,7 +490,7 @@ export const style = {
     },
   },
   parentSizesDetail: {
-    width: "50%",
+    width: "80%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -610,8 +619,8 @@ export const style = {
   productNameCost: {
     display: "flex",
     justifyContent: "flex-start",
-    alignItems: "stretch",
-    gap: "2rem",
+    alignItems: "center",
+    gap: "1rem",
     "@media screen and (max-width: 768px)": {
       alignItems: "stretch",
     },
@@ -626,8 +635,18 @@ export const style = {
   productName: {
     fontWeight: "600",
     fontSize: "1rem",
+    // "@media screen and (max-width: 768px)": {
+    //   fontSize: ".9rem",
+    // },
     "@media screen and (max-width: 768px)": {
       fontSize: ".9rem",
+    },
+  },
+  productNamme: {
+    fontWeight: "700",
+    fontSize: "1.5rem",
+    "@media screen and (max-width: 1200px)": {
+      fontSize: "1rem",
     },
   },
   productDesc: {
@@ -862,7 +881,7 @@ export const style = {
   },
   subTotal: {
     fontSize: "0.8rem",
-    fontWeight: "600",
+    fontWeight: "700",
     "@media screen and (max-width: 768px)": {
       fontSize: ".7rem",
     },
@@ -1015,6 +1034,6 @@ export const style = {
     alignItems: "center",
     width: "100%",
     margin: "0 auto",
-    gap: "1rem",
+    gap: ".5rem",
   },
 };

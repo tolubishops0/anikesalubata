@@ -12,25 +12,31 @@ import Alert from "@mui/material/Alert";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ProductListingDetailPage from "./ProductListingDetailPage";
 
 function ProductDetail() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const { cartItems, addToLike, removeFromLiked } =
-    useContext(CartContext);
+  const { cartItems, addToLike, removeFromLiked } = useContext(CartContext);
   const selectedProduct = productList.find((item) => item.id === Number(id));
   const [isSelected, setIsSelected] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [activeImg, setActiveImg] = useState(selectedProduct?.img);
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [otherProductList, setOtherProductList] = useState([]);
 
   const shoeTypeId = Number(id);
   const sideImgArr = [selectedProduct?.img, ...selectedProduct?.otherImgs];
 
   useEffect(() => {
+    const otherProdList = productList.filter(
+      (item) => item.shoeTypeId !== shoeTypeId
+    );
+    setOtherProductList(otherProdList);
+
     const selectedProductItems = cartItems.filter(
       (item) => item.shoeTypeId === shoeTypeId
     );
@@ -40,7 +46,7 @@ function ProductDetail() {
     if (storedLikedProducts?.find((item) => item.id === selectedProduct.id)) {
       setIsLiked(true);
     }
-  }, [cartItems, shoeTypeId]);
+  }, [cartItems]);
 
   const handleLikedProduct = (selectedProduct) => {
     setIsLiked(!isLiked);
@@ -50,7 +56,7 @@ function ProductDetail() {
       removeFromLiked(selectedProduct);
     }
   };
-
+  // console.log(cartItems, "cartItems");
   const getTotalQuantity = () => {
     const selectedProductItems = cartItems.filter(
       (item) => item.shoeTypeId === shoeTypeId
@@ -73,7 +79,7 @@ function ProductDetail() {
 
     setTimeout(() => {
       setCartAlert((prevAlert) => ({ ...prevAlert, show: false }));
-    }, 2000);
+    }, 1000);
   };
 
   const getOtherImg = (item, index) => {
@@ -147,7 +153,7 @@ function ProductDetail() {
           </Box>
           <Box
             sx={{
-              width: "60%",
+              width: "40%",
               "@media screen and (max-width: 1250px)": {
                 width: "40%",
               },
@@ -157,11 +163,17 @@ function ProductDetail() {
             }}>
             <Box sx={style.productDesc}>
               <Box sx={style.productNameCost}>
-                <Typography sx={style.productName}>
+                <Typography sx={style.productNamme}>
                   {selectedProduct.name}
                 </Typography>
                 <Typography
-                  sx={{ cursor: "pointer" }}
+                  sx={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "0.2rem",
+                  }}
                   onClick={() => handleLikedProduct(selectedProduct)}>
                   {isLiked ? (
                     <FavoriteIcon
@@ -181,6 +193,14 @@ function ProductDetail() {
                   </Typography>
                 )}
                 <Rating
+                  sx={{
+                    cursor: "pointer",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "0.3rem",
+                  }}
                   name="size-small"
                   defaultValue={selectedProduct.ratings}
                   size={isSmallScreen ? "small" : "medium"}
@@ -214,6 +234,7 @@ function ProductDetail() {
           </Box>
         </Box>
       </Box>
+      {/* <ProductListingDetailPage otherProductList={otherProductList} /> */}
 
       {openModal && (
         <Modal

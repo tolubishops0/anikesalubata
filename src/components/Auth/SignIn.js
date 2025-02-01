@@ -96,109 +96,104 @@ function SignIn() {
   return (
     <React.Fragment>
       <ToastContainer />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
-          <Box sx={style.authContainer}>
-            <Typography sx={style.pageHeader}>
-              Sign In to
-              <span
-                style={{
-                  fontStyle: "italic",
-                  color: "white",
-                  marginLeft: "0.5rem",
-                }}>
-                Àníkẹ́ Sálúbàtà
+      {isLoading && <Loader />}
+      <Box sx={{ backgroundColor: "#ACACAC", padding: "2rem 0" }}>
+        <Box sx={style.authContainer}>
+          <Typography sx={style.pageHeader}>
+            Sign In to
+            <span
+              style={{
+                fontStyle: "italic",
+                color: "white",
+                marginLeft: "0.5rem",
+              }}>
+              Àníkẹ́ Sálúbàtà
+            </span>
+          </Typography>
+          <form onSubmit={handleSubmit(SignInUser)} style={style.formContainer}>
+            <div style={style.inputContainer}>
+              <TextField
+                sx={style.payinptu}
+                type="email"
+                placeholder="email"
+                {...register("email")}
+              />
+
+              {errors.email && (
+                <span style={style.error}> {errors.email?.message}</span>
+              )}
+            </div>
+            <div style={style.inputContainer}>
+              <OutlinedInput
+                sx={style.payinptu}
+                id="outlined-adornment-weight"
+                type={showPassword ? "text" : "password"}
+                placeholder="password"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleClickShowPassword} edge="end">
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                aria-describedby="outlined-weight-helper-text"
+                inputProps={{
+                  "aria-label": "weight",
+                }}
+                {...register("password")}
+              />
+              {errors.password && (
+                <span style={style.error}> {errors.password?.message}</span>
+              )}
+            </div>
+            <button className="auth-inputfield-button" type="submit">
+              Sign in
+            </button>
+          </form>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}>
+            <Typography
+              onClick={() => navigate("/reset-password")}
+              sx={{ ...style.goggleButon, textAlign: "right" }}>
+              <span style={{ color: "white", cursor: "pointer" }}>
+                Forgot Password?
               </span>
             </Typography>
-            <form
-              onSubmit={handleSubmit(SignInUser)}
-              style={style.formContainer}>
-              <div style={style.inputContainer}>
-                <TextField
-                  sx={style.payinptu}
-                  type="email"
-                  placeholder="email"
-                  {...register("email")}
-                />
 
-                {errors.email && (
-                  <span style={style.error}> {errors.email?.message}</span>
-                )}
-              </div>
-              <div style={style.inputContainer}>
-                <OutlinedInput
-                  sx={style.payinptu}
-                  id="outlined-adornment-weight"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="password"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleClickShowPassword} edge="end">
-                        {showPassword ? (
-                          <VisibilityOffIcon />
-                        ) : (
-                          <VisibilityIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  aria-describedby="outlined-weight-helper-text"
-                  inputProps={{
-                    "aria-label": "weight",
-                  }}
-                  {...register("password")}
-                />
-                {errors.password && (
-                  <span style={style.error}> {errors.password?.message}</span>
-                )}
-              </div>
-              <button className="auth-inputfield-button" type="submit">
-                Sign in
-              </button>
-            </form>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-              }}>
-              <Typography
-                onClick={() => navigate("/reset-password")}
-                sx={{ ...style.goggleButon, textAlign: "right" }}>
-                <span style={{ color: "white", cursor: "pointer" }}>
-                  Forgot Password?
-                </span>
-              </Typography>
-
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
-                <Box sx={{ px: 0.5, fontWeight: 600, color: "white" }}>OR</Box>
-                <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
-              </Box>
-              <Box onClick={signInWithGoogle} sx={style.buttonGoogleIcon}>
-                <GoogleIcon />
-                <Typography sx={style.goggleButon}>
-                  {" "}
-                  Continue with Google
-                </Typography>
-              </Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
+              <Box sx={{ px: 0.5, fontWeight: 600, color: "white" }}>OR</Box>
+              <Divider sx={{ flexGrow: 1, bgcolor: "black" }} />
             </Box>
-            <Box sx={{ marginTop: "4rem" }}>
-              <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
-                Don't have an account?{" "}
-                <span
-                  onClick={() => navigate("/signup")}
-                  style={{ color: "white", cursor: "pointer" }}>
-                  Sign Up
-                </span>
+            <Box onClick={signInWithGoogle} sx={style.buttonGoogleIcon}>
+              <GoogleIcon />
+              <Typography sx={style.goggleButon}>
+                {" "}
+                Continue with Google
               </Typography>
             </Box>
           </Box>
+          <Box sx={{ marginTop: "4rem" }}>
+            <Typography sx={{ ...style.goggleButon, textAlign: "center" }}>
+              Don't have an account?{" "}
+              <span
+                onClick={() => navigate("/signup")}
+                style={{ color: "white", cursor: "pointer" }}>
+                Sign Up
+              </span>
+            </Typography>
+          </Box>
         </Box>
-      )}
+      </Box>
     </React.Fragment>
   );
 }

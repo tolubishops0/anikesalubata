@@ -7,35 +7,42 @@ import Alert from "@mui/material/Alert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CartContext from "../../Context/Cart/CartContext";
+import Loader from "../Loader/Loader";
 
 function LikedItems() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
-  const { addToLike, removeFromLiked } = useContext(CartContext);
+  const { removeFromLiked } = useContext(CartContext);
   const navigate = useNavigate();
   const [likedProducts, setLikedProducts] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [cartAlert, setCartAlert] = useState({ show: false, message: "" });
   const [selectedProduct, setselectedProduct] = useState({});
-  const [isLiked, setIsLiked] = useState(true);
-
+  const [updateselectedProduct, setUpdateselectedProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    console.log("here");
     setLikedProducts(JSON.parse(localStorage.getItem("likedItems")));
-  }, [isLiked]);
+  }, [updateselectedProduct]);
 
   const goToDetail = (item) => {
-    navigate(`/products/${item.name}/${item.id}`);
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate(`/products/${item.name}/${item.id}`);
+      setIsLoading(false);
+    }, 2000);
   };
+
   const handleModal = () => {
     setOpenModal(!openModal);
   };
+
   const addToCart = (item) => {
     setselectedProduct(item);
   };
-  const handleLikedProduct = (selectedProduct, index) => {
-    setIsLiked(!isLiked);
+
+  const handleLikedProduct = (selectedProduct) => {
     removeFromLiked(selectedProduct);
+    setUpdateselectedProduct(!updateselectedProduct);
   };
 
   const getItemCount = (itemCount) => {
@@ -46,8 +53,9 @@ function LikedItems() {
 
     setTimeout(() => {
       setCartAlert((prevAlert) => ({ ...prevAlert, show: false }));
-    }, 2000);
+    }, 1000);
   };
+
   return (
     <Box
       sx={{
@@ -67,6 +75,7 @@ function LikedItems() {
           {cartAlert.message}
         </Alert>
       )}
+      {isLoading && <Loader />}
       <Box
         sx={{
           width: "90%",
@@ -123,29 +132,28 @@ function LikedItems() {
                       },
                     }}>
                     <Box sx={style.productNameCost}>
-                      <Typography sx={style.description}>
+                      <Typography sx={style.productNamme}>
                         {item.name}
                       </Typography>
                       <Typography
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleLikedProduct(selectedProduct, index)}>
-                        {isLiked ? (
-                          <FavoriteIcon
-                            fontSize={isSmallScreen ? "small" : "medium"}
-                          />
-                        ) : (
-                          <FavoriteBorderIcon
-                            fontSize={isSmallScreen ? "small" : "medium"}
-                          />
-                        )}
+                        sx={{
+                          cursor: "pointer",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: "0.3rem",
+                        }}
+                        onClick={() => handleLikedProduct(item)}>
+                        <FavoriteIcon
+                          fontSize={isSmallScreen ? "small" : "medium"}
+                        />
                       </Typography>
                     </Box>
-                    <Typography sx={style.producctName}>
+                    <Typography sx={style.productName}>
                       {item.description}
                     </Typography>
-                    <Typography sx={style.producctName}>
-                      {item.price}
-                    </Typography>
+                    <Typography sx={style.productName}>{item.price}</Typography>
                   </Box>
                 </Box>
                 <Box

@@ -66,7 +66,7 @@ function NavbBar() {
             setTimeout(() => {
               navigate("/liked-items");
               setIsLoading(false);
-            }, 3000);
+            }, 1000);
             handleClose();
           },
         },

@@ -48,7 +48,7 @@ function Delivery() {
     setTimeout(() => {
       navigate("/payments");
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   const countriesList = [

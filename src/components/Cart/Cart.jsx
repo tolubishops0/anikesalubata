@@ -7,6 +7,7 @@ import { style } from "../Style";
 import { sumItems } from "../../Context/Cart/CartReducer";
 import emptycart from "../../Asset/emptycart2.png";
 import Alert from "@mui/material/Alert";
+import Loader from "../Loader/Loader";
 
 function Cart() {
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
@@ -14,13 +15,18 @@ function Cart() {
   const navigate = useNavigate();
   const { cartItems, increase, decrease, removeFromCart, clearCart } =
     useContext(CartContext);
+  const [isLoading, setIsLoading] = useState(false);
   const { itemsCount, total } = sumItems(cartItems);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
   const { userDetails, isUserLoggedIn } = userData || {};
 
   const goToDetail = (item) => {
-    navigate(`/products/${item.name}/${item.shoeTypeId}`);
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate(`/products/${item.name}/${item.shoeTypeId}`);
+      setIsLoading(false);
+    }, 1000);
   };
 
   const getItemCount = (itemCount) => {
@@ -31,7 +37,7 @@ function Cart() {
 
     setTimeout(() => {
       setCartAlert((prevAlert) => ({ ...prevAlert, show: false }));
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -54,6 +60,7 @@ function Cart() {
             {cartAlert.message}
           </Alert>
         )}
+        {isLoading && <Loader />}
         <Box
           sx={{
             width: "90%",
@@ -112,7 +119,12 @@ function Cart() {
                             }}
                           />
                         </Box>
-                        <Box>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: ".3rem",
+                          }}>
                           <Typography sx={style.productName}>
                             {item.name}
                           </Typography>
@@ -123,6 +135,7 @@ function Cart() {
                                 alignItems: "flex-start",
                                 flexDirection: "column",
                                 justifyContent: "flex-start",
+                                gap: ".3rem",
                               }}>
                               <Typography sx={style.subTotal}>
                                 Size: {item.size} EU
@@ -163,7 +176,7 @@ function Cart() {
                       <Box
                         sx={style.cart9}
                         onClick={() => removeFromCart(item)}>
-                        <DeleteOutlineIcon />
+                        <DeleteOutlineIcon fontSize="small" />
                         <Typography sx={style.itemDescr}>Remove</Typography>
                       </Box>
                       <Box sx={style.parentAdd}>

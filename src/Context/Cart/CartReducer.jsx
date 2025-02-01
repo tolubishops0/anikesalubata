@@ -16,13 +16,12 @@ const saveToLocalStorage = (itemsCount, total, cartItems) => {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 };
 const saveLikedProductToLocalStorage = (likedProd) => {
-  console.log(likedProd, "liked");
   localStorage.setItem("likedItems", JSON.stringify(likedProd));
 };
 
 export const sumItems = (cartItems) => {
   let itemsCount = cartItems?.reduce(
-    (total, product) => total + product?.quantity,
+    (total, product) => total + product?.quantity || 0,
     0
   );
   let total =
@@ -41,7 +40,23 @@ export const sumItems = (cartItems) => {
 const CartReducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const updatedCartItems = [...state.cartItems, ...action.payload];
+      const updatedCartItems = action.payload.reduce((updatedCart, item) => {
+        // Check if the item already exists in the cart (same shoe ID and size)
+        const existingItem = updatedCart.find(
+          (cartItem) => cartItem.id === item.id && cartItem.size === item.size
+        );
+        if (existingItem) {
+          // If the item exists, update the quantity
+          return updatedCart.map((cartItem) =>
+            cartItem.id === item.id && cartItem.size === item.size
+              ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+              : cartItem
+          );
+        } else {
+          // If the item doesn't exist, add it to the cart
+          return [...updatedCart, item];
+        }
+      }, []);
       saveToLocalStorage(updatedCartItems);
       return {
         ...state,

@@ -64,7 +64,7 @@ function Payment() {
       handleCheckout();
       navigate("/success-page");
       setIsLoading(false);
-    }, 4000);
+    }, 2000);
   };
 
   const toggleSwitch = () => {
