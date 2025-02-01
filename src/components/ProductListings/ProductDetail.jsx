@@ -56,7 +56,7 @@ function ProductDetail() {
       removeFromLiked(selectedProduct);
     }
   };
-
+  // console.log(cartItems, "cartItems");
   const getTotalQuantity = () => {
     const selectedProductItems = cartItems.filter(
       (item) => item.shoeTypeId === shoeTypeId

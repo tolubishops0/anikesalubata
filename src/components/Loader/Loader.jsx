@@ -23,13 +23,13 @@ const style = {
     justifyContent: "center",
     alignItems: "center",
     background: "rgba(0, 0, 0, 0.9)",
-    zIndex: 50, 
+    zIndex: 50,
   },
   loader: {
     border: "6px solid #2196f3",
     borderRadius: "50%",
     width: 48,
     height: 48,
-    animation: "loader 1s linear infinite", 
+    animation: "loader 1s linear infinite",
   },
 };

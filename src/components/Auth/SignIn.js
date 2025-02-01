@@ -194,7 +194,7 @@ function SignIn() {
           </Box>
         </Box>
       </Box>
-=    </React.Fragment>
+    </React.Fragment>
   );
 }
 

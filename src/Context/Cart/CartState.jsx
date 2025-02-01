@@ -3,36 +3,33 @@ import CartContext from "./CartContext";
 import CartReducer from "./CartReducer";
 
 const CartState = ({ children }) => {
-  const initialState = {
-    cartItems: [],
-    checkout: false,
-    prodList: [],
-    likedProd: [],
-  };
+  // const initialState = {
+  //   cartItems: [],
+  //   checkout: false,
+  //   prodList: [],
+  //   likedProd: [],
+  // };
+
+  // const mergedInitialState = {
+  //   ...initialState,
+  //   cartItems: getFromLocalStorage(),
+  // };
+
   const getFromLocalStorage = () => {
     const storedCartItems = localStorage.getItem("cartItems");
 
     return storedCartItems ? JSON.parse(storedCartItems) : [];
   };
 
-  const mergedInitialState = {
-    ...initialState,
+  const initialState = {
     cartItems: getFromLocalStorage(),
+    checkout: false,
+    prodList: [],
+    likedProd: [],
   };
+  // console.log(initialState.cartItems, "from cartstate");
 
-  const [state, dispatch] = useReducer(CartReducer, mergedInitialState);
-
-  const setProdList = (payload) => {
-    dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
-  };
-
-  const addToLike = (payload) => {
-    dispatch({ type: "FAVOURITE_PRODUCT", payload });
-  };
-
-  const removeFromLiked = (payload) => {
-    dispatch({ type: "REMOVE_FAVOURITE_PRODUCT", payload });
-  };
+  const [state, dispatch] = useReducer(CartReducer, initialState);
 
   const addToCart = (payload) => {
     dispatch({ type: "ADD_TO_CART", payload });
@@ -56,6 +53,18 @@ const CartState = ({ children }) => {
 
   const handleCheckout = () => {
     dispatch({ type: "CHECKOUT" });
+  };
+
+  const setProdList = (payload) => {
+    dispatch({ type: "UPDATE_SEARCH_RESULTS", payload });
+  };
+
+  const addToLike = (payload) => {
+    dispatch({ type: "FAVOURITE_PRODUCT", payload });
+  };
+
+  const removeFromLiked = (payload) => {
+    dispatch({ type: "REMOVE_FAVOURITE_PRODUCT", payload });
   };
 
   return (

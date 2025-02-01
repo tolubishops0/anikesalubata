@@ -450,7 +450,7 @@ export const style = {
   },
   middleImage: {
     width: "90%",
-    height: "23rem",
+    height: "36rem",
     "@media screen and (max-width: 1000px)": {
       width: "100%",
       height: "23rem",

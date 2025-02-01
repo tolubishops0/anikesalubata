@@ -114,7 +114,7 @@ function ProductListing() {
   return (
     <>
       {isLoading && <Loader />}
-      <Box sx={{ background: "#ACACAC" }}>
+      <Box sx={{ background: "#e4e4e4" }}>
         <Box sx={style.productListContainer}>
           <Box sx={style.productList}>
             {prodList?.map((item, index) => (

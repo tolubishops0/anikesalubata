@@ -2,9 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
-import bgimg from "../Asset/bgimg.jpg";
 import { style } from "./Style";
-import Loader from "./Loader/Loader";
 import video from "../Asset/shooe.mp4";
 
 function Body() {
@@ -35,7 +33,6 @@ function Body() {
         {isSmallScreen ? (
           <Typography sx={style.header} className="slide-bannerTextHeader">
             Your One-Stop Destination <br /> for your Quality Handmade Shoes.{" "}
-            {/* SAY SOMETHING ABOUT HANDMADE HERE */}
           </Typography>
         ) : (
           <Typography sx={style.header} className="slide-bannerTextHeader">
